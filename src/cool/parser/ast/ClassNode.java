@@ -20,6 +20,7 @@ public class ClassNode extends Node {
     ArrayList featureList;
     boolean defined = true;
     SymbolNode symbolNode;
+    boolean fullyChecked;
 
     public ClassNode(String type, ArrayList varFormals, Extends ext, ArrayList featureList) {
         this.ext = ext;
@@ -28,6 +29,7 @@ public class ClassNode extends Node {
         this.featureList = featureList;
         symbolNode = new SymbolNode();
         symbolNode.type  = new String(type);
+        fullyChecked = false;
     }
 
 
@@ -47,6 +49,8 @@ public class ClassNode extends Node {
     @Override
     public boolean check(SymbolNode pTable){
         boolean result = true;
+        SymbolItem temp1 = new SymbolItem("THIS", type, false);
+        symbolNode.insert(temp1);
         if(ext != null){
             boolean ex = ext.check(this.symbolNode);
             result = result && ex;
@@ -82,6 +86,7 @@ public class ClassNode extends Node {
 
              result = result && res;
         }
+        fullyChecked = true;
         return result;
         //To change body of implemented methods use File | Settings | File Templates.
     }

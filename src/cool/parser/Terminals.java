@@ -15,23 +15,23 @@ public class Terminals {
 	static public final short DEF = 32;
 	static public final short DIV = 24;
 	static public final short DOT = 25;
-	static public final short ELSE = 8;
+	static public final short ELSE = 10;
 	static public final short EOF = 0;
-	static public final short EQUALS = 13;
+	static public final short EQUALS = 14;
 	static public final short EXTENDS = 35;
-	static public final short ID = 10;
-	static public final short IF = 27;
+	static public final short ID = 9;
+	static public final short IF = 26;
 	static public final short INTEGER = 19;
 	static public final short LBRACE = 5;
 	static public final short LE = 11;
-	static public final short LPAREN = 9;
+	static public final short LPAREN = 8;
 	static public final short LT = 12;
-	static public final short MATCH = 26;
+	static public final short MATCH = 28;
 	static public final short MINUS = 3;
 	static public final short NATIVE = 37;
 	static public final short NEW = 15;
 	static public final short NOT = 18;
-	static public final short NULL = 14;
+	static public final short NULL = 13;
 	static public final short OVERRIDE = 34;
 	static public final short PLUS = 22;
 	static public final short RBRACE = 1;
@@ -44,7 +44,7 @@ public class Terminals {
 	static public final short TIMES = 23;
 	static public final short TYPE = 31;
 	static public final short VAR = 29;
-	static public final short WHILE = 28;
+	static public final short WHILE = 27;
 
 	static public final String[] NAMES = {
 		"EOF",
@@ -55,13 +55,13 @@ public class Terminals {
 		"LBRACE",
 		"SEMI",
 		"CASE",
-		"ELSE",
 		"LPAREN",
 		"ID",
+		"ELSE",
 		"LE",
 		"LT",
-		"EQUALS",
 		"NULL",
+		"EQUALS",
 		"NEW",
 		"THIS",
 		"SUPER",
@@ -73,9 +73,9 @@ public class Terminals {
 		"TIMES",
 		"DIV",
 		"DOT",
-		"MATCH",
 		"IF",
 		"WHILE",
+		"MATCH",
 		"VAR",
 		"ASSIGN",
 		"TYPE",

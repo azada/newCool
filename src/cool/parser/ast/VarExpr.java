@@ -51,7 +51,6 @@ public class VarExpr extends Expr {
         }
         return result && ex;
         //To change body of implemented methods use File | Settings | File Templates.
-
     }
     @Override
     public void accept( ) {

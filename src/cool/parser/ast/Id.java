@@ -28,7 +28,6 @@ public class Id extends Primary {
         else {
             Program.addError(new MyExeption("the variable " + name + " has not been declared ",this));
             result = false;
-            throw new MyExeption("this method doesn't exist", this);
 
         }
         return result;

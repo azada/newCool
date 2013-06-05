@@ -27,7 +27,7 @@ public class AssignmentOperation extends UnitOperation{
             try {
                 fml = ((Expr) operand).check(pTable);
             } catch (MyExeption myExeption) {
-                // empty
+                return result;
             }
             result = result && fml;
         }

@@ -1,6 +1,5 @@
 package cool.parser.ast;
 
-import cool.exception.MethodException;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolNode;
 
@@ -9,29 +8,27 @@ import java.util.ArrayList;
 /**
  * Created with IntelliJ IDEA.
  * User: azada
- * Date: 5/19/13
- * Time: 8:23 PM
+ * Date: 6/4/13
+ * Time: 8:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PrimaryActual extends Expr {
-    ArrayList actuals;
-    Primary primary ;
+public class Method extends Id {
     String id ;
+    ArrayList actuals;
 
-    public PrimaryActual(ArrayList actuals, Primary primary, String id) {
+    public Method(String id, ArrayList actuals) {
+        super(id);
         this.actuals = actuals;
-        this.primary = primary;
-        this.id = id;
     }
+
     @Override
     public boolean check(SymbolNode pTable) throws MyExeption {
         // we should check the Type of primary and make sure it has an id with this method.
         boolean result = true;
         FeatureMethod temp = null;
-        // first we check if we have this type defined
-        if (Program.getInstance().getTableRow(primary.expType)!= null){
+
             // we check if this primary type has this method defined
-            if (!Program.getInstance().getTableRow(primary.expType).containsKey(id)){
+            if (!Program.getInstance().getTableRow("THIS").containsKey(id)){
                 // if this Id didn't have this method in itself, we should look up to find this method.
                 String superType = pTable.lookup("SUPER").getType();
                 temp = Program.fetchMethod(superType,id);
@@ -42,20 +39,14 @@ public class PrimaryActual extends Expr {
 
                 }
                 this.expType = temp.type;
-
             }
             else{
                 //this method exists within this class
-                temp = Program.getInstance().getTableRow(primary.expType).get(id);
+                temp = Program.getInstance().getTableRow("THIS").get(id);
                 this.expType = temp.type;
             }
 
-        }
-        else{
-            // if this primary type has not been defined throw an error
-            Program.addError(new MyExeption("there is no such type "+ primary.expType + " defined",this));
-            result = false;
-        }
+
 
         // now we should check the actuals
         for (int i=0 ; i<actuals.size(); i++){
@@ -63,7 +54,7 @@ public class PrimaryActual extends Expr {
             result = result && ac;
         }
         if (temp != null)  {
-        // we should make sure we have the same number of actuals and formals in method call
+            // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
                 Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals + " are given",this));
                 result = false;
@@ -78,7 +69,7 @@ public class PrimaryActual extends Expr {
         }
 
         //To change body of implemented methods use File | Settings | File Templates.
-        return result;
+        return result;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
@@ -86,4 +77,5 @@ public class PrimaryActual extends Expr {
     public void accept() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
 }

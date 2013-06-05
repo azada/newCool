@@ -38,7 +38,9 @@ public class LessThan extends BooleanOperation {
             ////////////////////////////////////////////////////////////////////////
             result = result && fml;
         }
-
+        if (((Expr)(operandsList.get(1))).expType == null || ((Expr)(operandsList.get(0))).expType == null){
+            return false;
+        }
         if (((Expr)(operandsList.get(1))).expType.equals(((Expr)(operandsList.get(0))).expType)){
             if (!((Expr)(operandsList.get(1))).expType.equals(INTEGER_TYPE)){
                 Program.addError(new MyExeption("one or two sides of the operation is not integer",this));

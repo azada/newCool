@@ -126,9 +126,12 @@ primary		=
 		|   NEW TYPE.t actuals.s                                        {: return new Instance(t,s); :}
 		;
 
-ident		=	ID.id actuals?                                          {: return new Id(id); :}
-		|	THIS                                                        {: return new Id("this"); :}
-		;
+
+ident = ID.id                                                           {: return new Id(id); :}
+        | ID.id actuals.s                                               {: return new Method(id,s);:}
+        | THIS                                                          {: return new Id("this"); :}
+        ;
+
 
 
 /*
@@ -166,7 +169,7 @@ case_block =
 
 lexpr	=
          SUPER DOT ID.id actuals.a                                         {: return new SuperActual(id,a); :}
-		|	ident.id                                                    {: return id; :}
+		|	ident.id                                                       {: return id; :}
 		;
 
 /*
