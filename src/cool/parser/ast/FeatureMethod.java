@@ -67,7 +67,7 @@ public class FeatureMethod extends Feature {
 
         ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
         if (expr.expType == null){
-            throw new MyExeption("the type of this expression is not")
+            return false;
         }
         if(!Program.isConsistant(expr.expType,type)){
             Program.addError(new MyExeption("the return type of method '" + id + "' should be " + type + " it's not consistant with " + expr.expType ,this));
