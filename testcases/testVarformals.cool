@@ -1,0 +1,9 @@
+class Cds(){
+
+}
+
+class Canvas(var width : Cds, var height : Int){
+       def b() : Int= 22;
+       def a() : Int = 21 ;
+}
+

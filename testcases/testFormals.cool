@@ -1,0 +1,8 @@
+class Color(){
+
+}
+class Canvas(){
+       def mark(x : Int, y : Color, c : Color) : Canvas = dd;
+       def a() : Int = s ;
+       def a() : Int = s;
+}

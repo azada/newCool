@@ -1,0 +1,9 @@
+class A2I(){
+       def b() : Boolean= 22;
+       def a() : Int = 22 ;
+}
+
+class A22(){
+      def get_le() : Int = 22;
+      def get_length() : Int = 22;
+}

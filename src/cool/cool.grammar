@@ -1,0 +1,290 @@
+%package "cool.parser";
+
+//%header {: import cool.Terminals; :} ;
+
+%import "cool.parser.ast.*";
+
+%class "SimpleParser";
+
+
+//%left  RPAREN;
+//%left  MULT, DIV;
+//%left  PLUS, MINUS;
+
+%terminals EOF, ID, LPAREN, LBRACE, NULL;
+%terminals SUPER, NEW, MINUS, INTEGER, STRING, BOOLEAN;
+%terminals THIS, IF, WHILE, NOT, RPAREN, TYPE, COLON, VAR;
+%terminals RBRACE, SEMI, ASSIGN, CASE, DEF, NATIVE, COMMA, ARROW, DOT;
+%terminals CLASS, ELSE, EXTENDS, OVERRIDE, LE, LT, EQUALS, TIMES, DIV, PLUS, MATCH, STUB;
+
+
+%typeof ID = "String";
+%typeof TYPE = "String";
+%typeof STRING = "String";
+%typeof INTEGER = "String";
+%typeof BOOLEAN = "Boolean";
+%typeof expr = "Expr";
+%typeof rexpr = "Expr";
+%typeof feature = "Feature";
+%typeof varformals = "ArrayList";
+%typeof var_list = "ArrayList";
+%typeof actuals = "ArrayList";
+%typeof have_extends = "Extends";
+%typeof exp_list = "ArrayList";
+%typeof class_list = "ArrayList";
+%typeof feature_list = "ArrayList";
+%typeof formal_list = "ArrayList";
+%typeof one_var = "Var";
+%typeof formal = "Formal";
+%typeof cases = "ArrayList";
+%typeof case_block = "ArrayList";
+%typeof block= "Block";
+%typeof ident="Id";
+
+%goal program;
+
+/*
+ * Non-terminals named explicitly in the reference grammar labeled like
+ * this:
+ * << program >>
+ */
+
+
+program = class_list.cl                                                 {: return new Symbol(cl); :}
+        ;
+
+
+class_list = classdecl.cd class_list.cl                                 {: cl.add(cd); return new Symbol(cl); :}
+    | empty                                                             {: return new Symbol( new ArrayList() ); :}
+    ;
+
+
+program =	bogus;  /* Something to use all the terminals  */
+
+/*
+ * << expr >>
+ */
+expr	=	lexpr.le ASSIGN rexpr.re                                        {: ArrayList operands = new ArrayList(); operands.add(le); operands.add(re); return new AssignmentOperation(operands); :}
+		|	rexpr.r                                                         {: return r; :}
+		;
+
+/*
+ * << rexpr >>  right hand expressions, i.e., expressions that can be on the right-hand side of an assignment
+ */
+rexpr   =
+        IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e                  {: return new IfNode( cond, m, e); :}
+		|	WHILE LPAREN rexpr.cond RPAREN expr.e                       {: return new WhileNode( cond, e); :}
+		|	rel.r                                                       {: return r; :}
+		|   primary.p MATCH cases.c                                     {: Expr e = (Expr) p.value; return new Match(e, c); :}
+		;
+
+
+
+rel =
+    rel.r LE equiv.e                                                    {: ArrayList operands = new ArrayList(); operands.add(r); operands.add(e); return new LessOrEqual(operands); :}
+    | rel.r LT equiv.e                                                  {: ArrayList operands = new ArrayList(); operands.add(r); operands.add(e); return new LessThan(operands); :}
+    | equiv.e                                                           {: return e; :}
+    ;
+
+equiv =
+     equiv.e EQUALS sum.s                                               {: ArrayList operands = new ArrayList(); operands.add(e); operands.add(s); return new Equal(operands); :}
+     | sum.s                                                            {: return s; :}
+     ;
+
+
+sum		=	sum.s PLUS product.p                                        {: ArrayList operands = new ArrayList(); operands.add(s); operands.add(p); return new PlusOperation(operands); :}
+		|	sum.s MINUS product.p                                       {: ArrayList operands = new ArrayList(); operands.add(s); operands.add(p); return new MinusOperation(operands); :}
+		|   product.p                                                   {: return p; :}
+		;
+
+
+product		=	product.p TIMES primary.i                               {: ArrayList operands = new ArrayList(); operands.add(p); operands.add(i); return new MultiplyOperation(operands); :}
+		|	product.p DIV primary.i                                     {: ArrayList operands = new ArrayList(); operands.add(p); operands.add(i); return new DivisionOperation(operands); :}
+		|	primary.p                                                   {: return p; :}
+		;
+
+
+
+
+
+
+/*
+ * << primary >>
+ */
+primary		=
+	 		LBRACE block.b RBRACE                                       {: return (Expr)b; :}
+		|	LPAREN expr.e RPAREN                                        {: return e; :}
+		|	NULL                                                        {: return new NullNode(); :}
+		|	LPAREN RPAREN                                               {: return new Unit(); :}
+		|	INTEGER.i                                                   {: return new IntegerNode(Integer.parseInt(i)); :}
+		|	STRING.s                                                    {: return new StringNode(s); :}
+		|	BOOLEAN.b                                                   {: return new BooleanNode(b); :}
+		|   MINUS primary.p                                             {: ArrayList operands = new ArrayList() ; operands.add(p); return new UnaryMinusOperation(operands); :}
+		|	lexpr.e                                                     {: return e; :}
+		|   NOT primary.p                                               {: ArrayList operands = new ArrayList() ; operands.add(p); return new UnaryNotOperation(operands); :}
+		|   primary.p DOT ID.id actuals.a                               {: Primary pp = (Primary)p.value ; return new PrimaryActual(a,pp, id); :}
+		|   NEW TYPE.t actuals.s                                        {: return new Instance(t,s); :}
+		;
+
+ident		=	ID.id actuals?                                          {: return new Id(id); :}
+		|	THIS                                                        {: return new Id("this"); :}
+		;
+
+
+/*
+ * << block >>
+ */
+
+
+
+block = st_list.el expr.e                                               {: ArrayList es = (ArrayList) el.value; return new Block(es , e); :}
+    | empty                                                             {: return new Block(); :}
+    ;
+
+
+st_list = st_list.el new_var.ve SEMI                                    {: ArrayList es = (ArrayList) el.value; es.add(ve); return new Symbol(es); :}
+    | st_list.el expr.e SEMI                                            {: ArrayList es = (ArrayList) el.value; es.add(e); return new Symbol(es); :}
+    |  empty                                                            {: ArrayList el  = new ArrayList(); return new Symbol(el); :}
+    ;
+
+
+
+new_var =
+    VAR ID.id COLON TYPE.t ASSIGN expr.e                                {: return new VarExpr( id, t, e); :}
+    ;
+
+cases =
+    LBRACE case_block.cb RBRACE                                         {: return new Symbol(cb); :}
+    ;
+
+case_block =
+    CASE ID.id COLON TYPE.t ARROW block.b case_block.cb                 {: cb.add(new Case(id,t,b));return new Symbol(cb);  :}
+    | CASE NULL ARROW block.b case_block.cb                             {: cb.add(new Case(b));return new Symbol(cb); :}
+    | empty                                                             {: return new Symbol(new ArrayList()); :}
+    ;
+
+
+lexpr	=
+         SUPER DOT ID.id actuals.a                                         {: return new SuperActual(id,a); :}
+		|	ident.id                                                    {: return id; :}
+		;
+
+/*
+ * Managing the grammar.  Use STUB for parts of the grammar that have
+ * not been filled in yet; the scanner never returns a STUB token.
+ * empty is to make productions with empty
+ * right hand sides clearer.
+ */
+
+empty =  ;
+
+
+/*
+ * While I'm developing the grammar or testing small parts of it, Beaver will complain if I don't
+ * have productions using some of the terminal symbols, but I want all of the tokens to be in
+ * Terminals.java for the scanner. So, I create a bogus grammar rule that just gobbles all the tokens
+ * I haven't found a place for yet.  This grammar rule will never be matched.  It does make the CFSM ugly,
+ * but it's the cleanest workaround I know for incomplete grammars with complete scanners.
+ */
+bogus = STUB   /* Never produced by scanner, so this rule cannot actually be matched */
+		 	CLASS  EXTENDS
+			VAR  OVERRIDE  DEF  NATIVE
+			NEW  NULL  THIS  CASE  MATCH
+			IF  ELSE  WHILE  SUPER
+			/* Punctuation */
+			LPAREN  RPAREN    /* ( ) */
+			LBRACE  RBRACE    /* { } */
+			COLON  COMMA   	  /* :    */
+		 	ASSIGN  SEMI      /* = ;  */
+			ARROW  DOT        /* => . */
+			PLUS  MINUS  TIMES  DIV   /* + - * / */
+			LE  LT  EQUALS  NOT       /* <= < == ! */
+			/* Note Cool uses capitalization to distinguish
+			 * type names from other identifiers.
+			 */
+			TYPE  ID
+			/* Literals */
+			INTEGER  STRING  BOOLEAN;
+
+
+/*************************************************************************************************************************************/
+
+classdecl
+    = CLASS TYPE.t varformals.v have_extends.e classbody.fl                 {: return new ClassNode(t, v, e, (ArrayList)fl.value); :}
+    ;
+
+/*************************************************************************************************************************************/
+varformals =
+    LPAREN RPAREN                                                           {: return new Symbol(new ArrayList()); :}
+    |LPAREN var_list.vl RPAREN                                              {: return new Symbol(vl); :}
+    | empty                                                                 {: return new Symbol(new ArrayList()); :}
+    ;
+
+var_list = one_var.v                                                        {: ArrayList vl = new ArrayList(); vl.add(v); return new Symbol(vl); :}
+    | var_list.vl COMMA one_var.v                                           {: vl.add(v); return new Symbol(vl); :}
+    | empty                                                                 {: new Symbol( new ArrayList() ); :}
+    ;
+
+one_var =
+    VAR ID.id COLON TYPE.t                                                  {: return new Var(id, t); :}
+    ;
+
+/*************************************************************************************************************************************/
+have_extends =
+    EXTENDS type_or_native.ext                                              {: return ext;  :}
+    | empty
+    ;
+
+type_or_native = TYPE.t actuals.a                                           {: return new Extends(t, a); :}
+    | NATIVE                                                                {: return new Extends(); :}
+    ;
+
+actuals =
+    LPAREN exp_list.el RPAREN                                               {: return new Symbol(el); :}
+    ;
+
+exp_list =
+    expr.e                                                                  {: ArrayList el = new ArrayList(); el.add(e); return new Symbol(el); :}
+    | exp_list.el COMMA expr.e                                              {: el.add(e); return new Symbol(el); :}
+    | empty                                                                 {: return new Symbol( new ArrayList() ); :}
+    ;
+
+/*************************************************************************************************************************************/
+
+classbody =
+    LBRACE feature_list.fl RBRACE                                           {: return new Symbol(fl); :}
+    ;
+
+/*************************************************************************************************************************************/
+feature_list =
+    feature.f feature_list.fl                                               {: fl.add(f); return new Symbol(fl); :}
+    | empty                                                                 {: return new Symbol( new ArrayList() ); :}
+    ;
+
+feature =
+    //overridable DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI {: return new FeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+    OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI {: return new OverrideFeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+    | DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI        {: return new FeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+    | VAR ID.id ASSIGN NATIVE SEMI                                          {: return new FeatureVar(id ); :}
+    | VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI                             {: return new FeatureVar(id, t, e ); :}
+    | LBRACE block.b RBRACE SEMI                                            {: return new FeatureBlock(b); :}
+    ;
+
+//overridable = OVERRIDE | empty;
+
+expr_or_native = expr.e                                                     {: return e; :}
+                | NATIVE
+                ;
+/*************************************************************************************************************************************/
+
+formals = LPAREN formal_list.fl RPAREN                                      {: return new Symbol(fl); :}
+    ;
+
+formal_list =
+    formal.f                                                                {: ArrayList fl = new ArrayList(); fl.add(f); return new Symbol(fl); :}
+    | formal_list.fl COMMA formal.f                                         {: fl.add(f); return new Symbol(fl); :}
+    | empty                                                                 {: return new Symbol( new ArrayList() ); :}
+    ;
+
+formal = ID.id COLON TYPE.t                                                 {:  return new Formal(id,t); :}
+    ;

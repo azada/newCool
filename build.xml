@@ -1,0 +1,31 @@
+<project default="parser">
+
+
+<property name="jar.dir"     value="libs"/>
+<property name="src.dir"     value="src"/>
+
+    <!--target name="beavertask" unless="beaver.available" description="creates Beaver Ant task">
+        <taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="lib/beaver-ant.jar"/>
+        <property name="beaver.available" value="yes"/>
+    </target-->
+
+<target name="parser" description="generate parser">
+    <taskdef name="beaver" classname="beaver.comp.run.AntTask" classpath="${jar.dir}/beaver-ant.jar"/>
+    <beaver file             = "${src.dir}/cool/cool.grammar"
+            destdir          = "${src.dir}"
+            compress         = "no"
+            exportTables     = "no"
+            sortTerminals    = "yes"
+            terminalNames    = "yes"
+            exportTerminals  = "yes"
+            useSwitch        = "yes"
+            anonymousActions = "yes"
+            reportActions    = "yes" />
+</target>
+
+
+    <target name="clean">
+
+    </target>
+
+</project>
