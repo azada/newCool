@@ -57,7 +57,7 @@ public class FeatureMethod extends Feature {
         try {
             express = expr.check(this.symbolNode);
         } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
         }
         ////////////////////////////////////////////////////////////////////////
 
@@ -66,11 +66,14 @@ public class FeatureMethod extends Feature {
 
 
         ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
-//        System.out.println("expression type is" + expr.expType);
+        if (expr.expType == null){
+            throw new MyExeption("the type of this expression is not")
+        }
         if(!Program.isConsistant(expr.expType,type)){
-            Program.addError(new MyExeption("the return type of method " + id + " should be " + type + " it's not consistant with " + expr.expType ,this));
+            Program.addError(new MyExeption("the return type of method '" + id + "' should be " + type + " it's not consistant with " + expr.expType ,this));
             result = false;
         }
+
         ////////////////////////////////////////////////////////////////
         result = result &&  express;
         return result;

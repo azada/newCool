@@ -28,12 +28,24 @@ public class Program {
     private static Program instance = new Program();
 
     private Program() {
+            typeTable.put("Int", null);
+            typeTable.put("String", null);
+            typeTable.put("Boolean", null);
+            inheritance.put("Int", null);
+            inheritance.put("String", null);
+            inheritance.put("Boolean", null);
+
     }
     public static Program getInstance(){
         if(instance.typeTable.isEmpty()){
             instance.typeTable.put("Int", null);
             instance.typeTable.put("String", null);
             instance.typeTable.put("Boolean", null);
+        }
+        if(instance.inheritance.isEmpty()){
+            instance.inheritance.put("Int", null);
+            instance.inheritance.put("String", null);
+            instance.inheritance.put("Boolean", null);
         }
         return instance;
     }
@@ -43,7 +55,7 @@ public class Program {
         }
         if(instance.inheritance.containsKey(c)){
             if (c.equals(p)){
-                System.out.println("coooooOOOOOOoooool");
+
                 return true;
             }
             String r = instance.inheritance.get(c);

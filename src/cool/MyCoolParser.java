@@ -69,18 +69,19 @@ public class MyCoolParser {
         }
 
     }
-    public boolean checker(){
-        boolean result = shallowChecker();
-        for(int i = Program.getClasses().size()-1 ; i>0 ; i--){
-            boolean cn = (((ClassNode)Program.getClasses().get(i)).check(Program.getSymbolNode()));
+
+    public boolean shallowChecker(){
+        boolean result = true;
+        for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
+            boolean cn = (((ClassNode)Program.getClasses().get(i)).shallowCheck(null));
             result = result && cn;
         }
         return result;
     }
-    public boolean shallowChecker(){
-        boolean result = true;
-        for(int i = Program.getClasses().size()-1 ; i>0 ; i--){
-            boolean cn = (((ClassNode)Program.getClasses().get(i)).shallowCheck(Program.getSymbolNode()));
+    public boolean checker(){
+        boolean result = shallowChecker();
+        for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
+            boolean cn = (((ClassNode)Program.getClasses().get(i)).check(Program.getSymbolNode()));
             result = result && cn;
         }
         return result;

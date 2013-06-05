@@ -18,7 +18,7 @@ public class Id extends Primary {
         this.name = name;
     }
     @Override
-    public boolean check(SymbolNode pTable) {
+    public boolean check(SymbolNode pTable) throws MyExeption {
         boolean result;
         SymbolItem temp = pTable.lookup(name);
         if (temp != null){
@@ -28,6 +28,8 @@ public class Id extends Primary {
         else {
             Program.addError(new MyExeption("the variable " + name + " has not been declared ",this));
             result = false;
+            throw new MyExeption("this method doesn't exist", this);
+
         }
         return result;
         //To change body of implemented methods use File | Settings | File Templates.
