@@ -107,6 +107,14 @@ public class FeatureMethod extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
+        builder.append("define ");
+        String className = symbolNode.lookup("THIS").getType();
+        String methodName = id;
+        String flattenName = className + "_" + methodName;
+        String thisPointer = "class." + className + "*" + " %this";
+
+        builder.append(flattenName);
+
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
