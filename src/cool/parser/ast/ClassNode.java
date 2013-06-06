@@ -74,7 +74,7 @@ public class ClassNode extends Node {
             result = result && vf;
         }
 
-        for (int i=0 ; i < this.featureList.size(); i++){
+        for (int i = this.featureList.size()-1 ; i >=0 ; i--){
             /////////////////////////////////////////////////////////////////////////////////
             boolean res = false;
             try {

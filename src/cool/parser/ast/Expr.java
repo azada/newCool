@@ -20,7 +20,7 @@ public abstract class Expr extends Node {
     public boolean isConsistant(String c, String p){
         return Program.isConsistant(c, p);
     }
-    String expType;
+    String expType = NULL_TYPE;
 
 }
 

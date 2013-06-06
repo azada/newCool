@@ -48,7 +48,7 @@ public class LessThan extends BooleanOperation {
             }
         }
         else{
-            Program.addError(new MyExeption("two sides of the operation do not have the same type",this));
+            Program.addError(new MyExeption("two sides of the less than operation do not have the same type",this));
             result = false;
         }
 

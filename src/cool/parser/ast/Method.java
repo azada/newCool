@@ -1,6 +1,7 @@
 package cool.parser.ast;
 
 import cool.exception.MyExeption;
+import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -13,41 +14,63 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class Method extends Id {
-    String id ;
     ArrayList actuals;
 
     public Method(String id, ArrayList actuals) {
         super(id);
         this.actuals = actuals;
+        System.out.println(this.name);
     }
 
     @Override
     public boolean check(SymbolNode pTable) throws MyExeption {
-        // we should check the Type of primary and make sure it has an id with this method.
+        // we should check the Type of primary and make sure it has a method with this method.
         boolean result = true;
         FeatureMethod temp = null;
-
+        System.out.println(name);
             // we check if this primary type has this method defined
-            if (!Program.getInstance().getTableRow("THIS").containsKey(id)){
-                // if this Id didn't have this method in itself, we should look up to find this method.
-                String superType = pTable.lookup("SUPER").getType();
-                temp = Program.fetchMethod(superType,id);
-                if(temp == null){
-                    // this means that this method doesn't exsist
-                    result = false;
-                    throw new MyExeption("this method doesn't exist", this);
+        String tTemp;
+        tTemp = pTable.lookup("THIS").getType();
 
+        // first we check if we have this type defined
+        if (Program.typeTableContains(tTemp)){
+            // we check if this primary type has this method defined
+            if (Program.getTableRow(tTemp) != null){
+                if (!Program.getTableRow(tTemp).containsKey(name)){
+                    // if this Id didn't have this method in itself, we should look up to find this method.
+                    if (pTable.lookup("SUPER")!= null){
+                        String superType = pTable.lookup("SUPER").getType();
+                        temp = Program.fetchMethod(superType, name);
+                        if(temp == null){
+                            // this means that this method doesn't exsist
+                            result = false;
+                            Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp, this));
+                        }
+                        this.expType = temp.type;
+                    }
+                    else{
+                        Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp + " or it's supersss", this));
+                        return false;
+                    }
                 }
-                this.expType = temp.type;
+                else{
+                    //this method exists within this class
+                    temp = Program.getInstance().getTableRow(tTemp).get(name);
+                    this.expType = temp.type;
+                }
             }
             else{
-                //this method exists within this class
-                temp = Program.getInstance().getTableRow("THIS").get(id);
-                this.expType = temp.type;
+                Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp, this));
+                return false;
             }
 
-
-
+        }
+        else{
+            // if this primary type has not been defined throw an error
+            Program.addError(new MyExeption("there is no such type "+ tTemp + " defined",this));
+            System.out.println(name);
+            return false;
+        }
         // now we should check the actuals
         for (int i=0 ; i<actuals.size(); i++){
             boolean ac = ((Expr)this.actuals.get(i)).check(pTable);

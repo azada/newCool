@@ -43,7 +43,7 @@ public class Equal extends BooleanOperation {
             }
         }
         else{
-            Program.addError(new MyExeption("two sides of the operation do not have the same type",this));
+            Program.addError(new MyExeption("two sides of the equal operation do not have the same type",this));
             result = false;
         }
 

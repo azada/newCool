@@ -29,6 +29,7 @@ public class FeatureMethod extends Feature {
     }
     @Override
     public boolean check(SymbolNode pTable) {
+
         boolean result = true;
         this.symbolNode.setParent(pTable);
         if ( Program.typeTableContains(pTable.type)){

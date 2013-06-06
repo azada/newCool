@@ -46,7 +46,7 @@ public class MultiplyOperation extends RealOperation {
             }
         }
         else{
-            Program.addError(new MyExeption("two sides of the operation do not have the same type",this));
+            Program.addError(new MyExeption("two sides of the Multiply do not have the same type",this));
             result = false;
         }
 

@@ -28,32 +28,46 @@ public class PrimaryActual extends Expr {
         // we should check the Type of primary and make sure it has an id with this method.
         boolean result = true;
         FeatureMethod temp = null;
+
+        boolean pr = primary.check(pTable);
         // first we check if we have this type defined
-        if (Program.getInstance().getTableRow(primary.expType)!= null){
-            // we check if this primary type has this method defined
-            if (!Program.getInstance().getTableRow(primary.expType).containsKey(id)){
-                // if this Id didn't have this method in itself, we should look up to find this method.
-                String superType = pTable.lookup("SUPER").getType();
-                temp = Program.fetchMethod(superType,id);
-                if(temp == null){
-                    // this means that this method doesn't exsist
-                    result = false;
-                    throw new MyExeption("this method doesn't exist", this);
+        if (Program.typeTableContains(primary.expType)){
+                // we check if this primary type has this method defined
+            if (Program.getTableRow(primary.expType) != null){
+                if (!Program.getTableRow(primary.expType).containsKey(id)){
+                    // if this Id didn't have this method in itself, we should look up to find this method.
+                    if (pTable.lookup("SUPER")!= null){
+                        String superType = pTable.lookup("SUPER").getType();
+                        temp = Program.fetchMethod(superType,id);
+                        if(temp == null){
+                            // this means that this method doesn't exsist
+                            result = false;
+                            Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
+                        }
+                        this.expType = temp.type;
+                    }
+                    else{
+                        Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType + " or it's supers", this));
+                        return false;
+                    }
 
                 }
-                this.expType = temp.type;
-
+                else{
+                    //this method exists within this class
+                    temp = Program.getInstance().getTableRow(primary.expType).get(id);
+                    this.expType = temp.type;
+                }
             }
             else{
-                //this method exists within this class
-                temp = Program.getInstance().getTableRow(primary.expType).get(id);
-                this.expType = temp.type;
+                   Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
+                   result = false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
             Program.addError(new MyExeption("there is no such type "+ primary.expType + " defined",this));
+            System.out.println(id);
             result = false;
         }
 
@@ -78,7 +92,7 @@ public class PrimaryActual extends Expr {
         }
 
         //To change body of implemented methods use File | Settings | File Templates.
-        return result;
+        return result && pr;
     }
 
 
