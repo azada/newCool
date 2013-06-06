@@ -86,12 +86,12 @@ public class Program {
         ArrayList<String> bList = new ArrayList<String>();
         aList.add(a);
         bList.add(b);
-        String temp = getInstance().inheritance.get(a);
+        String temp = instance.inheritance.get(a);
         while(true){
             if(temp != null){
                 if(temp != null){
                     aList.add(temp);
-                    temp = getInstance().inheritance.get(temp);
+                    temp = instance.inheritance.get(temp);
                 }
                 else
                     break;
@@ -99,11 +99,11 @@ public class Program {
             else
                 break;
         }
-        temp = getInstance().inheritance.get(b);
+        temp = instance.inheritance.get(b);
         while(true){
             if(temp != null){
                 aList.add(temp);
-                temp = getInstance().inheritance.get(temp);
+                temp = instance.inheritance.get(temp);
             }
             else
                 break;
@@ -165,24 +165,24 @@ public class Program {
         instance.typeTable.put(a, b);
     }
     public static SymbolNode getSymbolNode(){
-        return programSymbolNode;
+        return instance.programSymbolNode;
     }
     public static void addError(MyExeption error){
-        errorList.add(error);
+        instance.errorList.add(error);
     }
     public static void printErrors(){
-        if (errorList.size() == 0){
+        if (instance.errorList.size() == 0){
             System.out.println("TYPE CHECKING HAS BEEN DONE SUCCESSFULLY");
             return;
         }
-        for (int i = 0 ; i< errorList.size() ;i++){
-            errorList.get(i).pritnError();
+        for (int i = 0 ; i< instance.errorList.size() ;i++){
+            instance.errorList.get(i).pritnError();
         }
     }
     public static void clear(){
-        classes.clear();
-        typeTable.clear();
-        errorList.clear();
+        instance.classes.clear();
+        instance.typeTable.clear();
+        instance.errorList.clear();
     }
 
 }

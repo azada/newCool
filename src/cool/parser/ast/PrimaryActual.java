@@ -54,20 +54,20 @@ public class PrimaryActual extends Expr {
                 }
                 else{
                     //this method exists within this class
-                    temp = Program.getInstance().getTableRow(primary.expType).get(id);
+                    temp = Program.getTableRow(primary.expType).get(id);
                     this.expType = temp.type;
                 }
             }
             else{
                    Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
-                   result = false;
+                    return false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
             Program.addError(new MyExeption("there is no such type "+ primary.expType + " defined",this));
-            System.out.println(id);
+
             result = false;
         }
 
@@ -84,7 +84,7 @@ public class PrimaryActual extends Expr {
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             for (int i = 0 ; i< temp.formals.size() ; i++){
-                if (!Program.getInstance().isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
+                if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
                     Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method",this));
                     result = false;
                 }
