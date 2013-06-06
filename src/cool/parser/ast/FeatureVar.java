@@ -77,4 +77,9 @@ public class FeatureVar extends Feature {
         //walker.visit(this);
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

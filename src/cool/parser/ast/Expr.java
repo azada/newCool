@@ -22,5 +22,10 @@ public abstract class Expr extends Node {
     }
     String expType = NULL_TYPE;
 
+    @Override
+    public void generate(StringBuilder builder) {
+
+    }
+
 }
 

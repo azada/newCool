@@ -39,4 +39,9 @@ public class FeatureBlock extends Feature {
         JSONLogger.closeNode();
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

@@ -128,4 +128,9 @@ public class ClassNode extends Node {
 
         JSONLogger.closeNode();
     }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
