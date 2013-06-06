@@ -159,4 +159,13 @@ public class MyCoolParser {
         }
 
     } */
+
+    public void generate(StringBuilder builder) {
+        ArrayList classes = Program.getClasses();
+        for (int i=0; i < classes.size(); i++) {
+            ClassNode node = (ClassNode) classes.get(i);
+            node.generate(builder);
+        }
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }
