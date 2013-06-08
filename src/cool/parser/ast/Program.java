@@ -28,15 +28,15 @@ public class Program {
     private static Program instance = new Program();
 
     private Program() {
-        instance.typeTable.put("Int", null);
-        instance.typeTable.put("String", null);
-        instance.typeTable.put("Boolean", null);
-        instance.inheritance.put("Int", null);
-        instance.inheritance.put("String", null);
-        instance.inheritance.put("Boolean", null);
-        instance.typeClassTable.put("Int",new Primitive(null,null,null,null));
-        instance.typeClassTable.put("String",new Primitive(null,null,null,null));
-        instance.typeClassTable.put("Boolean",new Primitive(null,null,null,null));
+        typeTable.put("Int", null);
+        typeTable.put("String", null);
+        typeTable.put("Boolean", null);
+        inheritance.put("Int", null);
+        inheritance.put("String", null);
+        inheritance.put("Boolean", null);
+        typeClassTable.put("Int",new Primitive(null,null,null,null));
+        typeClassTable.put("String",new Primitive(null,null,null,null));
+        typeClassTable.put("Boolean",new Primitive(null,null,null,null));
 
     }
     public static Program getInstance(){
@@ -52,7 +52,9 @@ public class Program {
         }
         return instance;
     }
-
+    public static void putInheritance(String child, String parent){
+        instance.inheritance.put(child,parent);
+    }
     public static void classTablePut(String type1, ClassNode node){
         instance.typeClassTable.put(type1,node);
     }

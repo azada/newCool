@@ -30,7 +30,7 @@ public class Instance extends Primary {
         // we check the actuals
 
         // first we chekc if we have this type in our typetable map;
-        if (Program.getInstance().typeTableContains(type)){
+        if (Program.typeTableContains(type)){
             // now that we know such class exists, we check the arguments. we check the actuals
             for (int i=0 ; i<actuals.size(); i++){
                 ////////////////////////////////////////////////////////////////////////
