@@ -34,9 +34,9 @@ public class Program {
         inheritance.put("Int", null);
         inheritance.put("String", null);
         inheritance.put("Boolean", null);
-        typeClassTable.put("Int",new Primitive(null,null,null,null));
-        typeClassTable.put("String",new Primitive(null,null,null,null));
-        typeClassTable.put("Boolean",new Primitive(null,null,null,null));
+        typeClassTable.put("Int",new Primitive("Int",null,null,null));
+        typeClassTable.put("String",new Primitive("String",null,null,null));
+        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
 
     }
     public static Program getInstance(){
