@@ -3,6 +3,7 @@ package cool.parser.ast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.*;
 /**
@@ -134,16 +135,30 @@ public class ClassNode extends Node {
 
     @Override
     public void generate(StringBuilder builder) {
+        System.out.println("ClassNode.generate");
+        builder.append("%class." + type + " = " + "type ");
+        CodeGenerator.openBrace(builder);
         String parentType = Program.getSuper(this.type);
         ClassNode parentNode = Program.getClassNode(parentType);
-        parentNode.generate(builder);
+        //parentNode.generate(builder);
+        if (parentNode != null) {
+            parentNode.generateInstance(builder);
+
+            CodeGenerator.appendComma(builder);
+        }
+
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
             if (f instanceof FeatureVar) {
                 FeatureVar fvar = (FeatureVar) f;
                 fvar.generate(builder);
+                CodeGenerator.appendComma(builder);
+
             }
         }
+        CodeGenerator.removeExtraComma(builder);
+        CodeGenerator.closeBrace(builder);
+
 
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
@@ -151,5 +166,14 @@ public class ClassNode extends Node {
 
         }
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void generateInstance(StringBuilder builder) {
+        builder.append("%class." + this.type);
+
+    }
+
+    public void generateReference(StringBuilder builder) {
+        builder.append("%class."+ this.type + "*" );
     }
 }
