@@ -134,6 +134,16 @@ public class ClassNode extends Node {
 
     @Override
     public void generate(StringBuilder builder) {
+        String parentType = Program.getSuper(this.type);
+        ClassNode parentNode = Program.getClassNode(parentType);
+        parentNode.generate(builder);
+        for (int i=0; i< featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if (f instanceof FeatureVar) {
+                FeatureVar fvar = (FeatureVar) f;
+                fvar.generate(builder);
+            }
+        }
 
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
