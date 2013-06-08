@@ -1,5 +1,7 @@
 package cool.parser.ast;
 
+import cool.codegen.CodeGenerator;
+
 import java.util.ArrayList;
 
 /**
@@ -15,4 +17,11 @@ public class Primitive extends ClassNode
         super(type, varFormals, ext, featureList);
     }
 
+
+    public void generateReference(StringBuilder builder) {
+        if (this.type.equals("Int")) {
+            CodeGenerator.appendInt(builder);
+        }
+
+    }
 }
