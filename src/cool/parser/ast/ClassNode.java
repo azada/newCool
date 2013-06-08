@@ -148,6 +148,7 @@ public class ClassNode extends Node {
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
             f.generate(builder);
+
         }
         //To change body of implemented methods use File | Settings | File Templates.
     }
