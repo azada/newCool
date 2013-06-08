@@ -27,6 +27,9 @@ public class Program {
     public static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
+    public static ClassNode getClassNode(String type){
+        return instance.typeClassTable.get(type);
+    }
     private Program() {
             typeTable.put("Int", null);
             typeTable.put("String", null);
@@ -81,6 +84,7 @@ public class Program {
             return null;
         }
     }
+
     public static String mutualParent(String a, String b){
         ArrayList<String> aList = new ArrayList<String>();
         ArrayList<String> bList = new ArrayList<String>();
