@@ -21,7 +21,7 @@ public class Program {
     ///////////////////////type /////////// function name, it's object
     private static HashMap<String,HashMap<String,FeatureMethod> > typeTable = new HashMap<String,HashMap<String,FeatureMethod> >() ;
     // in order to store the class's object as a pair to the classe's name, we need another hashmap.
-    public static HashMap<String , ClassNode> typeClassTable = new HashMap<String, ClassNode>();
+    private static HashMap<String , ClassNode> typeClassTable = new HashMap<String, ClassNode>();
     public static SymbolNode programSymbolNode = new SymbolNode();
     private static ArrayList<MyExeption> errorList = new ArrayList<MyExeption>();
     public static HashMap<String, String> inheritance = new HashMap<String, String>();
@@ -195,6 +195,8 @@ public class Program {
     public static void clear(){
         instance.classes.clear();
         instance.typeTable.clear();
+        instance.typeClassTable.clear();
+        instance.inheritance.clear();
         instance.errorList.clear();
     }
 
