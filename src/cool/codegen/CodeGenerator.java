@@ -32,4 +32,25 @@ public class CodeGenerator {
     public static void appendPointer(StringBuilder builder, ClassNode obj) {
 
     }
+
+    public static void appendComma(StringBuilder builder) {
+        builder.append(", ");
+    }
+
+    public static void removeExtraComma(StringBuilder builder) {
+        
+        int last = builder.lastIndexOf(",");
+        System.out.println("i = " + last);
+        for (int i = builder.length() - 1; last > 0 && i >= last; i-- ) {
+           builder.deleteCharAt(i);
+       }
+    }
+
+    public static void closeBrace(StringBuilder builder) {
+        builder.append(" }\n");
+    }
+
+    public static void openBrace(StringBuilder builder) {
+        builder.append("{ ");
+    }
 }
