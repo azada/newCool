@@ -49,7 +49,7 @@ public class Instance extends Primary {
             if (!result)
                 return result;
             // now that actuals have passed the test, we check their type with the varformals of the initialized class
-            ArrayList temp = Program.getInstance().typeClassTable.get(type).varFormals;
+            ArrayList temp = Program.getClassNode(type).varFormals;
             //first we check the numbers:
             if(temp.size() != actuals.size()){
                 Program.addError(new MyExeption("the number of arguments needed for initializing " + type + " is " + temp.size(),this));

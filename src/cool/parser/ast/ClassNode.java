@@ -45,7 +45,7 @@ public class ClassNode extends Node {
         }
         else {
             Program.getInstance().typeTablePut(type, new HashMap<String, FeatureMethod>());
-            Program.getInstance().typeClassTable.put(type,this);
+            Program.classTablePut(type,this);
         }
         return result;
     }
@@ -61,8 +61,8 @@ public class ClassNode extends Node {
             SymbolItem temp = new SymbolItem("SUPER",ext.type,false);
             this.symbolNode.insert(temp);
             // now we set the parent of symbol node of this class to be it's supers symbol node.
-            if(Program.getInstance().typeClassTable.containsKey(ext.type)){
-                symbolNode.setParent(Program.getInstance().typeClassTable.get(ext.type).symbolNode);
+            if(Program.classTableContains(ext.type)){
+                symbolNode.setParent(Program.getClassNode(ext.type).symbolNode);
             }
 
         }
