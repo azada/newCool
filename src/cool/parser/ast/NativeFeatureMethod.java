@@ -12,17 +12,9 @@ import java.util.ArrayList;
  * Time: 1:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class NativeFeatureMethod extends Feature{
-    String id;
-    ArrayList formals;
-    String type;
-
+public class NativeFeatureMethod extends FeatureMethod{
     public NativeFeatureMethod(String id, ArrayList formals, String type) {
-        this.id = id;
-        this.formals = formals;
-        this.type = type;
-        symbolNode = new SymbolNode();
-
+        super(id,formals,type,null);
     }
     @Override
     public void accept() {
@@ -35,7 +27,31 @@ public class NativeFeatureMethod extends Feature{
     }
 
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean check(SymbolNode pTable){
+        boolean result = true;
+        this.symbolNode.setParent(pTable);
+        if (Program.typeTableContains(pTable.type)){
+            if (Program.getTableRow(pTable.type).containsKey(id)){
+                Program.addError(new MyExeption("method "+ this.id + " has duplicate definitions " , this));
+                result = false;
+            }
+            else{
+                Program.getTableRow(pTable.type).put(id, this);
+            }
+        }
+        else{
+            Program.addError(new MyExeption("the scope for this class has not been defined",this));
+        }
+
+        //we set the parent node to be the pTable
+
+        for (int i = 0 ; i< formals.size() ; i++){
+            boolean fml = ((Formal)formals.get(i)).check(this.symbolNode);
+            result = result &&fml;
+        }
+
+        ////////////////////////////////////////////////////////////////
+        return result;
+
     }
 }
