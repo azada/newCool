@@ -22,30 +22,21 @@ public class Program {
     private static HashMap<String,HashMap<String,FeatureMethod> > typeTable = new HashMap<String,HashMap<String,FeatureMethod> >() ;
     // in order to store the class's object as a pair to the classe's name, we need another hashmap.
     private static HashMap<String , ClassNode> typeClassTable = new HashMap<String, ClassNode>();
-    public static SymbolNode programSymbolNode = new SymbolNode();
+    private static SymbolNode programSymbolNode = new SymbolNode();
     private static ArrayList<MyExeption> errorList = new ArrayList<MyExeption>();
     public static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
-    public static void classTablePut(String type1, ClassNode node){
-        instance.typeClassTable.put(type1,node);
-    }
-    public static boolean classTableContains(String type){
-        if (instance.typeClassTable.containsKey(type))
-            return true;
-        else
-            return false;
-    }
-    public static ClassNode getClassNode(String type){
-        return instance.typeClassTable.get(type);
-    }
     private Program() {
-            typeTable.put("Int", null);
-            typeTable.put("String", null);
-            typeTable.put("Boolean", null);
-            inheritance.put("Int", null);
-            inheritance.put("String", null);
-            inheritance.put("Boolean", null);
+        instance.typeTable.put("Int", null);
+        instance.typeTable.put("String", null);
+        instance.typeTable.put("Boolean", null);
+        instance.inheritance.put("Int", null);
+        instance.inheritance.put("String", null);
+        instance.inheritance.put("Boolean", null);
+        instance.typeClassTable.put("Int",new Primitive(null,null,null,null));
+        instance.typeClassTable.put("String",new Primitive(null,null,null,null));
+        instance.typeClassTable.put("Boolean",new Primitive(null,null,null,null));
 
     }
     public static Program getInstance(){
@@ -61,6 +52,21 @@ public class Program {
         }
         return instance;
     }
+
+    public static void classTablePut(String type1, ClassNode node){
+        instance.typeClassTable.put(type1,node);
+    }
+    public static boolean classTableContains(String type){
+        if (instance.typeClassTable.containsKey(type))
+            return true;
+        else
+            return false;
+    }
+    public static ClassNode getClassNode(String type){
+        return instance.typeClassTable.get(type);
+    }
+
+
     public static boolean isConsistant(String c, String p){
         if (c == null){
             return false;
