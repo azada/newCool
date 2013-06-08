@@ -48,19 +48,19 @@ public class OverrideFeatureMethod extends FeatureMethod {
             result = false;
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
-            if (!Program.getInstance().isConsistant(((Formal) (temp.formals.get(i))).type, ((Formal)formals.get(i)).type)){
+            if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Formal)formals.get(i)).type)){
                 Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id,this));
                 result = false;
                 break;
             }
         }
         if (Program.typeTableContains(pTable.type)){
-            if (Program.getInstance().getTableRow(pTable.type).containsKey(id)){
+            if (Program.getTableRow(pTable.type).containsKey(id)){
                 Program.addError(new MyExeption("method "+ this.id + " has duplicate definitions " , this));
                 result = false;
             }
             else{
-                Program.getInstance().getTableRow(pTable.type).put(id, this);
+                Program.getTableRow(pTable.type).put(id, this);
             }
         }
         else{

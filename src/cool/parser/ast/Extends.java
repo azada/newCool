@@ -71,7 +71,7 @@ public class Extends extends Node{
             }
         }
         else{
-
+            Program.putInheritance(type,"NATIVE");
         }
         //To change body of implemented methods use File | Settings | File Templates.
         return result;

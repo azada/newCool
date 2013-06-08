@@ -55,7 +55,7 @@ public class Method extends Id {
                 }
                 else{
                     //this method exists within this class
-                    temp = Program.getInstance().getTableRow(tTemp).get(name);
+                    temp = Program.getTableRow(tTemp).get(name);
                     this.expType = temp.type;
                 }
             }
@@ -84,7 +84,7 @@ public class Method extends Id {
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             for (int i = 0 ; i< temp.formals.size() ; i++){
-                if (!Program.getInstance().isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
+                if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
                     Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method",this));
                     result = false;
                 }

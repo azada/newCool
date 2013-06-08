@@ -38,13 +38,13 @@ public class ClassNode extends Node {
 
     public boolean shallowCheck(SymbolNode pTable){
         boolean result = true;
-        if (Program.getInstance().typeTableContains(type)){
+        if (Program.typeTableContains(type)){
             Program.addError(new MyExeption("Class "+ type + " has already been declared" , this));
             defined = false;
             result = false;
         }
         else {
-            Program.getInstance().typeTablePut(type, new HashMap<String, FeatureMethod>());
+            Program.typeTablePut(type, new HashMap<String, FeatureMethod>());
             Program.classTablePut(type,this);
         }
         return result;
@@ -57,7 +57,7 @@ public class ClassNode extends Node {
         if(ext != null){
             boolean ex = ext.check(this.symbolNode);
             result = result && ex;
-            Program.getInstance().inheritance.put(type, ext.type);
+            Program.putInheritance(type, ext.type);
             SymbolItem temp = new SymbolItem("SUPER",ext.type,false);
             this.symbolNode.insert(temp);
             // now we set the parent of symbol node of this class to be it's supers symbol node.
@@ -67,7 +67,7 @@ public class ClassNode extends Node {
 
         }
         else{
-            Program.getInstance().inheritance.put(type,null);
+            Program.putInheritance(type,null);
             this.symbolNode.setParent(null);
         }
 

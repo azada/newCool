@@ -10,7 +10,7 @@ public class Terminals {
 	static public final short BOOLEAN = 21;
 	static public final short CASE = 7;
 	static public final short CLASS = 36;
-	static public final short COLON = 33;
+	static public final short COLON = 34;
 	static public final short COMMA = 4;
 	static public final short DEF = 32;
 	static public final short DIV = 24;
@@ -32,7 +32,7 @@ public class Terminals {
 	static public final short NEW = 15;
 	static public final short NOT = 18;
 	static public final short NULL = 13;
-	static public final short OVERRIDE = 34;
+	static public final short OVERRIDE = 33;
 	static public final short PLUS = 22;
 	static public final short RBRACE = 1;
 	static public final short RPAREN = 2;
@@ -80,8 +80,8 @@ public class Terminals {
 		"ASSIGN",
 		"TYPE",
 		"DEF",
-		"COLON",
 		"OVERRIDE",
+		"COLON",
 		"EXTENDS",
 		"CLASS",
 		"NATIVE",
