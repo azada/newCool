@@ -113,6 +113,7 @@ public class FeatureMethod extends Feature {
         String flattenName = className + "_" + methodName;
         String thisPointer = "class." + className + "*" + " %this";
 
+
         builder.append(flattenName);
 
         //To change body of implemented methods use File | Settings | File Templates.

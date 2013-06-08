@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -80,6 +81,8 @@ public class FeatureVar extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
+       // if this.type
+       // builder.append("class.")
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }
