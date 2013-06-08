@@ -32,6 +32,9 @@ public class ClassNode extends Node {
         fullyChecked = false;
     }
 
+    public String getType() {
+        return type;
+    }
 
     public boolean shallowCheck(SymbolNode pTable){
         boolean result = true;
