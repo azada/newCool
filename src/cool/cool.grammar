@@ -265,9 +265,9 @@ feature_list =
     ;
 
 feature =
-    //overridable DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI {: return new FeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
-    OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI {: return new OverrideFeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
-    | DEF ID.id formals.fl COLON TYPE.t ASSIGN expr_or_native.e SEMI        {: return new FeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+     OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI {: return new OverrideFeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+    | DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI        {: return new FeatureMethod(id, (ArrayList)fl.value, t, (Expr)e); :}
+    | DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI        {: return new NativeFeatureMethod(id, (ArrayList)fl.value, t); :}
     | VAR ID.id ASSIGN NATIVE SEMI                                          {: return new FeatureVar(id ); :}
     | VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI                             {: return new FeatureVar(id, t, e ); :}
     | LBRACE block.b RBRACE SEMI                                            {: return new FeatureBlock(b); :}
@@ -275,9 +275,9 @@ feature =
 
 //overridable = OVERRIDE | empty;
 
-expr_or_native = expr.e                                                     {: return e; :}
-                | NATIVE
-                ;
+//expr_or_native = expr.e                                                     {: return e; :}
+//                | NATIVE
+//                ;
 /*************************************************************************************************************************************/
 
 formals = LPAREN formal_list.fl RPAREN                                      {: return new Symbol(fl); :}

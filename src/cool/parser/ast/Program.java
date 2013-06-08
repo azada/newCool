@@ -24,7 +24,7 @@ public class Program {
     private static HashMap<String , ClassNode> typeClassTable = new HashMap<String, ClassNode>();
     private static SymbolNode programSymbolNode = new SymbolNode();
     private static ArrayList<MyExeption> errorList = new ArrayList<MyExeption>();
-    public static HashMap<String, String> inheritance = new HashMap<String, String>();
+    private static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
     private Program() {
@@ -140,8 +140,6 @@ public class Program {
                 break;
         }
         return result;
-
-
     }
     // we need a method to look up a "method" starting from the base class up untill the final class
     public static FeatureMethod fetchMethod(String superType,String method){
@@ -171,10 +169,10 @@ public class Program {
 
     }
     public static ArrayList getClasses(){
-        return classes;
+        return instance.classes;
     }
     public static void setClasses(ArrayList cls){
-        classes = cls;
+        instance.classes = cls;
     }
     public static boolean typeTableContains(String a){
         return instance.typeTable.containsKey(a);
