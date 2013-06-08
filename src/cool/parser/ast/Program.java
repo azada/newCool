@@ -27,6 +27,15 @@ public class Program {
     public static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
+    public static void classTablePut(String type1, ClassNode node){
+        instance.typeClassTable.put(type1,node);
+    }
+    public static boolean classTableContains(String type){
+        if (instance.typeClassTable.containsKey(type))
+            return true;
+        else
+            return false;
+    }
     public static ClassNode getClassNode(String type){
         return instance.typeClassTable.get(type);
     }
