@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import cool.codegen.CodeGenerator;
 import cool.codegen.VariableStack;
+import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.*;
 /**
