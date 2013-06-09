@@ -19,7 +19,6 @@ public class Method extends Id {
     public Method(String id, ArrayList actuals) {
         super(id);
         this.actuals = actuals;
-        System.out.println(this.name);
     }
 
     @Override
@@ -27,7 +26,6 @@ public class Method extends Id {
         // we should check the Type of primary and make sure it has a method with this method.
         boolean result = true;
         FeatureMethod temp = null;
-        System.out.println(name);
             // we check if this primary type has this method defined
         String tTemp;
         tTemp = pTable.lookup("THIS").getType();
@@ -45,8 +43,11 @@ public class Method extends Id {
                             // this means that this method doesn't exsist
                             result = false;
                             Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp, this));
+                            return false;
                         }
-                        this.expType = temp.type;
+                        else{
+                            this.expType = temp.type;
+                        }
                     }
                     else{
                         Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp + " or it's supersss", this));

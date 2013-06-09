@@ -159,12 +159,12 @@ public class Program {
                     //it means that this method doesn't exist there
                     // then we should get this and go up until we find it.
                     String tempSuper = getSuper(superType);
-                    return fetchMethod(superType, method);
+                    return fetchMethod(tempSuper, method);
                 }
             }
             else{
                 String tempSuper = getSuper(superType);
-                return fetchMethod(superType, method);
+                return fetchMethod(tempSuper, method);
             }
 
     }
