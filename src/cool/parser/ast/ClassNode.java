@@ -235,8 +235,6 @@ public class ClassNode extends Node {
 
     }
 
-
-
     public void generateInstance(StringBuilder builder) {
         builder.append("%class." + this.type);
 
