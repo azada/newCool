@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 //SUPER DOT ID.id actuals.a
 
-public class SuperActual extends Expr {
+public class SuperActual extends Primary {
     ArrayList actuals;
     String id ;
     public SuperActual(String id,ArrayList actuals) {

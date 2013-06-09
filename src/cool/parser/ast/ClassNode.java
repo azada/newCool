@@ -47,20 +47,20 @@ public class ClassNode extends Node {
         }
         else {
             Program.typeTablePut(type, new HashMap<String, FeatureMethod>());
-            Program.classTablePut(type,this);
+            Program.classTablePut(type, this);
         }
         return result;
     }
     @Override
-    public boolean check(SymbolNode pTable){
+    public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
-        SymbolItem temp1 = new SymbolItem("THIS", type, false);
+        SymbolItem temp1 = new SymbolItem("THIS", type,0 , false);
         symbolNode.insert(temp1);
         if(ext != null){
             boolean ex = ext.check(this.symbolNode);
             result = result && ex;
             Program.putInheritance(type, ext.type);
-            SymbolItem temp = new SymbolItem("SUPER",ext.type,false);
+            SymbolItem temp = new SymbolItem("SUPER",ext.type,0, false);
             this.symbolNode.insert(temp);
             // now we set the parent of symbol node of this class to be it's supers symbol node.
             if(Program.classTableContains(ext.type)){
@@ -84,6 +84,9 @@ public class ClassNode extends Node {
             boolean res = false;
             try {
                 res = ((Feature)this.featureList.get(i)).check(this.symbolNode);
+            } catch (FatalErrorException fatal) {
+                throw fatal;
+
             } catch (MyExeption myExeption) {
                 myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }

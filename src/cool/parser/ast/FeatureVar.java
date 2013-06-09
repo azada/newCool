@@ -1,6 +1,7 @@
 package cool.parser.ast;
 
 import cool.codegen.CodeGenerator;
+import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -31,14 +32,15 @@ public class FeatureVar extends Feature {
 
     }
     @Override
-    public boolean check(SymbolNode pTable) {
+    public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("Type " + type + " has not been defined",this));
+            Program.addError(new MyExeption("Type '" + type + "' has not been defined",this));
             result = false;
+            throw new FatalErrorException("Type '" + type + "' has not been defined",this);
         }
         else {
-            SymbolItem temp = new SymbolItem(id, type, false);
+            SymbolItem temp = new SymbolItem(id, type,0, false);
             pTable.insert(temp);
         }
 
@@ -54,7 +56,7 @@ public class FeatureVar extends Feature {
 
         ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
         if(!expr.expType.equals(type)){
-            Program.addError(new MyExeption("the type of this expression is not " + type ,this));
+            Program.addError(new MyExeption("type of the right hand side expression is not " + type ,this));
             result = false;
         }
         ////////////////////////////////////////////////////////////////

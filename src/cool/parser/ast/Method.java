@@ -19,15 +19,14 @@ public class Method extends Id {
     public Method(String id, ArrayList actuals) {
         super(id);
         this.actuals = actuals;
-        System.out.println(this.name);
+
     }
 
     @Override
     public boolean check(SymbolNode pTable) throws MyExeption {
         // we should check the Type of primary and make sure it has a method with this method.
         boolean result = true;
-        FeatureMethod temp = null;
-        System.out.println(name);
+        FeatureMethod temp ;
             // we check if this primary type has this method defined
         String tTemp;
         tTemp = pTable.lookup("THIS").getType();
@@ -44,12 +43,16 @@ public class Method extends Id {
                         if(temp == null){
                             // this means that this method doesn't exsist
                             result = false;
-                            Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp, this));
+                            Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp, this));
+                            return false;
                         }
-                        this.expType = temp.type;
+                        else{
+                            this.expType = temp.type;
+                        }
+
                     }
                     else{
-                        Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp + " or it's supersss", this));
+                        Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp + " or it's supersss", this));
                         return false;
                     }
                 }
@@ -60,14 +63,14 @@ public class Method extends Id {
                 }
             }
             else{
-                Program.addError(new MyExeption("method " + name + " doesn't exist within " + tTemp, this));
+                Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp, this));
                 return false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
-            Program.addError(new MyExeption("there is no such type "+ tTemp + " defined",this));
+            Program.addError(new MyExeption("there is no such type '"+ tTemp + "' defined",this));
             System.out.println(name);
             return false;
         }
@@ -79,7 +82,7 @@ public class Method extends Id {
         if (temp != null)  {
             // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
-                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals + " are given",this));
+                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
                 result = false;
             }
             //and make sure we have the same type in actuals as we had in feature methods.

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Time: 8:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PrimaryActual extends Expr {
+public class PrimaryActual extends Primary {
     ArrayList actuals;
     Primary primary ;
     String id ;
@@ -42,12 +42,15 @@ public class PrimaryActual extends Expr {
                         if(temp == null){
                             // this means that this method doesn't exsist
                             result = false;
-                            Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
+                            Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType, this));
+                            return false;
                         }
-                        this.expType = temp.type;
+                        else{
+                            this.expType = temp.type;
+                        }
                     }
                     else{
-                        Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType + " or it's supers", this));
+                        Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType + " or it's supers", this));
                         return false;
                     }
 
@@ -59,14 +62,14 @@ public class PrimaryActual extends Expr {
                 }
             }
             else{
-                   Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
+                   Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType, this));
                     return false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
-            Program.addError(new MyExeption("there is no such type "+ primary.expType + " defined",this));
+            Program.addError(new MyExeption("there is no such type '"+ primary.expType + "' defined",this));
 
             result = false;
         }
@@ -79,7 +82,7 @@ public class PrimaryActual extends Expr {
         if (temp != null)  {
         // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
-                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals + " are given",this));
+                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
                 result = false;
             }
             //and make sure we have the same type in actuals as we had in feature methods.

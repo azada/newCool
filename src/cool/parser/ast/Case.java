@@ -34,7 +34,7 @@ public class Case extends Expr {
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         if (longInit){
-            SymbolItem temp = new SymbolItem(id, type, false);
+            SymbolItem temp = new SymbolItem(id, type,0, false);
             pTable.insert(temp);
         }
         boolean bl = block.check(pTable);

@@ -32,7 +32,7 @@ public class VarExpr extends Expr {
             result = false;
         }
         else {
-            SymbolItem temp = new SymbolItem(id, type, false);
+            SymbolItem temp = new SymbolItem(id,type,0,false);
             pTable.insert(temp);
         }
 
@@ -64,7 +64,6 @@ public class VarExpr extends Expr {
             expr.accept();
         }
 
-        //System.out.println("id:" + id + " type:" + type);
         JSONLogger.closeNode();
     }
 }
