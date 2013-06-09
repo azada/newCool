@@ -28,7 +28,7 @@ public class VarExpr extends Expr {
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("Type " + type + " has not been defined",this));
+            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
             result = false;
         }
         else {

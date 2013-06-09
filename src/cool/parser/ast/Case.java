@@ -14,7 +14,7 @@ public class Case extends Expr {
     String id;
     String type;
     Block block;
-    boolean longInit = false;
+    boolean longInit;
 
     public Case(String id, String type, Block block) {
         this.id = id;
@@ -25,6 +25,7 @@ public class Case extends Expr {
 
     public Case(Block block) {
         this.block = block;
+        longInit = false;
     }
 
     @Override

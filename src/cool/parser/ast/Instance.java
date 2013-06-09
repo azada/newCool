@@ -71,6 +71,7 @@ public class Instance extends Primary {
             Program.addError(new MyExeption("class '" + type + "' doesn't exist, instance can't be initialized",this));
             result = false;
         }
+
         //To change body of implemented methods use File | Settings | File Templates.
         return result;
     }

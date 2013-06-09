@@ -1,5 +1,7 @@
 package cool.symbol;
 
+import cool.parser.ast.ClassNode;
+
 /**
  * Created with IntelliJ IDEA.
  * User: azada
@@ -12,9 +14,11 @@ public class SymbolItem {
     String type;
     int address;
     boolean init;
+    ClassNode classNode;
 
-    public SymbolItem(String id, String type,int address, boolean init) {
+    public SymbolItem(String id, String type,int address, boolean init, ClassNode classNode) {
         this.id = id;
+        this.classNode = classNode;
         this.type = type;
         this.init = init;
         this.address = address;

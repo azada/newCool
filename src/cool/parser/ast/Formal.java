@@ -18,12 +18,13 @@ public class Formal extends Node{
     public Formal(String id, String type) {
         this.id = id;
         this.type = type;
+
     }
     @Override
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("Type " + type + " has not been defined",this));
+            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
             result = false;
         }
         else {

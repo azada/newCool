@@ -38,7 +38,7 @@ public class Extends extends Node{
             if (Program.classTableContains(type)){
 
                 ArrayList temp = Program.getClassNode(type).varFormals;
-                if (actuals.size() != temp.size()){
+                if (actuals.size() != temp.size() && actuals.size() != 0 ){
                     Program.addError(new MyExeption("the number of arguments in " + type + " is " + temp.size() + " while " + actuals.size()+" are given",this));
                     result = false;
                     return result;

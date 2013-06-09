@@ -204,6 +204,15 @@ public class Program {
         instance.typeClassTable.clear();
         instance.inheritance.clear();
         instance.errorList.clear();
+        instance.typeTable.put("Int", null);
+        instance.typeTable.put("String", null);
+        instance.typeTable.put("Boolean", null);
+        instance.inheritance.put("Int", null);
+        instance.inheritance.put("String", null);
+        instance.inheritance.put("Boolean", null);
+        instance.typeClassTable.put("Int",new Primitive("Int",null,null,null));
+        instance.typeClassTable.put("String",new Primitive("String",null,null,null));
+        instance.typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
     }
 
 }

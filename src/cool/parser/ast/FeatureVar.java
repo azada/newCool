@@ -35,9 +35,9 @@ public class FeatureVar extends Feature {
     public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("Type '" + type + "' has not been defined",this));
+            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
             result = false;
-            throw new FatalErrorException("Type '" + type + "' has not been defined",this);
+            throw new FatalErrorException("type '" + type + "' has not been defined",this);
         }
         else {
             SymbolItem temp = new SymbolItem(id, type,0, false);
