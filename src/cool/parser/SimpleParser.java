@@ -124,7 +124,8 @@ public class SimpleParser extends Parser {
 			}
 			case 9: // rexpr = primary.p MATCH cases.c
 			{
-					final Symbol p = _symbols[offset + 1];
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Primary p = (Primary) _symbol_p.value;
 					final Symbol _symbol_c = _symbols[offset + 3];
 					final ArrayList c = (ArrayList) _symbol_c.value;
 					 Expr e = (Expr) p.value; return new Match(e, c);
@@ -177,18 +178,21 @@ public class SimpleParser extends Parser {
 			case 18: // product = product.p TIMES primary.i
 			{
 					final Symbol p = _symbols[offset + 1];
-					final Symbol i = _symbols[offset + 3];
+					final Symbol _symbol_i = _symbols[offset + 3];
+					final Primary i = (Primary) _symbol_i.value;
 					 ArrayList operands = new ArrayList(); operands.add(p); operands.add(i); return new MultiplyOperation(operands);
 			}
 			case 19: // product = product.p DIV primary.i
 			{
 					final Symbol p = _symbols[offset + 1];
-					final Symbol i = _symbols[offset + 3];
+					final Symbol _symbol_i = _symbols[offset + 3];
+					final Primary i = (Primary) _symbol_i.value;
 					 ArrayList operands = new ArrayList(); operands.add(p); operands.add(i); return new DivisionOperation(operands);
 			}
 			case 20: // product = primary.p
 			{
-					final Symbol p = _symbols[offset + 1];
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Primary p = (Primary) _symbol_p.value;
 					 return p;
 			}
 			case 21: // primary = LBRACE block.b RBRACE
@@ -231,7 +235,8 @@ public class SimpleParser extends Parser {
 			}
 			case 28: // primary = MINUS primary.p
 			{
-					final Symbol p = _symbols[offset + 2];
+					final Symbol _symbol_p = _symbols[offset + 2];
+					final Primary p = (Primary) _symbol_p.value;
 					 ArrayList operands = new ArrayList() ; operands.add(p); return new UnaryMinusOperation(operands);
 			}
 			case 29: // primary = lexpr.e
@@ -241,12 +246,14 @@ public class SimpleParser extends Parser {
 			}
 			case 30: // primary = NOT primary.p
 			{
-					final Symbol p = _symbols[offset + 2];
+					final Symbol _symbol_p = _symbols[offset + 2];
+					final Primary p = (Primary) _symbol_p.value;
 					 ArrayList operands = new ArrayList() ; operands.add(p); return new UnaryNotOperation(operands);
 			}
 			case 31: // primary = primary.p DOT ID.id actuals.a
 			{
-					final Symbol p = _symbols[offset + 1];
+					final Symbol _symbol_p = _symbols[offset + 1];
+					final Primary p = (Primary) _symbol_p.value;
 					final Symbol _symbol_id = _symbols[offset + 3];
 					final String id = (String) _symbol_id.value;
 					final Symbol _symbol_a = _symbols[offset + 4];

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Time: 8:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Block extends Expr {
+public class Block extends Primary {
 
     ArrayList exprList;
     SymbolNode symbolNode ;

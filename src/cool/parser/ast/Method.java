@@ -19,15 +19,13 @@ public class Method extends Id {
     public Method(String id, ArrayList actuals) {
         super(id);
         this.actuals = actuals;
-        System.out.println(this.name);
     }
 
     @Override
     public boolean check(SymbolNode pTable) throws MyExeption {
         // we should check the Type of primary and make sure it has a method with this method.
         boolean result = true;
-        FeatureMethod temp = null;
-        System.out.println(name);
+        FeatureMethod temp;
             // we check if this primary type has this method defined
         String tTemp;
         tTemp = pTable.lookup("THIS").getType();
