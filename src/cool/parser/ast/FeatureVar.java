@@ -81,6 +81,9 @@ public class FeatureVar extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
+        ClassNode varNode = Program.getClassNode(this.type);
+        varNode.generateReference(builder);
+        builder.append(id);
        // if this.type
        // builder.append("class.")
         //To change body of implemented methods use File | Settings | File Templates.

@@ -43,8 +43,11 @@ public class PrimaryActual extends Primary {
                             // this means that this method doesn't exsist
                             result = false;
                             Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType, this));
+                            return false;
                         }
-                        this.expType = temp.type;
+                        else{
+                            this.expType = temp.type;
+                        }
                     }
                     else{
                         Program.addError(new MyExeption("method " + id + " doesn't exist within " + primary.expType + " or it's supers", this));

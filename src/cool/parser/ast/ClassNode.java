@@ -3,6 +3,7 @@ package cool.parser.ast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.*;
 /**
@@ -67,7 +68,7 @@ public class ClassNode extends Node {
 
         }
         else{
-            Program.putInheritance(type,null);
+            Program.putInheritance(type, null);
             this.symbolNode.setParent(null);
         }
 
@@ -134,22 +135,105 @@ public class ClassNode extends Node {
 
     @Override
     public void generate(StringBuilder builder) {
+        System.out.println("ClassNode.generate " + type);
+        builder.append("%class." + type + " = " + "type ");
+        CodeGenerator.openBrace(builder);
         String parentType = Program.getSuper(this.type);
         ClassNode parentNode = Program.getClassNode(parentType);
-        parentNode.generate(builder);
+        //parentNode.generate(builder);
+        if (parentNode != null) {
+            parentNode.generateInstance(builder);
+
+            CodeGenerator.appendComma(builder);
+        }
+
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
             if (f instanceof FeatureVar) {
                 FeatureVar fvar = (FeatureVar) f;
                 fvar.generate(builder);
+                CodeGenerator.appendComma(builder);
+
             }
         }
 
+        for (int i=0; i < varFormals.size(); i++) {
+            Var v = (Var) varFormals.get(i);
+            v.generate(builder);
+            CodeGenerator.appendComma(builder);
+        }
+        CodeGenerator.removeExtraComma(builder);
+        CodeGenerator.closeBrace(builder);
+
+        generateConstructor(builder);
+
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
-            f.generate(builder);
+            if (f instanceof FeatureMethod) {
+                FeatureMethod fmethod = (FeatureMethod) f;
+                fmethod.generate(builder);
+            }
 
         }
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    private void generateConstructor(StringBuilder builder) {
+        builder.append("define ");
+        builder.append("void ");
+
+
+        String flattenName = getConstructorName();
+        builder.append(flattenName);
+
+        CodeGenerator.openParen(builder);
+        String thisPointer = getClassPointer() + " %this";
+        builder.append(thisPointer);
+        if (varFormals.size() > 0) {
+            CodeGenerator.appendComma(builder);
+
+            for (int i=0; i < varFormals.size(); i++) {
+                Var v = (Var) varFormals.get(i);
+                v.generate(builder);
+                CodeGenerator.appendComma(builder);
+            }
+        CodeGenerator.removeExtraComma(builder);
+        }
+        CodeGenerator.closeParen(builder);
+
+        CodeGenerator.newLine(builder);
+        CodeGenerator.openBrace(builder);
+        CodeGenerator.newLine(builder);
+
+
+
+
+    }
+
+
+
+    public void generateInstance(StringBuilder builder) {
+        builder.append("%class." + this.type);
+
+    }
+
+    public void generateReference(StringBuilder builder) {
+        builder.append("%class."+ this.type + "* " );
+    }
+
+    public String getConstructorName() {
+        String className = this.type;
+        String methodName = "env";
+        String flattenName = className + "_" + methodName;
+        return flattenName;
+
+    }
+
+    public String getClassPointer() {
+        String className = this.type;
+        String thisPointer = "class." + className + "*" + " ";
+        return thisPointer;
+
+
     }
 }

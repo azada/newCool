@@ -33,12 +33,12 @@ public class FeatureMethod extends Feature {
         boolean result = true;
         this.symbolNode.setParent(pTable);
         if ( Program.typeTableContains(pTable.type)){
-            if (Program.getTableRow(pTable.type).containsKey(id)){
+            if (Program.getInstance().getTableRow(pTable.type).containsKey(id)){
                 Program.addError(new MyExeption("method "+ this.id + " has duplicate definitions " , this));
                 result = false;
             }
             else{
-                Program.getTableRow(pTable.type).put(id, this);
+                Program.getInstance().getTableRow(pTable.type).put(id, this);
             }
         }
         else{
@@ -61,6 +61,9 @@ public class FeatureMethod extends Feature {
 
         }
         ////////////////////////////////////////////////////////////////////////
+
+
+
 
 
         ///////////////////////here we check if we return the correct type in methods ///////////////////////////////

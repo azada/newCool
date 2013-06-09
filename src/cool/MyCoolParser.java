@@ -162,7 +162,7 @@ public class MyCoolParser {
 
     public void generate(StringBuilder builder) {
         ArrayList classes = Program.getClasses();
-        for (int i=0; i < classes.size(); i++) {
+        for (int i = classes.size() -1; i >= 0 ;i--) {
             ClassNode node = (ClassNode) classes.get(i);
             node.generate(builder);
         }

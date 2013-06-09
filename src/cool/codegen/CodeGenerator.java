@@ -16,11 +16,11 @@ public class CodeGenerator {
     }
 
     public static void appendIntPointer(StringBuilder builder) {
-       builder.append("i32*");
+       builder.append("i32* ");
     }
 
     public static void appendInt(StringBuilder builder) {
-        builder.append("i32");
+        builder.append("i32 ");
     }
 
     //public static void getNewPointer
@@ -31,5 +31,44 @@ public class CodeGenerator {
 
     public static void appendPointer(StringBuilder builder, ClassNode obj) {
 
+    }
+
+    public static void appendComma(StringBuilder builder) {
+        builder.append(", ");
+    }
+
+    public static void removeExtraComma(StringBuilder builder) {
+        
+        int last = builder.lastIndexOf(",");
+        //System.out.println("last = " + last + " len = " + builder.length());
+        int len = builder.length();
+        boolean finish = false;
+        for ( int i=len -1 ; i >= last && last > 0 && !finish; i--) {
+            if (builder.charAt(i) == ' '  || builder.charAt(i) == ',' ) {
+                builder.deleteCharAt(i);
+            } else {
+                finish = true;
+            }
+        }
+    }
+
+    public static void closeBrace(StringBuilder builder) {
+        builder.append(" }\n");
+    }
+
+    public static void openBrace(StringBuilder builder) {
+        builder.append("{ ");
+    }
+
+    public static void openParen(StringBuilder builder) {
+        builder.append("(");
+    }
+
+    public static void closeParen(StringBuilder builder) {
+        builder.append(")");
+    }
+
+    public static void newLine(StringBuilder builder) {
+        builder.append("\n");
     }
 }
