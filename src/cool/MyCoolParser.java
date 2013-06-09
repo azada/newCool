@@ -3,6 +3,8 @@ package cool;
 import beaver.Parser;
 import beaver.Scanner;
 import beaver.Symbol;
+import cool.exception.FatalErrorException;
+import cool.exception.MyExeption;
 import cool.parser.SimpleParser;
 
 import java.io.IOException;
@@ -81,7 +83,14 @@ public class MyCoolParser {
     public boolean checker(){
         boolean result = shallowChecker();
         for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
-            boolean cn = (((ClassNode)Program.getClasses().get(i)).check(Program.getSymbolNode()));
+
+            boolean cn = false;
+            try {
+                cn = (((ClassNode) Program.getClasses().get(i)).check(Program.getSymbolNode()));
+            } catch (FatalErrorException fatal) {
+                Program.addError(new MyExeption("Fatal Error Occurred ",fatal.getErrorInfo()));
+                return false;
+            }
             result = result && cn;
         }
         return result;

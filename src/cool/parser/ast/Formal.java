@@ -27,7 +27,7 @@ public class Formal extends Node{
             result = false;
         }
         else {
-            SymbolItem temp = new SymbolItem(id, type,0, false);
+            SymbolItem temp = new SymbolItem(id,type,0,false);
             pTable.insert(temp);
         }
         return result;
@@ -39,7 +39,7 @@ public class Formal extends Node{
         JSONLogger.openNode("formal");
         JSONLogger.attribute("id", id);
         JSONLogger.nextAttribute();
-        JSONLogger.attribute("type", type);
+        JSONLogger.attribute("type",type);
         JSONLogger.closeNode();
         //To change body of implemented methods use File | Settings | File Templates.
     }
