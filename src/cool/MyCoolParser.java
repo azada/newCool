@@ -49,20 +49,20 @@ public class MyCoolParser {
             ArrayList classList = (ArrayList) parser.parse(myCoolScanner);
             Program.setClasses(classList);
 
-            JSONLogger.openBrace();
-            JSONLogger.openListAttribute("program");
-            for (int i = 0; i < classList.size(); i++) {
-                JSONLogger.openBrace();
-                ClassNode node = (ClassNode) classList.get(i);
-                node.accept();
-                JSONLogger.closeBrace();
-                if (i < (classList.size() - 1)) {
-                    JSONLogger.nextAttribute();
-                }
-
-            }
-            JSONLogger.closeListAttribute();
-            JSONLogger.closeBrace();
+//            JSONLogger.openBrace();
+//            JSONLogger.openListAttribute("program");
+//            for (int i = 0; i < classList.size(); i++) {
+//                JSONLogger.openBrace();
+//                ClassNode node = (ClassNode) classList.get(i);
+//                node.accept();
+//                JSONLogger.closeBrace();
+//                if (i < (classList.size() - 1)) {
+//                    JSONLogger.nextAttribute();
+//                }
+//
+//            }
+//            JSONLogger.closeListAttribute();
+//            JSONLogger.closeBrace();
             System.out.println();
 
 
