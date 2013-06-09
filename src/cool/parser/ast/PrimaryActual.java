@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Time: 8:23 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PrimaryActual extends Expr {
+public class PrimaryActual extends Primary {
     ArrayList actuals;
     Primary primary ;
     String id ;
