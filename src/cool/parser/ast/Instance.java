@@ -52,7 +52,7 @@ public class Instance extends Primary {
             ArrayList temp = Program.getClassNode(type).varFormals;
             //first we check the numbers:
             if(temp.size() != actuals.size()){
-                Program.addError(new MyExeption("the number of arguments needed for initializing " + type + " is " + temp.size(),this));
+                Program.addError(new MyExeption("number of arguments required for initializing " + type + " is " + temp.size(),this));
                 result = false;
             }
             else{
@@ -68,7 +68,7 @@ public class Instance extends Primary {
             }
         }
         else{
-            Program.addError(new MyExeption("the class " + type + "doesn't exist, instance can't be initialized",this));
+            Program.addError(new MyExeption("class '" + type + "' doesn't exist, instance can't be initialized",this));
             result = false;
         }
         //To change body of implemented methods use File | Settings | File Templates.

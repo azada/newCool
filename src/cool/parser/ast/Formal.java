@@ -27,7 +27,7 @@ public class Formal extends Node{
             result = false;
         }
         else {
-            SymbolItem temp = new SymbolItem(id, type, false);
+            SymbolItem temp = new SymbolItem(id, type,0, false);
             pTable.insert(temp);
         }
         return result;

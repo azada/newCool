@@ -53,13 +53,13 @@ public class ClassNode extends Node {
     @Override
     public boolean check(SymbolNode pTable){
         boolean result = true;
-        SymbolItem temp1 = new SymbolItem("THIS", type, false);
+        SymbolItem temp1 = new SymbolItem("THIS", type,0 , false);
         symbolNode.insert(temp1);
         if(ext != null){
             boolean ex = ext.check(this.symbolNode);
             result = result && ex;
             Program.putInheritance(type, ext.type);
-            SymbolItem temp = new SymbolItem("SUPER",ext.type,false);
+            SymbolItem temp = new SymbolItem("SUPER",ext.type,0, false);
             this.symbolNode.insert(temp);
             // now we set the parent of symbol node of this class to be it's supers symbol node.
             if(Program.classTableContains(ext.type)){

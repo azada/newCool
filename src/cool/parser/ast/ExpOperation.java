@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Time: 10:51 PM
  * To change this template use File | Settings | File Templates.
  */
-public abstract class ExpOperation extends Expr {
+public abstract class ExpOperation extends Primary {
     ArrayList operandsList;
 
 }

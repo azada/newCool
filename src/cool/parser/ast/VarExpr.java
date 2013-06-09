@@ -32,7 +32,7 @@ public class VarExpr extends Expr {
             result = false;
         }
         else {
-            SymbolItem temp = new SymbolItem(id, type, false);
+            SymbolItem temp = new SymbolItem(id, type,0, false);
             pTable.insert(temp);
         }
 

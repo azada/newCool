@@ -10,12 +10,14 @@ package cool.symbol;
 public class SymbolItem {
     String id;
     String type;
+    int address;
     boolean init;
 
-    public SymbolItem(String id, String type, boolean init) {
+    public SymbolItem(String id, String type,int address, boolean init) {
         this.id = id;
         this.type = type;
         this.init = init;
+        this.address = address;
     }
     public String getType(){
         return type;

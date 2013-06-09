@@ -17,6 +17,6 @@ public class MyExeption extends Exception {
         this.errorInfo = e;
     }
     public void pritnError(){
-        System.out.println(errorMsg);
+        System.out.println("ERROR Line " + Symbol.getLine(errorInfo.getStart()) + ": " + errorMsg);
     }
 }
