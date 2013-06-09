@@ -14,6 +14,7 @@ import cool.symbol.SymbolNode;
 public class Var extends Node {
     String id;
     String type;
+    private int llvmId;
 
     public Var( String id, String type) {
         this.id = id;
@@ -52,5 +53,13 @@ public class Var extends Node {
         varNode.generateReference(builder);
         builder.append(this.id);
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void setLLVMVarId(int llvmId) {
+        this.llvmId = llvmId;
+    }
+
+    public int getLLVMVarId() {
+        return this.llvmId;
     }
 }

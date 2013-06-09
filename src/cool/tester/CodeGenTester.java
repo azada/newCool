@@ -21,19 +21,22 @@ public class CodeGenTester extends TestCase {
     public void testFeatureMethod() {
         System.out.println("CodeGenTester.testFeatureMethod");
         try {
-            FileInputStream file = new FileInputStream("testcases/testFeatureMethod.cool");
+            FileInputStream file = new FileInputStream("testcases/testClassGen.cool");
             MyCoolParser parser = new MyCoolParser(file);
             parser.parse2();
 
             parser.checker();
+            Program.printErrors();
+            System.out.println("**************************************************************************************");
+
             StringBuilder builder = new StringBuilder();
             parser.generate(builder);
             String llvmCode = builder.toString();
             System.out.println(llvmCode);
 
-            Program.printErrors();
+
             Program.clear();
-            System.out.println("**************************************************************************************");
+
 
             Assert.assertTrue(true);
 
@@ -45,4 +48,8 @@ public class CodeGenTester extends TestCase {
             Assert.assertTrue(false);
         }
     }
+
+
+
+
 }

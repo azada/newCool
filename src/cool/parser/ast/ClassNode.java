@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cool.codegen.CodeGenerator;
+import cool.codegen.VariableStack;
 import cool.exception.MyExeption;
 import cool.symbol.*;
 /**
@@ -186,6 +187,8 @@ public class ClassNode extends Node {
         String flattenName = getConstructorName();
         builder.append(flattenName);
 
+
+
         CodeGenerator.openParen(builder);
         String thisPointer = getClassPointer() + " %this";
         builder.append(thisPointer);
@@ -206,6 +209,24 @@ public class ClassNode extends Node {
         CodeGenerator.newLine(builder);
 
 
+        VariableStack.getHandle().startNewStack();
+        if (varFormals.size() > 0) {
+
+            for (int i=0; i < varFormals.size(); i++) {
+
+                int llvmId = VariableStack.getHandle().getVariable();
+                CodeGenerator.appendVar(builder, llvmId);
+                Var v = (Var) varFormals.get(i);
+                v.setLLVMVarId(llvmId);
+
+                ClassNode varNode = Program.getClassNode(v.type);
+
+                CodeGenerator.allocateStack(builder, varNode);
+                v.generate(builder);
+                CodeGenerator.appendComma(builder);
+            }
+            CodeGenerator.removeExtraComma(builder);
+        }
 
 
     }

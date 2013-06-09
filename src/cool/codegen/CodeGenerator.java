@@ -11,6 +11,7 @@ import cool.parser.ast.Program;
  * To change this template use File | Settings | File Templates.
  */
 public class CodeGenerator {
+
     public static void openArguments(StringBuilder builder) {
         builder.append("(");
     }
@@ -70,5 +71,19 @@ public class CodeGenerator {
 
     public static void newLine(StringBuilder builder) {
         builder.append("\n");
+    }
+
+    public static void allocateStack(StringBuilder builder, ClassNode classNode) {
+
+
+    }
+
+    public static void appendVar(StringBuilder builder, int variable) {
+        builder.append("%" + variable + " = ");
+
+    }
+
+    public static void appendAssign(StringBuilder builder) {
+
     }
 }
