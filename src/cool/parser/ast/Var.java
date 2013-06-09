@@ -48,6 +48,9 @@ public class Var extends Node {
 
     @Override
     public void generate(StringBuilder builder) {
+        ClassNode varNode = Program.getClassNode(this.type);
+        varNode.generateReference(builder);
+        builder.append(this.id);
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

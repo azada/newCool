@@ -16,11 +16,11 @@ public class CodeGenerator {
     }
 
     public static void appendIntPointer(StringBuilder builder) {
-       builder.append("i32*");
+       builder.append("i32* ");
     }
 
     public static void appendInt(StringBuilder builder) {
-        builder.append("i32");
+        builder.append("i32 ");
     }
 
     //public static void getNewPointer
@@ -40,10 +40,16 @@ public class CodeGenerator {
     public static void removeExtraComma(StringBuilder builder) {
         
         int last = builder.lastIndexOf(",");
-        System.out.println("i = " + last);
-        for (int i = builder.length() - 1; last > 0 && i >= last; i-- ) {
-           builder.deleteCharAt(i);
-       }
+        //System.out.println("last = " + last + " len = " + builder.length());
+        int len = builder.length();
+        boolean finish = false;
+        for ( int i=len -1 ; i >= last && last > 0 && !finish; i--) {
+            if (builder.charAt(i) == ' '  || builder.charAt(i) == ',' ) {
+                builder.deleteCharAt(i);
+            } else {
+                finish = true;
+            }
+        }
     }
 
     public static void closeBrace(StringBuilder builder) {
@@ -52,5 +58,17 @@ public class CodeGenerator {
 
     public static void openBrace(StringBuilder builder) {
         builder.append("{ ");
+    }
+
+    public static void openParen(StringBuilder builder) {
+        builder.append("(");
+    }
+
+    public static void closeParen(StringBuilder builder) {
+        builder.append(")");
+    }
+
+    public static void newLine(StringBuilder builder) {
+        builder.append("\n");
     }
 }
