@@ -20,7 +20,6 @@ public class MyCoolMain {
 
             MyCoolParser parser = new MyCoolParser(inputStream);
             parser.parse2();
-
             System.out.println("Parse Successful");
         } catch (FileNotFoundException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

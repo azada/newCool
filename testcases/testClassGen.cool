@@ -1,0 +1,13 @@
+class Parent(var t:Int){
+
+
+}
+
+class Child(var x1: Int, var x2: Int) extends Parent(x1) {
+}
+
+class Another (var x: Parent) {
+    var c : Child = new Child();
+    var i : Int  = 2;
+    var j : Int = 3;
+}
