@@ -51,18 +51,20 @@ public class Instance extends Primary {
             // now that actuals have passed the test, we check their type with the varformals of the initialized class
             ArrayList temp = Program.getClassNode(type).varFormals;
             //first we check the numbers:
-            if(temp.size() != actuals.size()){
+            if(temp.size() != actuals.size() && actuals.size()!= 0){
                 Program.addError(new MyExeption("number of arguments required for initializing " + type + " is " + temp.size(),this));
                 result = false;
             }
             else{
+                if (actuals.size()!= 0 ){
                 // now we know there are the same number, we check their type:
-                for(int i = 0 ; i<actuals.size() ;i++){
-                    if (((Var)temp.get(i)).type.equals(((Expr)actuals.get(i)).expType))
-                        continue;
-                    else{
-                        Program.addError(new MyExeption("types passed to the constructor do not match the required types",this));
-                        result = false;
+                    for(int i = 0 ; i<actuals.size() ;i++){
+                        if (((Var)temp.get(i)).type.equals(((Expr)actuals.get(i)).expType))
+                            continue;
+                        else{
+                            Program.addError(new MyExeption("types passed to the constructor do not match the required types",this));
+                            result = false;
+                        }
                     }
                 }
             }
