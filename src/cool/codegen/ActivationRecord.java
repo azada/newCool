@@ -1,5 +1,7 @@
 package cool.codegen;
 
+import cool.parser.ast.Var;
+
 import java.util.HashMap;
 
 /**
@@ -19,10 +21,10 @@ public class ActivationRecord {
         return last_variable;
     }
 
-    public int bindToNewVariable(String id) {
-        int var = getNewVariable();
-        Binding binding = new Binding(var);
-        map.put(id, binding);
+    public Binding bindToNewVariable(Var var) {
+        int llvmvar = getNewVariable();
+        Binding binding = new Binding(llvmvar, var);
+        map.put(var.ge, binding);
         return var;
     }
 
