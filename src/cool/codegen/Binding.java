@@ -1,5 +1,7 @@
 package cool.codegen;
 
+import cool.parser.ast.Var;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pedram
@@ -8,9 +10,11 @@ package cool.codegen;
  * To change this template use File | Settings | File Templates.
  */
 public class Binding {
-    int variable;
+    int llvmVarId;
+    Var var;
 
-    public Binding(int variable) {
-        this.variable = variable;
+    public Binding(int llvmVarId, Var var) {
+        this.llvmVarId = llvmVarId;
+        this.var = var;
     }
 }

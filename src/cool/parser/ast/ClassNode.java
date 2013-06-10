@@ -225,7 +225,7 @@ public class ClassNode extends Node {
 
                 Var v = (Var) varFormals.get(i);
                 int llvmVar = currentRecord.bindToNewVariable(v.id);
-                CodeGenerator.appendVar(builder, llvmVar);
+                CodeGenerator.allocateVar(builder, binding);
                 ClassNode varNode = Program.getClassNode(v.type);
 
                 CodeGenerator.allocateStack(builder, varNode);

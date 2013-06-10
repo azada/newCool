@@ -86,4 +86,8 @@ public class CodeGenerator {
     public static void appendAssign(StringBuilder builder) {
 
     }
+
+    public static void allocateVar(StringBuilder builder, Binding binding) {
+
+    }
 }
