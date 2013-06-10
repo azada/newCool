@@ -20,6 +20,11 @@ public class Id extends Primary {
     @Override
     public boolean check(SymbolNode pTable) throws MyExeption {
         boolean result;
+        if (name == "this"){
+            String tTemp = pTable.lookup("THIS").getType();
+            this.expType = tTemp;
+            return true;
+        }
         SymbolItem temp = pTable.lookup(name);
         if (temp != null){
             this.expType = temp.getType();
