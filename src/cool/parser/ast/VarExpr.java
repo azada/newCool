@@ -17,11 +17,16 @@ public class VarExpr extends Expr {
     String type;
     Expr expr;
 
+
     public VarExpr( String id, String type, Expr expr) {
         this.id = id;
         this.type = type;
         this.expr = expr;
         this.expType = UNIT_TYPE;
+    }
+
+    public Var getVar(){
+        return new Var(id,type);
     }
 
     @Override

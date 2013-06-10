@@ -24,7 +24,9 @@ public class FeatureVar extends Feature {
         isNative = true;
     }
 
-
+    public Var getVar(){
+        return new Var(id,type);
+    }
     public  FeatureVar(String id, String type, Expr expr) {
         this.id = id;
         this.type = type;
