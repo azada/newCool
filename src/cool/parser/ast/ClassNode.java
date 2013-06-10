@@ -59,6 +59,10 @@ public class ClassNode extends Node {
         boolean result = true;
         SymbolItem temp1 = new SymbolItem("THIS", type,0 , false);
         symbolNode.insert(temp1);
+        for (int i=0 ; i<varFormals.size(); i++){
+            boolean vf = ((Var)this.varFormals.get(i)).check(this.symbolNode);
+            result = result && vf;
+        }
         if(ext != null){
             boolean ex = ext.check(this.symbolNode);
             result = result && ex;
@@ -77,10 +81,6 @@ public class ClassNode extends Node {
         }
 
         result = result && defined;
-        for (int i=0 ; i<varFormals.size(); i++){
-            boolean vf = ((Var)this.varFormals.get(i)).check(this.symbolNode);
-            result = result && vf;
-        }
 
         for (int i = this.featureList.size()-1 ; i >=0 ; i--){
             /////////////////////////////////////////////////////////////////////////////////

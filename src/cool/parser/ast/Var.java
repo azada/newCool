@@ -21,6 +21,14 @@ public class Var extends Node {
         this.type = type;
     }
 
+    public String getVarId(){
+        return this.id;
+    }
+
+    public String getVarType() {
+        return type;
+    }
+
     @Override
     public boolean check(SymbolNode pTable) {
         boolean result = true;
