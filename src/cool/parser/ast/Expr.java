@@ -17,9 +17,7 @@ public abstract class Expr extends Node {
     public static final String UNIT_TYPE = "Unit";
     public static final String NULL_TYPE = Terminals.NAMES[Terminals.NULL];
 
-    public boolean isConsistant(String c, String p){
-        return Program.isConsistant(c, p);
-    }
+
     String expType = NULL_TYPE;
 
     @Override

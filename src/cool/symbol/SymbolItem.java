@@ -14,11 +14,9 @@ public class SymbolItem {
     String type;
     int address;
     boolean init;
-    ClassNode classNode;
 
-    public SymbolItem(String id, String type,int address, boolean init, ClassNode classNode) {
+    public SymbolItem(String id, String type,int address, boolean init) {
         this.id = id;
-        this.classNode = classNode;
         this.type = type;
         this.init = init;
         this.address = address;
