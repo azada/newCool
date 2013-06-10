@@ -3,6 +3,8 @@ package cool.parser.ast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
 import cool.codegen.CodeGenerator;
 import cool.codegen.VariableStack;
 import cool.exception.FatalErrorException;
@@ -184,6 +186,8 @@ public class ClassNode extends Node {
     }
 
     private void generateConstructor(StringBuilder builder) {
+
+        ActivationRecord currentRecord = ActivationStack.getHandle().startNewActivationRecord();
         builder.append("define ");
         builder.append("void ");
 
@@ -218,11 +222,10 @@ public class ClassNode extends Node {
 
             for (int i=0; i < varFormals.size(); i++) {
 
-                int llvmId = VariableStack.getHandle().getVariable();
-                CodeGenerator.appendVar(builder, llvmId);
-                Var v = (Var) varFormals.get(i);
-                v.setLLVMVarId(llvmId);
 
+                Var v = (Var) varFormals.get(i);
+                int llvmVar = currentRecord.bindToNewVariable(v.id);
+                CodeGenerator.appendVar(builder, llvmVar);
                 ClassNode varNode = Program.getClassNode(v.type);
 
                 CodeGenerator.allocateStack(builder, varNode);
