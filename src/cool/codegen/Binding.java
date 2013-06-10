@@ -11,10 +11,17 @@ import cool.parser.ast.Var;
  */
 public class Binding {
     int llvmVarId;
+    int loadedId;
     Var var;
 
     public Binding(int llvmVarId, Var var) {
         this.llvmVarId = llvmVarId;
         this.var = var;
     }
+
+    public void setLoadedId(int loadedId) {
+        this.loadedId = loadedId;
+
+    }
 }
+

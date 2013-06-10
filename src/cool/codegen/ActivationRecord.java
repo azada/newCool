@@ -24,13 +24,13 @@ public class ActivationRecord {
     public Binding bindToNewVariable(Var var) {
         int llvmvar = getNewVariable();
         Binding binding = new Binding(llvmvar, var);
-        map.put(var.ge, binding);
-        return var;
+        map.put(var.getVarId(), binding);
+        return binding;
     }
 
-    public int getBindedVar(String id) {
+    public Binding getBindedVar(String id) {
         Binding binding = (Binding)map.get(id);
-        return binding.variable;
+        return binding;
     }
 
 }

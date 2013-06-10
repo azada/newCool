@@ -23,4 +23,17 @@ public class Primitive extends ClassNode{
         }
 
     }
+
+    public void generateInstance(StringBuilder builder) {
+        if (this.type.equals("Int")) {
+            CodeGenerator.appendInt(builder);
+        }
+    }
+
+    public int getSize() {
+        if (this.type.equals("Int")) {
+            return 4;
+        }
+        return 0;
+    }
 }

@@ -3,6 +3,7 @@ package cool;
 import beaver.Parser;
 import beaver.Scanner;
 import beaver.Symbol;
+import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.parser.SimpleParser;
@@ -175,6 +176,8 @@ public class MyCoolParser {
             ClassNode node = (ClassNode) classes.get(i);
             node.generate(builder);
         }
+
+        CodeGenerator.appendMain(builder);
         //To change body of created methods use File | Settings | File Templates.
     }
 }

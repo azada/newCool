@@ -17,11 +17,11 @@ public class CodeGenerator {
     }
 
     public static void appendIntPointer(StringBuilder builder) {
-       builder.append("i32* ");
+       builder.append("i32*");
     }
 
     public static void appendInt(StringBuilder builder) {
-        builder.append("i32 ");
+        builder.append("i32");
     }
 
     //public static void getNewPointer
@@ -54,7 +54,7 @@ public class CodeGenerator {
     }
 
     public static void closeBrace(StringBuilder builder) {
-        builder.append(" }\n");
+        builder.append("}\n");
     }
 
     public static void openBrace(StringBuilder builder) {
@@ -88,6 +88,60 @@ public class CodeGenerator {
     }
 
     public static void allocateVar(StringBuilder builder, Binding binding) {
+        int varNum = binding.llvmVarId;
+        builder.append("%" + varNum + " = ");
+        builder.append("alloca ");
+        String type = binding.var.getVarType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
 
+    public static void storeVar(StringBuilder builder, Binding binding) {
+        builder.append("store ");
+        String type = binding.var.getVarType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        builder.append(" %" + binding.var.getVarId() );
+
+        appendComma(builder);
+        varNode.generateReference(builder);
+        builder.append("* ");
+        builder.append("%" + binding.llvmVarId);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
+
+    public static void loadVar(StringBuilder builder, Binding binding) {
+        builder.append("%" + binding.loadedId + " = ");
+        builder.append("load ");
+        String type = binding.var.getVarType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        builder.append("* ");
+
+        builder.append("%" + binding.llvmVarId);
+        newLine(builder);
+    }
+
+    public static void appendType(StringBuilder builder, String type) {
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateInstance(builder);
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    public static void appendMain(StringBuilder builder) {
+        builder.append("define i32 @main()");
+        newLine(builder);
+        openBrace(builder);
+        newLine(builder);
+        builder.append("ret i32\n0");
+        newLine(builder);
+        closeBrace(builder);
     }
 }

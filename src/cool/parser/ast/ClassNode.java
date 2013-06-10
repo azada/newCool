@@ -3,10 +3,7 @@ package cool.parser.ast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cool.codegen.ActivationRecord;
-import cool.codegen.ActivationStack;
-import cool.codegen.CodeGenerator;
-import cool.codegen.VariableStack;
+import cool.codegen.*;
 import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.*;
@@ -158,7 +155,8 @@ public class ClassNode extends Node {
             Feature f = (Feature) featureList.get(i);
             if (f instanceof FeatureVar) {
                 FeatureVar fvar = (FeatureVar) f;
-                fvar.generate(builder);
+                //fvar.generate(builder);
+                CodeGenerator.appendType(builder,fvar.type);
                 CodeGenerator.appendComma(builder);
 
             }
@@ -166,7 +164,8 @@ public class ClassNode extends Node {
 
         for (int i=0; i < varFormals.size(); i++) {
             Var v = (Var) varFormals.get(i);
-            v.generate(builder);
+            //v.generate(builder);
+            CodeGenerator.appendType(builder,v.type);
             CodeGenerator.appendComma(builder);
         }
         CodeGenerator.removeExtraComma(builder);
@@ -193,7 +192,7 @@ public class ClassNode extends Node {
 
 
         String flattenName = getConstructorName();
-        builder.append(flattenName);
+        builder.append("@"+flattenName);
 
 
 
@@ -217,25 +216,56 @@ public class ClassNode extends Node {
         CodeGenerator.newLine(builder);
 
 
+        ///// body from here
+
+
+
+
         VariableStack.getHandle().startNewStack();
+
+
+        //alocate and store arguments
+
+        Var varThis = new Var("this", this.type);
+        Binding bindingThis =  currentRecord.bindToNewVariable(varThis);
+        CodeGenerator.allocateVar(builder, bindingThis);
+        CodeGenerator.storeVar(builder, bindingThis);
+        int newVar = currentRecord.getNewVariable();
+        bindingThis.setLoadedId(newVar);
+        CodeGenerator.loadVar(builder, bindingThis);
+
         if (varFormals.size() > 0) {
 
             for (int i=0; i < varFormals.size(); i++) {
 
 
                 Var v = (Var) varFormals.get(i);
-                int llvmVar = currentRecord.bindToNewVariable(v.id);
-                CodeGenerator.allocateVar(builder, binding);
-                ClassNode varNode = Program.getClassNode(v.type);
+                Binding binding = currentRecord.bindToNewVariable(v);
+                CodeGenerator.allocateVar(builder, binding );
 
-                CodeGenerator.allocateStack(builder, varNode);
-                v.generate(builder);
-                CodeGenerator.appendComma(builder);
+                CodeGenerator.storeVar(builder,binding);
+
+                newVar = currentRecord.getNewVariable();
+                binding.setLoadedId(newVar);
+                CodeGenerator.loadVar(builder,binding);
+                //ClassNode varNode = Program.getClassNode(v.type);
+
+                //CodeGenerator.allocateStack(builder, varNode);
+                //v.generate(builder);
+                //CodeGenerator.appendComma(builder);
             }
-            CodeGenerator.removeExtraComma(builder);
+            //CodeGenerator.removeExtraComma(builder);
         }
 
+        //store arguments
+        //CodeGenerator.storeVar(builder,bindingThis);
 
+
+        builder.append("ret void");
+        CodeGenerator.newLine(builder);
+
+        CodeGenerator.closeBrace(builder);
+        CodeGenerator.newLine(builder);
     }
 
     public void generateInstance(StringBuilder builder) {
@@ -244,7 +274,7 @@ public class ClassNode extends Node {
     }
 
     public void generateReference(StringBuilder builder) {
-        builder.append("%class."+ this.type + "* " );
+        builder.append("%class."+ this.type + "*" );
     }
 
     public String getConstructorName() {
@@ -257,9 +287,13 @@ public class ClassNode extends Node {
 
     public String getClassPointer() {
         String className = this.type;
-        String thisPointer = "class." + className + "*" + " ";
+        String thisPointer = "%class." + className + "*" + " ";
         return thisPointer;
 
 
+    }
+
+    public int getSize() {
+        return 8;
     }
 }
