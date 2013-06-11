@@ -55,6 +55,9 @@ public class FeatureMethod extends Feature {
 
 
         ////////////////////////////////////////////////////////////////////////
+        if (expr == null){
+            return true;
+        }
         try {
             express = expr.check(this.symbolNode);
         } catch (MyExeption myExeption) {
