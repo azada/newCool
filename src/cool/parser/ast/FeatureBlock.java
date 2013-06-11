@@ -1,7 +1,11 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
 import cool.symbol.SymbolNode;
 import cool.symbol.SymbolTable;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,6 +46,12 @@ public class FeatureBlock extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
+        //ActivationRecord currentRecord = (ActivationRecord)ActivationStack.getHandle().top();
+        ArrayList<Expr> exprList = this.block.exprList;
+        for (Expr e : exprList) {
+
+           e.generate(builder);
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

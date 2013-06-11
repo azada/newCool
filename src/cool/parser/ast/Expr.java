@@ -18,7 +18,11 @@ public abstract class Expr extends Node {
     public static final String NULL_TYPE = Terminals.NAMES[Terminals.NULL];
 
 
-    String expType = NULL_TYPE;
+    public String expType = NULL_TYPE;
+
+    public String getType() {
+        return expType;
+    }
 
     @Override
     public void generate(StringBuilder builder) {

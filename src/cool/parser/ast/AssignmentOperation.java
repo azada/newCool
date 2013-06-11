@@ -1,5 +1,8 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolNode;
 
@@ -43,4 +46,21 @@ public class AssignmentOperation extends UnitOperation{
     public void accept() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public void generate(StringBuilder builder) {
+        /*
+        ActivationRecord currentRecord = (ActivationRecord) ActivationStack.getHandle().top();
+        Expr firstOp = (Expr) operandsList.get(0);
+        firstOp.generate(builder);
+        currentRecord.bindToExpr(firstOp);
+        CodeGenerator.storeVar(builder, bi);
+        CodeGenerator.storeVar();
+        Expr secondOp = (Expr) operandsList.get(1);
+
+
+        firstOp.generate(builder);
+        secondOp.generate(builder);
+        */
+    }
+
 }

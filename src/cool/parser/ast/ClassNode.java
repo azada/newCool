@@ -230,8 +230,8 @@ public class ClassNode extends Node {
         Binding bindingThis =  currentRecord.bindToNewVariable(varThis);
         CodeGenerator.allocateVar(builder, bindingThis);
         CodeGenerator.storeVar(builder, bindingThis);
-        int newVar = currentRecord.getNewVariable();
-        bindingThis.setLoadedId(newVar);
+        //int newVar = currentRecord.getNewVariable();
+        //bindingThis.setLoadedId(newVar);
         CodeGenerator.loadVar(builder, bindingThis);
 
         if (varFormals.size() > 0) {
@@ -245,8 +245,8 @@ public class ClassNode extends Node {
 
                 CodeGenerator.storeVar(builder,binding);
 
-                newVar = currentRecord.getNewVariable();
-                binding.setLoadedId(newVar);
+                //newVar = currentRecord.getNewVariable();
+                //binding.setLoadedId(newVar);
                 CodeGenerator.loadVar(builder,binding);
                 //ClassNode varNode = Program.getClassNode(v.type);
 
@@ -257,9 +257,17 @@ public class ClassNode extends Node {
             //CodeGenerator.removeExtraComma(builder);
         }
 
-        //store arguments
-        //CodeGenerator.storeVar(builder,bindingThis);
+        //implement feature block
 
+        boolean finish = false;
+        for (int i=0; i< featureList.size() && !finish; i++) {
+            Feature f = (Feature) featureList.get(i);
+            if (f instanceof FeatureBlock) {
+                FeatureBlock fblock = (FeatureBlock) f;
+                fblock.generate(builder);
+                finish = true;
+            }
+        }
 
         builder.append("ret void");
         CodeGenerator.newLine(builder);
@@ -269,6 +277,7 @@ public class ClassNode extends Node {
     }
 
     public void generateInstance(StringBuilder builder) {
+
         builder.append("%class." + this.type);
 
     }

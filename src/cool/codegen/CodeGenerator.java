@@ -100,6 +100,57 @@ public class CodeGenerator {
         newLine(builder);
     }
 
+    public static void allocateExpr(StringBuilder builder, Binding binding) {
+        int varNum = binding.llvmVarId;
+        builder.append("%" + varNum + " = ");
+        builder.append("alloca ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
+
+
+    public static void storeExpr(StringBuilder builder, Binding binding) {
+        builder.append("store ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        builder.append(" %" + binding.llvmVarId);
+
+        appendComma(builder);
+        varNode.generateReference(builder);
+        builder.append("* ");
+        builder.append("%" + binding.llvmVarId);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
+
+    public static void storeResult(StringBuilder builder, Binding target, Binding source) {
+        builder.append("store ");
+
+        String type = source.expr.getType();
+        ClassNode exprNode = Program.getClassNode(type);
+        exprNode.generateReference(builder);
+        builder.append(" %" + source.loadedId);
+
+        appendComma(builder);
+        String targetType = target.var.getVarType();
+        ClassNode varNode = Program.getClassNode(targetType);
+        varNode.generateReference(builder);
+        builder.append("* ");
+        builder.append("%" + target.llvmVarId);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
+
     public static void storeVar(StringBuilder builder, Binding binding) {
         builder.append("store ");
         String type = binding.var.getVarType();
@@ -118,6 +169,9 @@ public class CodeGenerator {
     }
 
     public static void loadVar(StringBuilder builder, Binding binding) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        int newVar = currentRecord.getNewVariable();
+        binding.setLoadedId(newVar);
         builder.append("%" + binding.loadedId + " = ");
         builder.append("load ");
         String type = binding.var.getVarType();
@@ -129,6 +183,21 @@ public class CodeGenerator {
         newLine(builder);
     }
 
+    public static void loadExpr(StringBuilder builder, Binding binding) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        int newVar = currentRecord.getNewVariable();
+        System.out.println("binding = " + binding);
+        binding.setLoadedId(newVar);
+        builder.append("%" + binding.loadedId + " = ");
+        builder.append("load ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        builder.append("* ");
+
+        builder.append("%" + binding.llvmVarId);
+        newLine(builder);
+    }
     public static void appendType(StringBuilder builder, String type) {
         ClassNode varNode = Program.getClassNode(type);
         varNode.generateInstance(builder);
@@ -143,5 +212,22 @@ public class CodeGenerator {
         builder.append("ret i32\n0");
         newLine(builder);
         closeBrace(builder);
+    }
+
+    public static void storeInt(StringBuilder builder, Binding binding, Integer value) {
+        builder.append("store ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        builder.append( " " + value );
+
+        appendComma(builder);
+        varNode.generateReference(builder);
+        builder.append("* ");
+        builder.append("%" + binding.llvmVarId);
+        appendComma(builder);
+        int size = varNode.getSize();
+        builder.append("align " + size);
+        newLine(builder);
     }
 }

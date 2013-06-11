@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -70,5 +74,30 @@ public class VarExpr extends Expr {
         }
 
         JSONLogger.closeNode();
+    }
+
+    public void generate(StringBuilder builder) {
+        ActivationRecord currentRecord = (ActivationRecord) ActivationStack.getHandle().top();
+        Var var = this.getVar();
+        Binding binding = currentRecord.bindToNewVariable(var);
+        CodeGenerator.allocateVar(builder, binding);
+        this.expr.generate(builder);
+
+        Binding result = null;
+        if (this.expr instanceof Id) {
+            Id id = (Id)this.expr;
+            result = currentRecord.getBindedVar(id.name);
+
+            CodeGenerator.loadVar(builder, result);
+        } else{
+            result = currentRecord.getBindedExpr(this.expr.toString());
+
+            CodeGenerator.loadExpr(builder, result);
+            //int loadedVar = currentRecord.getNewVariable();
+        }
+        //result.setLoadedId(loadedVar);
+
+        CodeGenerator.storeResult(builder, binding, result);
+        //CodeGenerator.storeVar();
     }
 }

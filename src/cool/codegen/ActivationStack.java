@@ -27,8 +27,8 @@ public class ActivationStack {
         stack.push(record);
     }
 
-    public ActivationStack top() {
-        return (ActivationStack)stack.peek();
+    public ActivationRecord top() {
+        return (ActivationRecord)stack.peek();
     }
 
     public ActivationStack pop() {
@@ -45,4 +45,6 @@ public class ActivationStack {
     public void removeCurrentActivationRecord() {
         pop();
     }
+
+
 }

@@ -1,5 +1,7 @@
 package cool.codegen;
 
+import cool.parser.ast.Expr;
+import cool.parser.ast.Id;
 import cool.parser.ast.Var;
 
 /**
@@ -13,15 +15,26 @@ public class Binding {
     int llvmVarId;
     int loadedId;
     Var var;
+    Expr expr;
 
     public Binding(int llvmVarId, Var var) {
         this.llvmVarId = llvmVarId;
         this.var = var;
+        expr = new Id(var.getVarId());
+        expr.expType = var.getVarType();
+
     }
 
     public void setLoadedId(int loadedId) {
         this.loadedId = loadedId;
 
     }
+
+    public Binding(int llvmVarId, Expr expr) {
+        this.llvmVarId = llvmVarId;
+        this.expr = expr;
+    }
+
+
 }
 

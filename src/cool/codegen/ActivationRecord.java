@@ -1,5 +1,8 @@
 package cool.codegen;
 
+import cool.codegen.exception.BindingNotFound;
+import cool.parser.ast.Expr;
+import cool.parser.ast.Id;
 import cool.parser.ast.Var;
 
 import java.util.HashMap;
@@ -33,4 +36,20 @@ public class ActivationRecord {
         return binding;
     }
 
+    public Binding bindToExpr(Expr expr) {
+        int llvmvar = getNewVariable();
+        Binding binding = new Binding(llvmvar, expr);
+        map.put(expr.toString(), binding);
+        return binding;
+    }
+
+    public Binding getBindedExpr(String id) {
+        Binding binding = (Binding)map.get(id);
+        return binding;
+    }
+
+    public Binding lookupBinding(Expr expr) throws BindingNotFound {
+        Binding binding = (Binding)map.get(expr.toString());
+        return binding;
+    }
 }

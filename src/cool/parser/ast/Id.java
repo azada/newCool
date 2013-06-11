@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -43,5 +47,21 @@ public class Id extends Primary {
     @Override
     public void accept( ) {
 
+    }
+
+    public void generate(StringBuilder builder) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        String newid = this.toString();
+        System.out.println("newid = " + newid);
+        Binding b = currentRecord.getBindedExpr(name);
+        System.out.println("b = " + b);
+        if (b == null) {
+            builder.append("-------lookup ------\n");
+            System.out.println("binding2 = " + b);
+        }
+        // /Binding b = currentRecord.bindToExpr(this);
+        //Binding b = currentRecord.lookupBinding(this);
+        //CodeGenerator.allocateExpr(builder, b);
+        //CodeGenerator.storeExpr(builder,b, value);
     }
 }
