@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.exception.MyExeption;
 import cool.symbol.SymbolNode;
 import cool.symbol.SymbolTable;
 
@@ -21,10 +22,14 @@ public class FeatureBlock extends Feature {
 
     }
     @Override
-    public boolean check(SymbolNode pTable) {
+    public boolean check(SymbolNode pTable) throws MyExeption {
         //To change body of implemented methods use File | Settings | File Templates.
         boolean result = true;
-        result = result && block.check(pTable);
+        try {
+            result = result && block.check(pTable);
+        } catch (MyExeption myExeption) {
+            throw myExeption;
+        }
         return result;
     }
 

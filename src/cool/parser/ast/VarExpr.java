@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -30,23 +31,27 @@ public class VarExpr extends Expr {
     }
 
     @Override
-    public boolean check(SymbolNode pTable) {
+    public boolean check(SymbolNode pTable) throws MyExeption {
         boolean result = true;
         if (!Program.typeTableContains(type)){
             Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
             result = false;
         }
-        else {
-            SymbolItem temp = new SymbolItem(id,type,0,false);
-            pTable.insert(temp);
+        if (pTable.symbolTableContains(id)){
+            Program.addError(new MyExeption("variable '" + id + "' with type '" + type + "' has already been defined",this));
+            throw new FatalErrorException("variable '" + id + "' with type '" + type + "' has already been defined" , this);
         }
+
+        SymbolItem temp = new SymbolItem(id,type,0,false);
+        pTable.insert(temp);
+
 
         /////////////////////////////////////////////////////////////////////////////////
         boolean ex = false;
         try {
             ex = expr.check(pTable);
         } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw myExeption;
         }
         /////////////////////////////////////////////////////////////////////////////////
 

@@ -20,6 +20,15 @@ public class SymbolNode {
         this.parent = parent;
         symbolTable = new HashMap<String, SymbolItem>();
     }
+    public boolean symbolTableContains(String id){
+        return symbolTable.containsKey(id);
+    }
+    public SymbolItem getRow(String id){
+        if (symbolTableContains(id)){
+            return symbolTable.get(id);
+        }
+        else return null;
+    }
 
     public SymbolNode() {
         symbolTable = new HashMap<String, SymbolItem>();

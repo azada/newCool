@@ -21,7 +21,7 @@ public class Match extends Expr {
     }
 
     @Override
-    public boolean check(SymbolNode pTable) {
+    public boolean check(SymbolNode pTable) throws MyExeption {
         boolean result = true;
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,12 @@ public class Match extends Expr {
 
 
         for (int i=0 ; i<cases.size(); i++){
-            boolean vf = ((Case)this.cases.get(i)).check(pTable);
+            boolean vf = false;
+            try {
+                vf = ((Case)this.cases.get(i)).check(pTable);
+            } catch (MyExeption myExeption) {
+               throw myExeption;
+            }
             result = result && vf;
 
         }

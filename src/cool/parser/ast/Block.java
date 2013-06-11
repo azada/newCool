@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolNode;
 import cool.symbol.SymbolTable;
@@ -31,7 +32,7 @@ public class Block extends Primary {
     }
 
     @Override
-    public boolean check(SymbolNode pTable){
+    public boolean check(SymbolNode pTable) throws MyExeption {
         // if the block is empty
         if (!longInit){
             this.expType = UNIT_TYPE;
@@ -46,8 +47,12 @@ public class Block extends Primary {
             boolean el = false;
             try {
                 el = ((Expr)(exprList.get(i))).check(symbolNode);
-            } catch (MyExeption myExeption) {
-                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            catch (FatalErrorException fe){
+                throw fe;
+            }
+            catch (MyExeption myExeption) {
+                throw myExeption;
             }
             /////////////////////////////////////////////////////////////////////////////////
 

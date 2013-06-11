@@ -41,10 +41,13 @@ public class FeatureVar extends Feature {
             result = false;
             throw new FatalErrorException("type '" + type + "' has not been defined",this);
         }
-        else {
-            SymbolItem temp = new SymbolItem(id, type,0, false);
-            pTable.insert(temp);
+        if (pTable.symbolTableContains(id)){
+            Program.addError(new MyExeption("variable '" + id + "' with type '" + type + "' has already been defined",this));
+            throw new FatalErrorException("variable '" + id + "' with type '" + type + "' has already been defined" , this);
         }
+
+        SymbolItem temp = new SymbolItem(id, type,0, false);
+        pTable.insert(temp);
 
         /////////////////////////////////////////////////////////////////////////////////
         boolean ex = false;
