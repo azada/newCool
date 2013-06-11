@@ -10,4 +10,11 @@ class Another (var x: Parent) {
     var c : Child = new Child();
     var i : Int  = 2;
     var j : Int = 3;
+
+    {
+        var pedram: Int = 2;
+        var hasan : Int = pedram
+        this
+
+    };
 }
