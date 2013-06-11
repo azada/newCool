@@ -3,7 +3,7 @@
 // rewritten for Cool 2009
 // Version 1.1
 
-class Useful(var i: Int) extends IO ()
+class Useful(var i: Int) extends IO()
 {
   def and(b1 : Boolean, b2 : Boolean) : Boolean =
     if (b1) b2 else false;
