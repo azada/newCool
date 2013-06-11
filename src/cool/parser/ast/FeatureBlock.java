@@ -2,6 +2,7 @@ package cool.parser.ast;
 
 import cool.codegen.ActivationRecord;
 import cool.codegen.ActivationStack;
+import cool.exception.MyExeption;
 import cool.symbol.SymbolNode;
 import cool.symbol.SymbolTable;
 
