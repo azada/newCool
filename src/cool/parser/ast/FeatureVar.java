@@ -36,42 +36,46 @@ public class FeatureVar extends Feature {
     @Override
     public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
+        if (!isNative){
+            if (!Program.typeTableContains(type)){
+                Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
+                throw new FatalErrorException("type '" + type + "' has not been defined",this);
+            }
+            if (pTable.symbolTableContains(id)){
+                Program.addError(new MyExeption("variable '" + id + "' with type '" + type + "' has already been defined",this));
+                throw new FatalErrorException("variable '" + id + "' with type '" + type + "' has already been defined" , this);
+            }
+            if (pTable.lookup(id)!= null){
+                Program.addError(new MyExeption("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
+                throw new FatalErrorException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy" , this);
+            }
 
-        if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
-            throw new FatalErrorException("type '" + type + "' has not been defined",this);
-        }
-        if (pTable.symbolTableContains(id)){
-            Program.addError(new MyExeption("variable '" + id + "' with type '" + type + "' has already been defined",this));
-            throw new FatalErrorException("variable '" + id + "' with type '" + type + "' has already been defined" , this);
-        }
-        if (pTable.lookup(id)!= null){
-            Program.addError(new MyExeption("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
-            throw new FatalErrorException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy" , this);
-        }
+            SymbolItem temp = new SymbolItem(id, type,0, false);
+            pTable.insert(temp);
 
-        SymbolItem temp = new SymbolItem(id, type,0, false);
-        pTable.insert(temp);
-
-        /////////////////////////////////////////////////////////////////////////////////
-        boolean ex = false;
-        try {
-            ex = expr.check(pTable);
-        } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        /////////////////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////
+            boolean ex = false;
+            try {
+                ex = expr.check(pTable);
+            } catch (MyExeption myExeption) {
+                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+            /////////////////////////////////////////////////////////////////////////////////
 
 
-        ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
-        if(!expr.expType.equals(type)){
-            Program.addError(new MyExeption("type of the right hand side expression is not " + type ,this));
-            result = false;
+            ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
+            if(!expr.expType.equals(type)){
+                Program.addError(new MyExeption("type of the right hand side expression is not " + type ,this));
+                result = false;
+            }
+            ////////////////////////////////////////////////////////////////
+            result = result &&  ex;
+            //To change body of implemented methods use File | Settings | File Templates.
+            return result;
         }
-        ////////////////////////////////////////////////////////////////
-        result = result &&  ex;
-        //To change body of implemented methods use File | Settings | File Templates.
-        return result;
+        else{
+            return true;
+        }
     }
     @Override
     public void accept() {

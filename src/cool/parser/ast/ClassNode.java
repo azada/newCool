@@ -76,8 +76,10 @@ public class ClassNode extends Node {
 
         }
         else{
-            Program.putInheritance(type, null);
-            this.symbolNode.setParent(null);
+            if (!type.equals("Any")){
+                Program.putInheritance(type, "Any");
+                this.symbolNode.setParent(null);
+            }
         }
 
         result = result && defined;
@@ -91,7 +93,7 @@ public class ClassNode extends Node {
                 throw fatal;
 
             } catch (MyExeption myExeption) {
-                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             /////////////////////////////////////////////////////////////////////////////////
 

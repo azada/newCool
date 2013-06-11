@@ -34,7 +34,7 @@ public class WhileNode extends Expr
             co = condition.check(pTable);
             ma = mainExpr.check(pTable);
         } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         ////////////////////////////////////////////////////////////////////////
 

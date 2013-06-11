@@ -49,7 +49,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
             if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Formal)formals.get(i)).type)){
-                Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id,this));
+                Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id + " " +((Formal) (temp.formals.get(i))).type + " " + ((Formal)formals.get(i)).type,this));
                 result = false;
                 break;
             }
@@ -79,7 +79,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
         try {
             express = expr.check(this.symbolNode);
         } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
 

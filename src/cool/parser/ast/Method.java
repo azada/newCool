@@ -87,7 +87,7 @@ public class Method extends Id {
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             for (int i = 0 ; i< temp.formals.size() ; i++){
-                if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
+                if (!Program.isConsistant(((Expr) actuals.get(i)).expType, ((Formal) (temp.formals.get(i))).type)){
                     Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method",this));
                     result = false;
                 }

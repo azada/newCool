@@ -58,7 +58,7 @@ public class Match extends Expr {
             }
             //if we didn't have a mutual parent
             if (temp == null){
-                Program.addError(new MyExeption("cases types did not have a mutual parent to be compared with the primary",this));
+                Program.addError(new MyExeption("cases types did not have a mutual parent to be compared with the primary" ,this));
                 result = false;
             }
             else{

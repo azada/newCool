@@ -63,7 +63,7 @@ public class Block extends Primary {
         try {
             ed = this.end.check(symbolNode);
         } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
         this.expType = end.expType;

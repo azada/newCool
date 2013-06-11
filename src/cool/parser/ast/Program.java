@@ -31,9 +31,10 @@ public class Program {
         typeTable.put("Int", null);
         typeTable.put("String", null);
         typeTable.put("Boolean", null);
-        inheritance.put("Int", null);
-        inheritance.put("String", null);
-        inheritance.put("Boolean", null);
+        inheritance.put("Int", "Any");
+        inheritance.put("String", "Any");
+        inheritance.put("Boolean", "Any");
+        inheritance.put("Any",null);
         typeClassTable.put("Int",new Primitive("Int",null,null,null));
         typeClassTable.put("String",new Primitive("String",null,null,null));
         typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
@@ -46,17 +47,21 @@ public class Program {
             instance.typeTable.put("Boolean", null);
         }
         if(instance.inheritance.isEmpty()){
-            instance.inheritance.put("Int", null);
-            instance.inheritance.put("String", null);
-            instance.inheritance.put("Boolean", null);
+            instance.inheritance.put("Int", "Any");
+            instance.inheritance.put("String", "Any");
+            instance.inheritance.put("Boolean", "Any");
         }
         return instance;
     }
     public static void putInheritance(String child, String parent){
+        if (child.equals(parent)){
+            return;
+        }
         instance.inheritance.put(child,parent);
     }
     public static void classTablePut(String type1, ClassNode node){
         instance.typeClassTable.put(type1,node);
+
     }
     public static boolean classTableContains(String type){
         if (instance.typeClassTable.containsKey(type))
@@ -70,6 +75,9 @@ public class Program {
 
 
     public static boolean isConsistant(String c, String p){
+        if (c.equals("Nothing")){
+            return true;
+        }
         if (c == null){
             return false;
         }
@@ -78,7 +86,6 @@ public class Program {
         }
         if(instance.inheritance.containsKey(c)){
             if (c.equals(p)){
-
                 return true;
             }
             String r = instance.inheritance.get(c);
@@ -103,6 +110,12 @@ public class Program {
     }
 
     public static String mutualParent(String a, String b){
+        if(a.equals("Nothing")){
+            return b;
+        }
+        if (b.equals("Nothing")){
+            return a;
+        }
         ArrayList<String> aList = new ArrayList<String>();
         ArrayList<String> bList = new ArrayList<String>();
         aList.add(a);

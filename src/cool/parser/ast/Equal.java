@@ -38,7 +38,7 @@ public class Equal extends BooleanOperation {
 
         if (((Expr)(operandsList.get(1))).expType.equals(((Expr)(operandsList.get(0))).expType)){
             if (!((Expr)(operandsList.get(1))).expType.equals(INTEGER_TYPE)){
-                Program.addError(new MyExeption("one or two sides of the operation is not integer",this));
+                Program.addError(new MyExeption("one or two sides of the equal operation is not integer",this));
                 result = false;
             }
         }

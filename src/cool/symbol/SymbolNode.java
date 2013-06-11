@@ -12,7 +12,6 @@ import java.util.HashMap;
  */
 public class SymbolNode {
     SymbolNode parent = null;
-    ArrayList<SymbolNode> childList ;
     public String type = null;
     public HashMap<String, SymbolItem> symbolTable;
 

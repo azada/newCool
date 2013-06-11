@@ -20,6 +20,7 @@ public class IO extends  ClassNode{
         this.defined = true;
         this.symbolNode  = new SymbolNode();
         this.fullyChecked = false;
+        symbolNode.type  = new String(type);
         //------------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         formals.add(new Formal("message", "String"));
@@ -41,22 +42,22 @@ public class IO extends  ClassNode{
         formals5.add(new Formal("arg", "String"));
         FeatureMethod f5 = new NativeFeatureMethod("in",formals5,"String");
 
-        ArrayList<Formal> formals6 = new ArrayList<Formal>();
-        formals6.add(new Formal("name", "String"));
-        FeatureMethod f6 = new NativeFeatureMethod("symbol",formals6,"Symbol");
-        //def symbol_name(sym : Symbol) : String = native;
-
-        ArrayList<Formal> formals7 = new ArrayList<Formal>();
-        formals7.add(new Formal("sym", "Symbol"));
-        FeatureMethod f7 = new NativeFeatureMethod("symbol_name",formals7,"String");
+//        ArrayList<Formal> formals6 = new ArrayList<Formal>();
+//        formals6.add(new Formal("name", "String"));
+//        FeatureMethod f6 = new NativeFeatureMethod("symbol",formals6,"Symbol");
+//        //def symbol_name(sym : Symbol) : String = native;
+//
+//        ArrayList<Formal> formals7 = new ArrayList<Formal>();
+//        formals7.add(new Formal("sym", "Symbol"));
+//        FeatureMethod f7 = new NativeFeatureMethod("symbol_name",formals7,"String");
 
         this.featureList.add(f1);
         this.featureList.add(f2);
         this.featureList.add(f3);
         this.featureList.add(f4);
         this.featureList.add(f5);
-        this.featureList.add(f6);
-        this.featureList.add(f7);
+//        this.featureList.add(f6);
+//        this.featureList.add(f7);
 
         //----------------------------------------
 
