@@ -3,10 +3,15 @@
 // rewritten for Cool 2009
 // Version 1.1
 
-class Useful(var i: Int) extends IO()
+class Useful(var ss: Int) extends IO()
 {
   def and(b1 : Boolean, b2 : Boolean) : Boolean =
     if (b1) b2 else false;
+}
+
+class Color(var shade : String)
+{
+  def get_shade() : String = shade;
 }
 
 class Canvas(var width : Int, var height : Int) extends Useful()
@@ -19,9 +24,10 @@ class Canvas(var width : Int, var height : Int) extends Useful()
     while (i < width) {
       var a : ArrayAny = new ArrayAny(height);
       marks.set(i,a);
+//      var dd : Useful = new Useful();
       var j : Int = 0;
       while (j < height) {
-	a.set(j," ");
+	a.set(j," " );
 	j = j + 1
       };
       i = i + 1
@@ -60,9 +66,88 @@ class Canvas(var width : Int, var height : Int) extends Useful()
   };
 }
 
-class Color(var shade : String)
+class ArrayList(var i : Int) extends IO()
 {
-  def get_shade() : String = shade;
+
+  var array : ArrayAny = new ArrayAny(1);	// the actual data values
+  var size : Int = 0;	// the numbers of values used (not the capacity)
+    def resize(n : Int) : ArrayList = {
+        if (n < 0) {
+          abort ("ArrayList.resize: negative size")
+        } else ();
+        while (array.length() < n) {
+          array = array.resize(array.length() * 2)
+        };
+        while (size < n) {
+          array.set(size, null);
+          size = size + 1
+        };
+        size = n;
+        this
+      };
+    def insert(index: Int, item : Any) : ArrayList = {
+      if (index < 0) {
+          abort ("ArrayList.insert: negative index")
+      } else {
+        if (size < index) {
+    abort ("ArrayList.insert: index too large")
+        } else {
+    size = size + 1;
+    resize(size);
+    var j : Int = size - 1;
+    while (index < j) {
+      array.set(j, array.get(j-1));
+      j = j - 1
+    };
+    array.set(index, item)
+        }
+      };
+      this
+    };
+  //Add an item to the  of the list
+  def add(item : Any) : ArrayList = {
+    insert(size, item)
+  };
+
+  //Given an index, returns the item stored at that index.
+  //Reports error for bad indices
+  def get(index : Int) : Any = {
+    if (index < 0) {
+      abort ("ArrayList.get: negative index")
+    } else {
+      if (size <= index) {
+	abort ("ArrayList.get: index too large")
+      } else {
+	array.get(index)
+      }
+    }
+  };
+
+  //Given an index, replaces the item stored at that index with the provided item
+  //Reports error for bad indices
+  def set(index : Int, item : Any) : Any = {
+    if (index < 0) {
+      abort ("ArrayList.set: negative index")
+    } else {
+      if (size <= index) {
+	abort ("ArrayList.set: index too large")
+      } else {
+	array.set(index,item)
+      }
+    }
+  };
+
+  //Returns the number of items stored in the ArrayList
+  def size(): Int = size;
+
+  //Changes the size (number of elements stored) of the ArrayList to the number
+  //provided.  May grow the capacity to encompass a larger size, but never
+  //reduces capacity.  Reports negative size errors.
+
+
+  //Inserts the provided item at the provied position.  Increases size (and
+  //capacity) as necessary.  Reports bad index errors
+
 }
 
 class Delta(var dx : Int, var dy : Int) extends Useful()
@@ -86,14 +171,7 @@ class Delta(var dx : Int, var dy : Int) extends Useful()
     new Delta(dx / i,dy / i)
   };
   
-  override def equals(other : Any) : Boolean = {
-    other match {
-      case d : Delta =>
-	and(dx == d.get_delta_x(),
-	    dy == d.get_delta_y())
-      case o:Any => false
-    }
-  };
+
 }
 
 class Shape(var color : Color) extends Useful()
@@ -158,29 +236,29 @@ CenteredShape(new Color(" "),new Point(new Color(" "),0,0))
       case s:CenteredShape => s
     }
   };
-  
+   def compute_center() : Point = {
+       var n : Int = shapes.size();
+       var origin : Point = new Point(color,0,0);
+       var sum : Delta = new Delta(0,0);
+       var i : Int = 0;
+       while (i < n) {
+         var p1 : Point = get(i).get_center();
+         sum.add(p1.minus(origin));
+         i = i+1
+       };
+       if (0 < n) {
+         center = origin.move(sum.divide(n)); center
+       } else {
+         center // unchanged
+       }
+     };
   def add(s : CenteredShape) : Group = {
     shapes.add(s);
     compute_center();
     this
   };
   
-  def compute_center() : Point = {
-    var n : Int = shapes.size();
-    var origin : Point = new Point(color,0,0);
-    var sum : Delta = new Delta(0,0); 
-    var i : Int = 0;
-    while (i < n) {
-      var p1 : Point = get(i).get_center();
-      sum.add(p1.minus(origin));
-      i = i+1
-    };
-    if (0 < n) {
-      center = origin.move(sum.divide(n)); center
-    } else {
-      center // unchanged
-    }
-  };
+
   
   override def move(d:Delta) : Group = {
     super.move(d);
@@ -358,85 +436,4 @@ class Main(var i: Int) extends IO()
 
 //ArrayList class manages a hybrid list with a dynamic array that
 //doubles in capacity when growing.
-class ArrayList(var i : Int) extends IO()
-{
 
-  var array : ArrayAny = new ArrayAny(1);	// the actual data values
-  var size : Int = 0;	// the numbers of values used (not the capacity)
-
-  //Add an item to the } of the list
-  def add(item : Any) : ArrayList = { 
-    insert(size, item)
-  };
-
-  //Given an index, returns the item stored at that index. 
-  //Reports error for bad indices
-  def get(index : Int) : Any = {
-    if (index < 0) {
-      abort ("ArrayList.get: negative index")
-    } else {
-      if (size <= index) {
-	abort ("ArrayList.get: index too large")
-      } else {
-	array.get(index)
-      }
-    }
-  };
-
-  //Given an index, replaces the item stored at that index with the provided item
-  //Reports error for bad indices
-  def set(index : Int, item : Any) : Any = {
-    if (index < 0) {
-      abort ("ArrayList.set: negative index")
-    } else {
-      if (size <= index) {
-	abort ("ArrayList.set: index too large")
-      } else {
-	array.set(index,item)
-      }
-    }
-  };
-
-  //Returns the number of items stored in the ArrayList
-  def size(): Int = size;
-
-  //Changes the size (number of elements stored) of the ArrayList to the number
-  //provided.  May grow the capacity to encompass a larger size, but never 
-  //reduces capacity.  Reports negative size errors.
-  def resize(n : Int) : ArrayList = {
-    if (n < 0) {
-      abort ("ArrayList.resize: negative size")
-    } else ();
-    while (array.length() < n) {
-      array = array.resize(array.length() * 2)
-    };
-    while (size < n) {
-      array.set(size, null);
-      size = size + 1
-    };
-    size = n;
-    this
-  };
-
-  //Inserts the provided item at the provied position.  Increases size (and
-  //capacity) as necessary.  Reports bad index errors
-  def insert(index: Int, item : Any) : ArrayList = {
-    if (index < 0) {
-        abort ("ArrayList.insert: negative index")
-    } else {
-      if (size < index) {
-	abort ("ArrayList.insert: index too large")
-      } else {
-	size = size + 1;
-	resize(size);
-	var j : Int = size - 1;
-	while (index < j) {
-	  array.set(j, array.get(j-1));
-	  j = j - 1
-	};
-	array.set(index, item)
-      }
-    };
-    this
-  };
-}
