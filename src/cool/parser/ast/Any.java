@@ -20,5 +20,21 @@ public class Any extends ClassNode{
         this.defined = true;
         this.symbolNode  = new SymbolNode();
         this.fullyChecked = false;
+
+        ArrayList<Formal> formals = new ArrayList<Formal>();
+        FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
+
+
+
+
     }
 }
+
+//class Any() extends native {
+//
+//        /** Returns a string representation for the object */
+//        def toString() : String = native;
+//
+///** return true if this object is equal (in some sense) to the argument */
+//def equals(x : Any) : Boolean = native;
+//}

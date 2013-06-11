@@ -4,6 +4,7 @@ import cool.codegen.ActivationRecord;
 import cool.codegen.ActivationStack;
 import cool.codegen.Binding;
 import cool.codegen.CodeGenerator;
+import cool.exception.FatalErrorException;
 import cool.exception.MyExeption;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
