@@ -1,0 +1,13 @@
+class A() {
+
+    {
+        var f:Int = 2 ;
+        var ss:Int = 4;
+        var s:Int = 44;
+        f
+    };
+    {
+    var f:Int = 5;
+    f
+    };
+}
