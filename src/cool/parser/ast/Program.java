@@ -116,6 +116,9 @@ public class Program {
         if (b.equals("Nothing")){
             return a;
         }
+        if(a.equals(b)){
+            return a;
+        }
         ArrayList<String> aList = new ArrayList<String>();
         ArrayList<String> bList = new ArrayList<String>();
         aList.add(a);
@@ -145,7 +148,7 @@ public class Program {
         //now we have both inheritance trees in two lists
         Collections.reverse(aList);
         Collections.reverse(bList);
-        String result = null;
+        String result = "Any";
         for(int i = 0 ; i< Math.min(aList.size(), bList.size()) ; i++){
             if (aList.get(i).equals(bList.get(i)))
                 result = aList.get(i);

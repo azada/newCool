@@ -41,7 +41,7 @@ public class SuperActual extends Primary {
             result = false;
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
-            if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Expr) actuals.get(i)).expType)){
+            if (!Program.isConsistant( ((Expr) actuals.get(i)).expType,((Formal) (temp.formals.get(i))).type)){
                 Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id,this));
                 result = false;
                 break;
