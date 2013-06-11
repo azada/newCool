@@ -34,6 +34,9 @@ public class ClassNode extends Node {
         fullyChecked = false;
     }
 
+    public ClassNode() {
+    }
+
     public String getType() {
         return type;
     }
