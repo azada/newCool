@@ -31,7 +31,7 @@ public class AssignmentOperation extends UnitOperation{
             }
             result = result && fml;
         }
-        if (!Program.isConsistant(((Expr)(operandsList.get(1))).expType,((Expr)(operandsList.get(0))).expType)){
+        if (!Program.isConsistent(((Expr) (operandsList.get(1))).expType, ((Expr) (operandsList.get(0))).expType)){
              Program.addError(new MyException("type of expression on the right do not match the expression on the left",this));
             result = false;
         }

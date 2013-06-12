@@ -73,7 +73,7 @@ public class FeatureMethod extends Feature {
         if (expr.expType == null){
             return false;
         }
-        if(!Program.isConsistant(expr.expType,type)){
+        if(!Program.isConsistent(expr.expType, type)){
             Program.addError(new MyException("the return type of method '" + id + "' should be " + type + " it's not consistant with " + expr.expType ,this));
             result = false;
         }

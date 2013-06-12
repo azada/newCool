@@ -62,7 +62,7 @@ public class Program {
     }
 
 
-    public static boolean isConsistant(String c, String p){
+    public static boolean isConsistent(String c, String p){
         if (c.equals("Nothing")){
             return true;
         }
@@ -82,7 +82,7 @@ public class Program {
             if (r.equals(p))
                 return true;
             else{
-                return isConsistant(r, p);
+                return isConsistent(r, p);
             }
         }
         else

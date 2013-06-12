@@ -63,7 +63,7 @@ public class VarExpr extends Expr {
         }
         /////////////////////////////////////////////////////////////////////////////////
 
-        if(!Program.isConsistant(expr.expType, type)){
+        if(!Program.isConsistent(expr.expType, type)){
             Program.addError(new MyException("the type of this expression is not " + type ,this));
             result = false;
         }

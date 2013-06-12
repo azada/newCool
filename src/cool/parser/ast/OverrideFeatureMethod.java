@@ -48,7 +48,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
             result = false;
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
-            if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Formal)formals.get(i)).type)){
+            if (!Program.isConsistent(((Formal) (temp.formals.get(i))).type, ((Formal) formals.get(i)).type)){
                 Program.addError(new MyException("type of actuals doesn't match argument list defined in the method "+ id + " " +((Formal) (temp.formals.get(i))).type + " " + ((Formal)formals.get(i)).type,this));
                 result = false;
                 break;
@@ -85,7 +85,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
 
 
         result = result &&  express;
-        if(!Program.isConsistant(expr.expType,type)){
+        if(!Program.isConsistent(expr.expType, type)){
             Program.addError(new MyException("the return type of this expression is not consistant with " + type ,this));
             result = false;
         }
