@@ -67,7 +67,11 @@ public class IO extends  ClassNode{
 
     @Override
     public void generate(StringBuilder builder) {
-        String temp = "define void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
+        String temp3 = "%class.IO = type { %class.Any, i32}";
+        builder.append(temp3);
+       // "@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1"
+        String temp = "" +"@.str = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
+                "define void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
                 "  %1 = alloca i32, align 4\n" +
                 "  store i32 %a, i32* %1, align 4\n" +
                 "  %2 = load i32* %1, align 4\n" +
@@ -80,10 +84,10 @@ public class IO extends  ClassNode{
         builder.append(temp);
         String temp2 = "define zeroext i1 @IO_is_null(%class.IO* %this ,%class.Any* %a) nounwind uwtable ssp {\n" +
                 "  %1 = alloca i1, align 1\n" +
-                "  %2 = alloca %class.A*, align 8\n" +
-                "  store %class.A* %a, %class.A** %2, align 8\n" +
-                "  %3 = load %class.A** %2, align 8\n" +
-                "  %4 = icmp eq %class.A* %3, null\n" +
+                "  %2 = alloca %class.Any*, align 8\n" +
+                "  store %class.Any* %a, %class.Any** %2, align 8\n" +
+                "  %3 = load %class.Any** %2, align 8\n" +
+                "  %4 = icmp eq %class.Any* %3, null\n" +
                 "  br i1 %4, label %5, label %6\n" +
                 "\n" +
                 "; <label>:5                                       ; preds = %0\n" +
@@ -101,6 +105,7 @@ public class IO extends  ClassNode{
         builder.append(temp2);
     }
 }
+
 
 ///** The IO class provides simple input and output operations */
 //class IO() {
