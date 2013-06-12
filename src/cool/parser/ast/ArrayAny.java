@@ -53,6 +53,7 @@ public class ArrayAny extends ClassNode{
     }
 }
 
+//@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 
 ///** An array is a mutable fixed-size container holding any objects.
 // * The elements are numbered from 0 to size-1.
