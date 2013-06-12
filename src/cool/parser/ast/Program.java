@@ -184,7 +184,7 @@ public class Program {
     public static HashMap<String,FeatureMethod> getTableRow(String a){
         return instance.typeTable.get(a);
     }
-    public static void typeTablePut(String a , HashMap<String,FeatureMethod> b){
+    public static void putTypeTable(String a, HashMap<String, FeatureMethod> b){
         instance.typeTable.put(a, b);
     }
     public static SymbolNode getSymbolNode(){
