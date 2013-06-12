@@ -40,19 +40,7 @@ public class Program {
         typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
 
     }
-    public static Program getInstance(){
-        if(instance.typeTable.isEmpty()){
-            instance.typeTable.put("Int", null);
-            instance.typeTable.put("String", null);
-            instance.typeTable.put("Boolean", null);
-        }
-        if(instance.inheritance.isEmpty()){
-            instance.inheritance.put("Int", "Any");
-            instance.inheritance.put("String", "Any");
-            instance.inheritance.put("Boolean", "Any");
-        }
-        return instance;
-    }
+
     public static void putInheritance(String child, String parent){
         if (child.equals(parent)){
             return;
@@ -220,15 +208,28 @@ public class Program {
         instance.typeClassTable.clear();
         instance.inheritance.clear();
         instance.errorList.clear();
-        instance.typeTable.put("Int", null);
-        instance.typeTable.put("String", null);
-        instance.typeTable.put("Boolean", null);
-        instance.inheritance.put("Int", null);
-        instance.inheritance.put("String", null);
-        instance.inheritance.put("Boolean", null);
-        instance.typeClassTable.put("Int",new Primitive("Int",null,null,null));
-        instance.typeClassTable.put("String",new Primitive("String",null,null,null));
-        instance.typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
+        typeTable.put("Int", null);
+        typeTable.put("String", null);
+        typeTable.put("Boolean", null);
+        inheritance.put("Int", "Any");
+        inheritance.put("String", "Any");
+        inheritance.put("Boolean", "Any");
+        inheritance.put("Any",null);
+        typeClassTable.put("Int",new Primitive("Int",null,null,null));
+        typeClassTable.put("String",new Primitive("String",null,null,null));
+        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
     }
-
+//   public static Program getInstance(){
+//        if(instance.typeTable.isEmpty()){
+//            instance.typeTable.put("Int", null);
+//            instance.typeTable.put("String", null);
+//            instance.typeTable.put("Boolean", null);
+//        }
+//        if(instance.inheritance.isEmpty()){
+//            instance.inheritance.put("Int", "Any");
+//            instance.inheritance.put("String", "Any");
+//            instance.inheritance.put("Boolean", "Any");
+//        }
+//        return instance;
+//    }
 }
