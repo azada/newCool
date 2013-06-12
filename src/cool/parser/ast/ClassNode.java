@@ -50,7 +50,7 @@ public class ClassNode extends Node {
         }
         else {
             Program.typeTablePut(type, new HashMap<String, FeatureMethod>());
-            Program.classTablePut(type, this);
+            Program.putClassTable(type, this);
         }
         return result;
     }

@@ -47,7 +47,7 @@ public class Program {
         }
         instance.inheritance.put(child,parent);
     }
-    public static void classTablePut(String type1, ClassNode node){
+    public static void putClassTable(String type1, ClassNode node){
         instance.typeClassTable.put(type1,node);
 
     }
@@ -181,7 +181,7 @@ public class Program {
     public static boolean typeTableContains(String a){
         return instance.typeTable.containsKey(a);
     }
-    public static HashMap<String,FeatureMethod>  getTableRow(String a){
+    public static HashMap<String,FeatureMethod> getTableRow(String a){
         return instance.typeTable.get(a);
     }
     public static void typeTablePut(String a , HashMap<String,FeatureMethod> b){
