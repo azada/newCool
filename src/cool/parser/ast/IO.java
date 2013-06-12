@@ -64,6 +64,42 @@ public class IO extends  ClassNode{
 
     }
 
+
+    @Override
+    public void generate(StringBuilder builder) {
+        String temp = "define void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
+                "  %1 = alloca i32, align 4\n" +
+                "  store i32 %a, i32* %1, align 4\n" +
+                "  %2 = load i32* %1, align 4\n" +
+                "  %3 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32 %2)\n" +
+                "  ret void\n" +
+                "}\n" +
+                "\n" +
+                "declare i32 @printf(i8*, ...)\n" +
+                "\n";
+        builder.append(temp);
+        String temp2 = "define zeroext i1 @IO_is_null(%class.IO* %this ,%class.Any* %a) nounwind uwtable ssp {\n" +
+                "  %1 = alloca i1, align 1\n" +
+                "  %2 = alloca %class.A*, align 8\n" +
+                "  store %class.A* %a, %class.A** %2, align 8\n" +
+                "  %3 = load %class.A** %2, align 8\n" +
+                "  %4 = icmp eq %class.A* %3, null\n" +
+                "  br i1 %4, label %5, label %6\n" +
+                "\n" +
+                "; <label>:5                                       ; preds = %0\n" +
+                "  store i1 true, i1* %1\n" +
+                "  br label %7\n" +
+                "\n" +
+                "; <label>:6                                       ; preds = %0\n" +
+                "  store i1 false, i1* %1\n" +
+                "  br label %7\n" +
+                "\n" +
+                "; <label>:7                                       ; preds = %6, %5\n" +
+                "  %8 = load i1* %1\n" +
+                "  ret i1 %8\n" +
+                "}"  ;
+        builder.append(temp2);
+    }
 }
 
 ///** The IO class provides simple input and output operations */

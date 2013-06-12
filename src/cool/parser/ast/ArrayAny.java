@@ -25,7 +25,7 @@ public class ArrayAny extends ClassNode{
         //-------------------------------------
         Var v1 = new Var("length","Int");
         this.varFormals.add(v1);
-        FeatureVar f1  = new FeatureVar("array_field");
+//        FeatureVar f1  = new FeatureVar("array_field");
 
         ArrayList<Formal> formals1 = new ArrayList<Formal>();
         FeatureMethod f2 = new FeatureMethod("length",formals1,"Int",new Id("length"));
@@ -43,7 +43,7 @@ public class ArrayAny extends ClassNode{
         formals4.add(new Formal("obj", "Any"));
         FeatureMethod f5 = new NativeFeatureMethod("set",formals4,"Any");
 
-        this.featureList.add(f1);
+//        this.featureList.add(f1);
         this.featureList.add(f2);
         this.featureList.add(f3);
         this.featureList.add(f4);
@@ -52,3 +52,36 @@ public class ArrayAny extends ClassNode{
         //----------------------------------------
     }
 }
+
+
+///** An array is a mutable fixed-size container holding any objects.
+// * The elements are numbered from 0 to size-1.
+// * An array may be void.  It is not legal to inherit from ArrayAny.
+// */
+//class ArrayAny(var length : Int) {
+//
+//        var array_field = native;
+//
+///** Return length of array. */
+//def length() : Int = length;
+//
+///** Return a new array of size s (the original array is unchanged).
+// * Any values in the original array that fit within the new array
+// * are copied over.  If the new array is larger than the original array,
+// * the additional entries start void.  If the new array is smaller
+// * than the original array, entries past the end of the new array are
+// * not copied over.
+// */
+//def resize(s : Int) : ArrayAny = native;
+//
+//  /* Returns the entry at location index.
+//   * precondition: 0 <= index < length()
+//   */
+//def get(index : Int) : Any = native;
+//
+//  /* change the entry at location index.
+//   * return the old value, if any (or null).
+//   * precondition: 0 <= index < length()
+//   */
+//def set(index : Int, obj : Any) : Any = native;
+//}

@@ -200,6 +200,9 @@ public class CodeGenerator {
     }
     public static void appendType(StringBuilder builder, String type) {
         ClassNode varNode = Program.getClassNode(type);
+        if (varNode == null){
+            System.out.println(type);
+        }
         varNode.generateInstance(builder);
         //To change body of created methods use File | Settings | File Templates.
     }

@@ -63,11 +63,6 @@ public class FeatureMethod extends Feature {
         } catch (MyException myException) {
 
         }
-        ////////////////////////////////////////////////////////////////////////
-
-
-
-
 
         ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
         if (expr.expType == null){

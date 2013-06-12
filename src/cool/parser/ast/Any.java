@@ -38,11 +38,3 @@ public class Any extends ClassNode{
 
 }
 
-//class Any() extends native {
-//
-//        /** Returns a string representation for the object */
-//        def toString() : String = native;
-//
-///** return true if this object is equal (in some sense) to the argument */
-//def equals(x : Any) : Boolean = native;
-//}
