@@ -28,7 +28,7 @@ public class ArrayAny extends ClassNode{
 //        FeatureVar f1  = new FeatureVar("array_field");
 
         ArrayList<Formal> formals1 = new ArrayList<Formal>();
-        FeatureMethod f2 = new FeatureMethod("length",formals1,"Int",new Id("length"));
+        FeatureMethod f2 = new NativeFeatureMethod("length",formals1,"Int");
 
         ArrayList<Formal> formals2 = new ArrayList<Formal>();
         formals2.add(new Formal("s", "Int"));
