@@ -9,10 +9,10 @@ import beaver.Symbol;
  * Time: 10:20 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MyExeption extends Exception {
+public class MyException extends Exception {
     String errorMsg;
     Symbol errorInfo ;
-    public MyExeption(String errorMsg, Symbol e){
+    public MyException(String errorMsg, Symbol e){
         this.errorMsg = errorMsg;
         this.errorInfo = e;
     }

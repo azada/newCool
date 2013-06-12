@@ -1,7 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MethodException;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class PrimaryActual extends Primary {
         this.id = id;
     }
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         // we should check the Type of primary and make sure it has an id with this method.
         boolean result = true;
         FeatureMethod temp = null;
@@ -42,7 +41,7 @@ public class PrimaryActual extends Primary {
                         if(temp == null){
                             // this means that this method doesn't exsist
                             result = false;
-                            Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType, this));
+                            Program.addError(new MyException("method '" + id + "' doesn't exist within " + primary.expType, this));
                             return false;
                         }
                         else{
@@ -50,7 +49,7 @@ public class PrimaryActual extends Primary {
                         }
                     }
                     else{
-                        Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType + " or it's supers", this));
+                        Program.addError(new MyException("method '" + id + "' doesn't exist within " + primary.expType + " or it's supers", this));
                         return false;
                     }
 
@@ -62,14 +61,14 @@ public class PrimaryActual extends Primary {
                 }
             }
             else{
-                   Program.addError(new MyExeption("method '" + id + "' doesn't exist within " + primary.expType, this));
+                   Program.addError(new MyException("method '" + id + "' doesn't exist within " + primary.expType, this));
                     return false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
-            Program.addError(new MyExeption("there is no such type '"+ primary.expType + "' defined",this));
+            Program.addError(new MyException("there is no such type '"+ primary.expType + "' defined",this));
 
             result = false;
         }
@@ -82,13 +81,13 @@ public class PrimaryActual extends Primary {
         if (temp != null)  {
         // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
-                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
+                Program.addError(new MyException(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
                 result = false;
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             for (int i = 0 ; i< temp.formals.size() ; i++){
                 if (!Program.isConsistant(((Expr) actuals.get(i)).expType,((Formal) (temp.formals.get(i))).type)){
-                    Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method" +((Formal) (temp.formals.get(i))).type + " " + ((Expr) actuals.get(i)).expType ,this));
+                    Program.addError(new MyException("type of actuals doesn't match argument list defined in the method" +((Formal) (temp.formals.get(i))).type + " " + ((Expr) actuals.get(i)).expType ,this));
                     result = false;
                 }
             }

@@ -49,19 +49,6 @@ public class ArrayAny extends ClassNode{
         this.featureList.add(f4);
         this.featureList.add(f5);
 
+        //----------------------------------------
     }
 }
-/** An array is a mutable fixed-size container holding any objects.
- * The elements are numbered from 0 to size-1.
- * An array may be void.  It is not legal to inherit from ArrayAny.
- */
-//class ArrayAny(var length : Int) {
-
-//def get(index : Int) : Any = native;
-//
-//  /* change the entry at location index.
-//   * return the old value, if any (or null).
-//   * precondition: 0 <= index < length()
-//   */
-//def set(index : Int, obj : Any) : Any = native;
-//}

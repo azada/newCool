@@ -1,9 +1,6 @@
 package cool.parser.ast;
 
-import cool.codegen.ActivationRecord;
-import cool.codegen.ActivationStack;
-import cool.codegen.CodeGenerator;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -29,13 +26,13 @@ public class AssignmentOperation extends UnitOperation{
             boolean fml = false;
             try {
                 fml = ((Expr) operand).check(pTable);
-            } catch (MyExeption myExeption) {
+            } catch (MyException myException) {
                 return result;
             }
             result = result && fml;
         }
         if (!Program.isConsistant(((Expr)(operandsList.get(1))).expType,((Expr)(operandsList.get(0))).expType)){
-             Program.addError(new MyExeption("type of expression on the right do not match the expression on the left",this));
+             Program.addError(new MyException("type of expression on the right do not match the expression on the left",this));
             result = false;
         }
 

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 package cool.parser.ast;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -33,30 +33,30 @@ public class OverrideFeatureMethod extends FeatureMethod {
         // we should check if this current class has a supertype.
         String superType = pTable.lookup("SUPER").getType();
         if(superType == null){
-            Program.addError(new MyExeption("this class doesn't have a super class so there is no override method acceptale",this));
+            Program.addError(new MyException("this class doesn't have a super class so there is no override method acceptale",this));
             result = false;
             return result;
         }
         // now we should check if the super type has this method
         FeatureMethod temp = Program.fetchMethod(superType,id);
         if(temp == null){
-            Program.addError(new MyExeption("there is no such method in this type's supper classes ",this));
+            Program.addError(new MyException("there is no such method in this type's supper classes ",this));
             return result;
         }
         if (temp.formals.size() != this.formals.size()){
-            Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + this.formals + " are given",this));
+            Program.addError(new MyException(temp.formals.size()+ " number of argument needed and " + this.formals + " are given",this));
             result = false;
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
             if (!Program.isConsistant(((Formal) (temp.formals.get(i))).type, ((Formal)formals.get(i)).type)){
-                Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id + " " +((Formal) (temp.formals.get(i))).type + " " + ((Formal)formals.get(i)).type,this));
+                Program.addError(new MyException("type of actuals doesn't match argument list defined in the method "+ id + " " +((Formal) (temp.formals.get(i))).type + " " + ((Formal)formals.get(i)).type,this));
                 result = false;
                 break;
             }
         }
         if (Program.typeTableContains(pTable.type)){
             if (Program.getTableRow(pTable.type).containsKey(id)){
-                Program.addError(new MyExeption("method "+ this.id + " has duplicate definitions " , this));
+                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
                 result = false;
             }
             else{
@@ -64,7 +64,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
             }
         }
         else{
-            Program.addError(new MyExeption("the scope for this class has not been defined",this));
+            Program.addError(new MyException("the scope for this class has not been defined",this));
         }
         //we set the parent node to be the pTable
 
@@ -78,15 +78,15 @@ public class OverrideFeatureMethod extends FeatureMethod {
         boolean express = false;
         try {
             express = expr.check(this.symbolNode);
-        } catch (MyExeption myExeption) {
-//            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MyException myException) {
+//            myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
 
 
         result = result &&  express;
         if(!Program.isConsistant(expr.expType,type)){
-            Program.addError(new MyExeption("the return type of this expression is not consistant with " + type ,this));
+            Program.addError(new MyException("the return type of this expression is not consistant with " + type ,this));
             result = false;
         }
         return result ;

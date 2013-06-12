@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
@@ -24,7 +24,7 @@ public class Formal extends Node{
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
+            Program.addError(new MyException("type '" + type + "' has not been defined",this));
             result = false;
         }
         else {

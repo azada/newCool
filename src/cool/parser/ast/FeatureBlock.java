@@ -1,10 +1,8 @@
 package cool.parser.ast;
 
-import cool.codegen.ActivationRecord;
-import cool.codegen.ActivationStack;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
-import cool.symbol.SymbolTable;
+
 import java.util.ArrayList;
 
 /**
@@ -25,13 +23,13 @@ public class FeatureBlock extends Feature {
 
     }
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         //To change body of implemented methods use File | Settings | File Templates.
         boolean result = true;
         try {
             result = result && block.check(pTable);
-        } catch (MyExeption myExeption) {
-            throw myExeption;
+        } catch (MyException myException) {
+            throw myException;
         }
         return result;
     }

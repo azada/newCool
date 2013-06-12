@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -27,22 +27,22 @@ public class SuperActual extends Primary {
         boolean result = true;
         String superType = pTable.lookup("SUPER").getType();
         if(superType == null){
-            Program.addError(new MyExeption("this class doesn't have a super class",this));
+            Program.addError(new MyException("this class doesn't have a super class",this));
             result = false;
             return result;
         }
         FeatureMethod temp = Program.fetchMethod(superType,id);
         if(temp == null){
-            Program.addError(new MyExeption("there is no such method in this type's supper classes ",this));
+            Program.addError(new MyException("there is no such method in this type's supper classes ",this));
             return result;
         }
         if (temp.formals.size() != actuals.size()){
-            Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals + " are given",this));
+            Program.addError(new MyException(temp.formals.size()+ " number of argument needed and " + actuals + " are given",this));
             result = false;
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
             if (!Program.isConsistant( ((Expr) actuals.get(i)).expType,((Formal) (temp.formals.get(i))).type)){
-                Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method "+ id,this));
+                Program.addError(new MyException("type of actuals doesn't match argument list defined in the method "+ id,this));
                 result = false;
                 break;
             }

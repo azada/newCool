@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -32,8 +32,8 @@ public class LessOrEqual extends BooleanOperation {
             boolean fml = false;
             try {
                 fml = ((Expr) operand).check(pTable);
-            } catch (MyExeption myExeption) {
-                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (MyException myException) {
+                myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             /////////////////////////////////////////////////////////////////////////////////
 
@@ -42,12 +42,12 @@ public class LessOrEqual extends BooleanOperation {
 
         if (((Expr)(operandsList.get(1))).expType.equals(((Expr)(operandsList.get(0))).expType)){
             if (!((Expr)(operandsList.get(1))).expType.equals(INTEGER_TYPE)){
-                Program.addError(new MyExeption("one or two sides of the operation is not integer",this));
+                Program.addError(new MyException("one or two sides of the operation is not integer",this));
                 result = false;
             }
         }
         else{
-            Program.addError(new MyExeption("two sides of the less or equal operation do not have the same type",this));
+            Program.addError(new MyException("two sides of the less or equal operation do not have the same type",this));
             result = false;
         }
 

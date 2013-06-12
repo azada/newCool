@@ -22,6 +22,7 @@ public class Any extends ClassNode{
         this.fullyChecked = false;
         symbolNode.type  = new String(type);
 
+        //----------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
 
@@ -32,6 +33,7 @@ public class Any extends ClassNode{
         this.featureList.add(f1);
         this.featureList.add(f2);
 
+        //----------------------------------------
     }
 
 }

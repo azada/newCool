@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 /**
@@ -32,8 +32,8 @@ public class IfNode extends Expr {
             co = condition.check(pTable);
             ex = elseExpr.check(pTable);
             mx = mainExpr.check(pTable);
-        } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MyException myException) {
+            myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +48,7 @@ public class IfNode extends Expr {
             if (temp != null)
                 this.expType = temp;
             else {
-                Program.addError(new MyExeption("the main expression and the else expression do not have a mutual parent" ,this));
+                Program.addError(new MyException("the main expression and the else expression do not have a mutual parent" ,this));
                 result = false;
             }
         }

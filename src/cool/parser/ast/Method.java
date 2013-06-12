@@ -1,7 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
-import cool.symbol.SymbolItem;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class Method extends Id {
     }
 
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         // we should check the Type of primary and make sure it has a method with this method.
         boolean result = true;
         FeatureMethod temp ;
@@ -43,7 +42,7 @@ public class Method extends Id {
                         if(temp == null){
                             // this means that this method doesn't exsist
                             result = false;
-                            Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp, this));
+                            Program.addError(new MyException("method '" + name + "' doesn't exist within " + tTemp, this));
                             return false;
                         }
                         else{
@@ -52,7 +51,7 @@ public class Method extends Id {
 
                     }
                     else{
-                        Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp + " or it's supersss", this));
+                        Program.addError(new MyException("method '" + name + "' doesn't exist within " + tTemp + " or it's supersss", this));
                         return false;
                     }
                 }
@@ -63,14 +62,14 @@ public class Method extends Id {
                 }
             }
             else{
-                Program.addError(new MyExeption("method '" + name + "' doesn't exist within " + tTemp, this));
+                Program.addError(new MyException("method '" + name + "' doesn't exist within " + tTemp, this));
                 return false;
             }
 
         }
         else{
             // if this primary type has not been defined throw an error
-            Program.addError(new MyExeption("there is no such type '"+ tTemp + "' defined",this));
+            Program.addError(new MyException("there is no such type '"+ tTemp + "' defined",this));
             System.out.println(name);
             return false;
         }
@@ -82,13 +81,13 @@ public class Method extends Id {
         if (temp != null)  {
             // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
-                Program.addError(new MyExeption(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
+                Program.addError(new MyException(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
                 result = false;
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             for (int i = 0 ; i< temp.formals.size() ; i++){
                 if (!Program.isConsistant(((Expr) actuals.get(i)).expType, ((Formal) (temp.formals.get(i))).type)){
-                    Program.addError(new MyExeption("type of actuals doesn't match argument list defined in the method",this));
+                    Program.addError(new MyException("type of actuals doesn't match argument list defined in the method",this));
                     result = false;
                 }
             }

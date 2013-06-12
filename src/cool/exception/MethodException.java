@@ -9,7 +9,7 @@ import beaver.Symbol;
  * Time: 4:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class MethodException extends MyExeption {
+public class MethodException extends MyException {
     public MethodException(String errorMsg, Symbol e) {
         super(errorMsg, e);
     }

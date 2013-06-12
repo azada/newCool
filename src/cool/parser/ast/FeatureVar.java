@@ -1,8 +1,7 @@
 package cool.parser.ast;
 
-import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
@@ -38,15 +37,15 @@ public class FeatureVar extends Feature {
         boolean result = true;
         if (!isNative){
             if (!Program.typeTableContains(type)){
-                Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
+                Program.addError(new MyException("type '" + type + "' has not been defined",this));
                 throw new FatalErrorException("type '" + type + "' has not been defined",this);
             }
             if (pTable.symbolTableContains(id)){
-                Program.addError(new MyExeption("variable '" + id + "' with type '" + type + "' has already been defined",this));
+                Program.addError(new MyException("variable '" + id + "' with type '" + type + "' has already been defined",this));
                 throw new FatalErrorException("variable '" + id + "' with type '" + type + "' has already been defined" , this);
             }
             if (pTable.lookup(id)!= null){
-                Program.addError(new MyExeption("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
+                Program.addError(new MyException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
                 throw new FatalErrorException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy" , this);
             }
 
@@ -57,15 +56,15 @@ public class FeatureVar extends Feature {
             boolean ex = false;
             try {
                 ex = expr.check(pTable);
-            } catch (MyExeption myExeption) {
-                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (MyException myException) {
+                myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             /////////////////////////////////////////////////////////////////////////////////
 
 
             ///////////////////////here we check if we return the correct type in methods ///////////////////////////////
             if(!expr.expType.equals(type)){
-                Program.addError(new MyExeption("type of the right hand side expression is not " + type ,this));
+                Program.addError(new MyException("type of the right hand side expression is not " + type ,this));
                 result = false;
             }
             ////////////////////////////////////////////////////////////////

@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class FeatureMethod extends Feature {
         this.symbolNode.setParent(pTable);
         if ( Program.typeTableContains(pTable.type)){
             if (Program.getTableRow(pTable.type).containsKey(id)){
-                Program.addError(new MyExeption("method "+ this.id + " has duplicate definitions " , this));
+                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
                 result = false;
             }
             else{
@@ -42,7 +42,7 @@ public class FeatureMethod extends Feature {
             }
         }
         else{
-            Program.addError(new MyExeption("the scope for this class has not been defined",this));
+            Program.addError(new MyException("the scope for this class has not been defined",this));
         }
 
         //we set the parent node to be the pTable
@@ -60,7 +60,7 @@ public class FeatureMethod extends Feature {
         }
         try {
             express = expr.check(this.symbolNode);
-        } catch (MyExeption myExeption) {
+        } catch (MyException myException) {
 
         }
         ////////////////////////////////////////////////////////////////////////
@@ -74,7 +74,7 @@ public class FeatureMethod extends Feature {
             return false;
         }
         if(!Program.isConsistant(expr.expType,type)){
-            Program.addError(new MyExeption("the return type of method '" + id + "' should be " + type + " it's not consistant with " + expr.expType ,this));
+            Program.addError(new MyException("the return type of method '" + id + "' should be " + type + " it's not consistant with " + expr.expType ,this));
             result = false;
         }
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import cool.codegen.*;
 import cool.exception.FatalErrorException;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.*;
 /**
  * Created with IntelliJ IDEA.
@@ -44,7 +44,7 @@ public class ClassNode extends Node {
     public boolean shallowCheck(SymbolNode pTable){
         boolean result = true;
         if (Program.typeTableContains(type)){
-            Program.addError(new MyExeption("Class "+ type + " has already been declared" , this));
+            Program.addError(new MyException("Class "+ type + " has already been declared" , this));
             defined = false;
             result = false;
         }
@@ -92,8 +92,8 @@ public class ClassNode extends Node {
             } catch (FatalErrorException fatal) {
                 throw fatal;
 
-            } catch (MyExeption myExeption) {
-//                myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (MyException myException) {
+//                myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             /////////////////////////////////////////////////////////////////////////////////
 

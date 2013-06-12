@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -32,15 +32,15 @@ public class UnaryMinusOperation extends UnaryRealOperation {
         /////////////////////////////////////////////////////////////////////////////////
         try {
             temp.check(pTable);
-        } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MyException myException) {
+            myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
 
 
         if(!temp.expType.equals(INTEGER_TYPE)){
             result = false;
-            Program.addError(new MyExeption("the expression type for unary minus operation must be an integer not "+ temp.expType ,this));
+            Program.addError(new MyException("the expression type for unary minus operation must be an integer not "+ temp.expType ,this));
         }
        return result;  //To change body of implemented methods use File | Settings | File Templates.
     }

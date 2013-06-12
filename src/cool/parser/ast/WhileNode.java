@@ -1,8 +1,7 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
-import cool.symbol.SymbolTable;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,8 +32,8 @@ public class WhileNode extends Expr
         try {
             co = condition.check(pTable);
             ma = mainExpr.check(pTable);
-        } catch (MyExeption myExeption) {
-//            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MyException myException) {
+//            myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         ////////////////////////////////////////////////////////////////////////
 

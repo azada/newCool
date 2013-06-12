@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
@@ -33,7 +33,7 @@ public class Case extends Expr {
     public void accept() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         boolean result = true;
         if (longInit){
             SymbolItem temp = new SymbolItem(id, type,0, false);
@@ -42,8 +42,8 @@ public class Case extends Expr {
         boolean bl = false;
         try {
             bl = block.check(pTable);
-        } catch (MyExeption myExeption) {
-          throw myExeption;
+        } catch (MyException myException) {
+          throw myException;
         }
         this.expType = block.expType;
         return result && bl;

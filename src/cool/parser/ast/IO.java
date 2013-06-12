@@ -65,3 +65,40 @@ public class IO extends  ClassNode{
     }
 
 }
+
+///** The IO class provides simple input and output operations */
+//class IO() {
+//
+//        /** Terminates program with given message.
+//         * Return type of native means that
+//         * (1) result type is compatible with anything
+//         * (2) function will not return.
+//         */
+//        def abort(message : String) : Nothing = native;
+//
+///** Print the argument (without quotes) to stdout and return itself */
+//def out(arg : String) : IO = native;
+//
+//def is_null(arg : Any) : Boolean = {
+//        arg match {
+//        case null => true
+//        case x:Any => false
+//        }
+//        };
+//
+///** Convert to a string and print */
+//def out_any(arg : Any) : IO = {
+//        out(if (is_null(arg)) "null" else arg.toString())
+//        };
+//
+///** Read and return characters from stdin to the next newline character.
+// * Return null on end of file.
+// */
+//def in() : String = native;
+//
+///** Get the symbol for this string, creating a new one if needed. */
+//def symbol(name : String) : Symbol = native;
+//
+///** Return the string associated with this symbol. */
+//def symbol_name(sym : Symbol) : String = native;
+//}

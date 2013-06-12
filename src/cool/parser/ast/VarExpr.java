@@ -5,7 +5,7 @@ import cool.codegen.ActivationStack;
 import cool.codegen.Binding;
 import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
@@ -35,19 +35,19 @@ public class VarExpr extends Expr {
     }
 
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         boolean result = true;
 
         if (!Program.typeTableContains(type)){
-            Program.addError(new MyExeption("type '" + type + "' has not been defined",this));
+            Program.addError(new MyException("type '" + type + "' has not been defined",this));
             throw new FatalErrorException("type '" + type + "' has not been defined",this);
         }
         if (pTable.symbolTableContains(id)){
-            Program.addError(new MyExeption("variable '" + id + "' has already been defined",this));
+            Program.addError(new MyException("variable '" + id + "' has already been defined",this));
             throw new FatalErrorException("variable '" + id + "' has already been defined" , this);
         }
         if (pTable.lookup(id)!= null){
-            Program.addError(new MyExeption("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
+            Program.addError(new MyException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy",this));
             throw new FatalErrorException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy" , this);
         }
         SymbolItem temp = new SymbolItem(id,type,0,false);
@@ -58,13 +58,13 @@ public class VarExpr extends Expr {
         boolean ex = false;
         try {
             ex = expr.check(pTable);
-        } catch (MyExeption myExeption) {
-            throw myExeption;
+        } catch (MyException myException) {
+            throw myException;
         }
         /////////////////////////////////////////////////////////////////////////////////
 
         if(!Program.isConsistant(expr.expType, type)){
-            Program.addError(new MyExeption("the type of this expression is not " + type ,this));
+            Program.addError(new MyException("the type of this expression is not " + type ,this));
             result = false;
         }
         return result && ex;

@@ -3,8 +3,7 @@ package cool.parser.ast;
 import cool.codegen.ActivationRecord;
 import cool.codegen.ActivationStack;
 import cool.codegen.Binding;
-import cool.codegen.CodeGenerator;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
@@ -22,7 +21,7 @@ public class Id extends Primary {
         this.name = name;
     }
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         boolean result;
         if (name == "this"){
             String tTemp = pTable.lookup("THIS").getType();
@@ -35,7 +34,7 @@ public class Id extends Primary {
             result = true;
         }
         else {
-            Program.addError(new MyExeption("the variable " + name + " has not been declared ",this));
+            Program.addError(new MyException("the variable " + name + " has not been declared ",this));
             result = false;
 
         }

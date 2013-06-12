@@ -5,14 +5,13 @@ import beaver.Scanner;
 import beaver.Symbol;
 import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.parser.SimpleParser;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import cool.parser.Terminals;
 import cool.parser.ast.*;
 
 
@@ -91,7 +90,7 @@ public class MyCoolParser {
             try {
                 cn = (((ClassNode) Program.getClasses().get(i)).check(Program.getSymbolNode()));
             } catch (FatalErrorException fatal) {
-                Program.addError(new MyExeption("Fatal Error Occurred ",fatal.getErrorInfo()));
+                Program.addError(new MyException("Fatal Error Occurred ",fatal.getErrorInfo()));
                 return false;
             }
             result = result && cn;

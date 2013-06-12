@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -37,8 +37,8 @@ public class Instance extends Primary {
                 boolean ac = false;
                 try {
                     ac = ((Expr)actuals.get(i)).check(pTable);
-                } catch (MyExeption myExeption) {
-                    myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (MyException myException) {
+                    myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
                 ////////////////////////////////////////////////////////////////////////
 
@@ -52,7 +52,7 @@ public class Instance extends Primary {
             ArrayList temp = Program.getClassNode(type).varFormals;
             //first we check the numbers:
             if(temp.size() != actuals.size() && actuals.size()!= 0){
-                Program.addError(new MyExeption("number of arguments required for initializing " + type + " is " + temp.size(),this));
+                Program.addError(new MyException("number of arguments required for initializing " + type + " is " + temp.size(),this));
                 result = false;
             }
             else{
@@ -62,7 +62,7 @@ public class Instance extends Primary {
                         if (((Var)temp.get(i)).type.equals(((Expr)actuals.get(i)).expType))
                             continue;
                         else{
-                            Program.addError(new MyExeption("types passed to the constructor do not match the required types",this));
+                            Program.addError(new MyException("types passed to the constructor do not match the required types",this));
                             result = false;
                         }
                     }
@@ -70,7 +70,7 @@ public class Instance extends Primary {
             }
         }
         else{
-            Program.addError(new MyExeption("class '" + type + "' doesn't exist, instance can't be initialized",this));
+            Program.addError(new MyException("class '" + type + "' doesn't exist, instance can't be initialized",this));
             result = false;
         }
 

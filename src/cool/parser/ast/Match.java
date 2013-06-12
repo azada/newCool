@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -21,15 +21,15 @@ public class Match extends Expr {
     }
 
     @Override
-    public boolean check(SymbolNode pTable) throws MyExeption {
+    public boolean check(SymbolNode pTable) throws MyException {
         boolean result = true;
 
         /////////////////////////////////////////////////////////////////////////////////
         boolean ex = false;
         try {
             ex = primary.check(pTable);
-        } catch (MyExeption myExeption) {
-            myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (MyException myException) {
+            myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         /////////////////////////////////////////////////////////////////////////////////
 
@@ -38,14 +38,14 @@ public class Match extends Expr {
             boolean vf = false;
             try {
                 vf = ((Case)this.cases.get(i)).check(pTable);
-            } catch (MyExeption myExeption) {
-               throw myExeption;
+            } catch (MyException myException) {
+               throw myException;
             }
             result = result && vf;
 
         }
         if (cases.size() ==0 ){
-            Program.addError(new MyExeption("Match needs at least one case",this));
+            Program.addError(new MyException("Match needs at least one case",this));
             result = false;
         }
         if (cases.size()==1){
@@ -58,7 +58,7 @@ public class Match extends Expr {
             }
             //if we didn't have a mutual parent
             if (temp == null){
-                Program.addError(new MyExeption("cases types did not have a mutual parent to be compared with the primary" ,this));
+                Program.addError(new MyException("cases types did not have a mutual parent to be compared with the primary" ,this));
                 result = false;
             }
             else{

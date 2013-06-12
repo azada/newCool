@@ -1,6 +1,6 @@
 package cool.parser.ast;
 
-import cool.exception.MyExeption;
+import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class Extends extends Node{
 
                 ArrayList temp = Program.getClassNode(type).varFormals;
                 if (actuals.size() != temp.size() && actuals.size() != 0 ){
-                    Program.addError(new MyExeption("the number of arguments in " + type + " is " + temp.size() + " while " + actuals.size()+" are given",this));
+                    Program.addError(new MyException("the number of arguments in " + type + " is " + temp.size() + " while " + actuals.size()+" are given",this));
                     result = false;
                     return result;
                 }
@@ -49,8 +49,8 @@ public class Extends extends Node{
                     boolean fml = false;
                     try {
                         fml = ((Expr) actual).check(pTable);
-                    } catch (MyExeption myExeption) {
-                        myExeption.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (MyException myException) {
+                        myException.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
                     /////////////////////////////////////////////////////////////////////////////////
 
@@ -61,13 +61,13 @@ public class Extends extends Node{
                     if (((Var)temp.get(i)).type.equals(((Expr)actuals.get(i)).expType))
                         continue;
                     else{
-                        Program.addError(new MyExeption("types passed to the constructor do not match the required types",this));
+                        Program.addError(new MyException("types passed to the constructor do not match the required types",this));
                         result = false;
                     }
                 }
             }
             else{
-                Program.addError(new MyExeption("type " + type + " has not been declared",this));
+                Program.addError(new MyException("type " + type + " has not been declared",this));
             }
         }
         else{
