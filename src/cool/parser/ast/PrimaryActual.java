@@ -102,4 +102,9 @@ public class PrimaryActual extends Primary {
     public void accept() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        System.out.println("builder ----------------------------- = " + builder);
+    }
 }
