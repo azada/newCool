@@ -22,6 +22,9 @@ public class FeatureBlock extends Feature {
         this.block = block;
 
     }
+    public boolean shallowCheck(SymbolNode pTable){
+        return true;
+    }
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
         //To change body of implemented methods use File | Settings | File Templates.

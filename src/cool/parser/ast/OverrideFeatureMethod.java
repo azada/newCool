@@ -54,18 +54,18 @@ public class OverrideFeatureMethod extends FeatureMethod {
                 break;
             }
         }
-        if (Program.typeTableContains(pTable.type)){
-            if (Program.getTableRow(pTable.type).containsKey(id)){
-                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
-                result = false;
-            }
-            else{
-                Program.getTableRow(pTable.type).put(id, this);
-            }
-        }
-        else{
-            Program.addError(new MyException("the scope for this class has not been defined",this));
-        }
+//        if (Program.typeTableContains(pTable.type)){
+//            if (Program.getTableRow(pTable.type).containsKey(id)){
+//                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
+//                result = false;
+//            }
+//            else{
+//                Program.getTableRow(pTable.type).put(id, this);
+//            }
+//        }
+//        else{
+//            Program.addError(new MyException("the scope for this class has not been defined",this));
+//        }
         //we set the parent node to be the pTable
 
         this.symbolNode.setParent(pTable);

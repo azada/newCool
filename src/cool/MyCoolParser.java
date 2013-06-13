@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import cool.parser.ast.*;
-import cool.parser.ast.Boolean;
+
 
 
 /**
@@ -50,7 +50,7 @@ public class MyCoolParser {
             classList.add(new ArrayAny());
             classList.add(new Any());
             classList.add(new Int());
-            classList.add(new Boolean());
+            classList.add(new BooleanCool());
             classList.add(new StringCool());
             Program.setClasses(classList);
 
@@ -81,13 +81,31 @@ public class MyCoolParser {
     public boolean shallowChecker(){
         boolean result = true;
         for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
-            boolean cn = (((ClassNode)Program.getClasses().get(i)).shallowCheck(null));
+            boolean cn = false;
+            try {
+                cn = (((ClassNode) Program.getClasses().get(i)).shallowCheck(null));
+            } catch (FatalErrorException e) {
+                Program.addError(new MyException("Fatal Error Occurred ",e.getErrorInfo()));
+                return false;
+            }
+            result = result && cn;
+        }
+        return result;
+    }
+    public boolean methodShallowChecker(){
+        boolean result = true;
+        for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
+            boolean cn = false;
+            cn = (((ClassNode) Program.getClasses().get(i)).featureShallowCheck(null));
             result = result && cn;
         }
         return result;
     }
     public boolean checker(){
         boolean result = shallowChecker();
+        boolean sc = methodShallowChecker();
+        result = result && sc;
+
         for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
 
             boolean cn = false;

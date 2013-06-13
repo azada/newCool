@@ -18,6 +18,7 @@ public class FeatureMethod extends Feature {
     ArrayList formals;
     String type;
     Expr expr;
+    boolean defined = true;
 
     public FeatureMethod(String id, ArrayList formals, String type, Expr expr ) {
         this.id = id;
@@ -27,14 +28,14 @@ public class FeatureMethod extends Feature {
         symbolNode = new SymbolNode();
 
     }
-    @Override
-    public boolean check(SymbolNode pTable) {
 
+    public boolean shallowCheck(SymbolNode pTable){
         boolean result = true;
-        this.symbolNode.setParent(pTable);
+
         if ( Program.typeTableContains(pTable.type)){
             if (Program.getTableRow(pTable.type).containsKey(id)){
                 Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
+                this.defined = true;
                 result = false;
             }
             else{
@@ -44,13 +45,25 @@ public class FeatureMethod extends Feature {
         else{
             Program.addError(new MyException("the scope for this class has not been defined",this));
         }
-
-        //we set the parent node to be the pTable
-
         for (int i = 0 ; i< formals.size() ; i++){
             boolean fml = ((Formal)formals.get(i)).check(this.symbolNode);
             result = result &&fml;
         }
+        return result;
+    }
+    @Override
+    public boolean check(SymbolNode pTable) {
+
+        boolean result = true;
+        result = result && (!defined);
+        this.symbolNode.setParent(pTable);
+
+
+
+//        for (int i = 0 ; i< formals.size() ; i++){
+//            boolean fml = ((Formal)formals.get(i)).check(this.symbolNode);
+//            result = result &&fml;
+//        }
         boolean express = false;
 
 

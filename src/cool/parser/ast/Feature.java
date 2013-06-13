@@ -11,5 +11,5 @@ import cool.symbol.SymbolNode;
  */
 public abstract class Feature extends Node {
        SymbolNode symbolNode;
-
+       public abstract boolean shallowCheck(SymbolNode pTable);
 }

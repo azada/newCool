@@ -11,8 +11,8 @@ import java.util.ArrayList;
  * Time: 6:42 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Boolean extends Primitive {
-    public Boolean() {
+public class BooleanCool extends Primitive {
+    public BooleanCool() {
         this.type = "Boolean";
         this.featureList = new ArrayList<Feature>();
         this.varFormals = new ArrayList<Var>();

@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.exception.FatalErrorException;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
@@ -27,25 +28,25 @@ public class NativeFeatureMethod extends FeatureMethod{
     public boolean check(SymbolNode pTable){
         boolean result = true;
         this.symbolNode.setParent(pTable);
-        if (Program.typeTableContains(pTable.type)){
-            if (Program.getTableRow(pTable.type).containsKey(id)){
-                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
-                result = false;
-            }
-            else{
-                Program.getTableRow(pTable.type).put(id, this);
-            }
-        }
-        else{
-            Program.addError(new MyException("the scope for this class has not been defined",this));
-        }
+//        if (Program.typeTableContains(pTable.type)){
+//            if (Program.getTableRow(pTable.type).containsKey(id)){
+//                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
+//                result = false;
+//            }
+//            else{
+//                Program.getTableRow(pTable.type).put(id, this);
+//            }
+//        }
+//        else{
+//            Program.addError(new MyException("the scope for this class has not been defined",this));
+//        }
 
         //we set the parent node to be the pTable
 
-        for (int i = 0 ; i< formals.size() ; i++){
-            boolean fml = ((Formal)formals.get(i)).check(this.symbolNode);
-            result = result &&fml;
-        }
+//        for (int i = 0 ; i< formals.size() ; i++){
+//            boolean fml = ((Formal)formals.get(i)).check(this.symbolNode);
+//            result = result &&fml;
+//        }
 
         ////////////////////////////////////////////////////////////////
         return result;

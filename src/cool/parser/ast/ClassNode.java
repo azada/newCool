@@ -41,7 +41,11 @@ public class ClassNode extends Node {
         return type;
     }
 
-    public boolean shallowCheck(SymbolNode pTable){
+    public SymbolNode getSymbolNode() {
+        return symbolNode;
+    }
+
+    public boolean shallowCheck(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
         if (Program.typeTableContains(type)){
             Program.addError(new MyException("Class "+ type + " has already been declared" , this));
@@ -51,6 +55,16 @@ public class ClassNode extends Node {
         else {
             Program.putTypeTable(type, new HashMap<String, FeatureMethod>());
             Program.putClassTable(type, this);
+        }
+        return result;
+    }
+    public boolean featureShallowCheck(SymbolNode pTable){
+        boolean result = true;
+        for (int i = this.featureList.size()-1 ; i >=0 ; i--){
+            /////////////////////////////////////////////////////////////////////////////////
+            boolean res = false;
+            res = ((Feature)this.featureList.get(i)).shallowCheck(this.symbolNode);
+            result = result && res;
         }
         return result;
     }

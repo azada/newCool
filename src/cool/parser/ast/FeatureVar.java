@@ -32,6 +32,9 @@ public class FeatureVar extends Feature {
         this.expr = expr;
 
     }
+    public boolean shallowCheck(SymbolNode pTable){
+        return true;
+    }
     @Override
     public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
