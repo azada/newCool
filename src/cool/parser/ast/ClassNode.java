@@ -52,11 +52,12 @@ public class ClassNode extends Node {
             if(m instanceof FeatureVar){
                 increamentSize(((FeatureVar)(m)).getSize());
             }
-
         }
-        
 
-
+        // get super and add it's size to yourself.
+        if(Program.getSuper(type) != null){
+            increamentSize(Program.getClassNode(Program.getSuper(type)).getSize());
+        }
     }
     public int getSize(){
         return size;

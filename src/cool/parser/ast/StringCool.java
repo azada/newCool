@@ -21,7 +21,6 @@ public class StringCool extends Primitive{
         this.symbolNode  = new SymbolNode();
         this.fullyChecked = false;
         symbolNode.type  = new String(type);
-        pointerSize = 1;
         //--------------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
