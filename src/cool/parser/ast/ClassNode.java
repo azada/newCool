@@ -35,6 +35,8 @@ public class ClassNode extends Node {
         symbolNode.type  = new String(type);
         fullyChecked = false;
     }
+    public ClassNode() {
+    }
 
     public void increamentSize(int amount){
         size += amount;
@@ -52,16 +54,15 @@ public class ClassNode extends Node {
             if(m instanceof FeatureVar){
                 increamentSize(((FeatureVar)(m)).getSize());
             }
-
         }
-        
 
-
+        // get super and add it's size to yourself.
+        if(Program.getSuper(type) != null){
+            increamentSize(Program.getClassNode(Program.getSuper(type)).getSize());
+        }
     }
     public int getSize(){
         return size;
-    }
-    public ClassNode() {
     }
 
     public String getType() {

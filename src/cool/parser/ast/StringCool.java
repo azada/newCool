@@ -21,7 +21,6 @@ public class StringCool extends Primitive{
         this.symbolNode  = new SymbolNode();
         this.fullyChecked = false;
         symbolNode.type  = new String(type);
-        pointerSize = 1;
         //--------------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
@@ -34,6 +33,8 @@ public class StringCool extends Primitive{
         featureList.add(f1);
         featureList.add(f2);
     }
+
+
 //    def substring(start : Int, end : Int) : String = native;
 
     @Override
