@@ -22,6 +22,10 @@ public class Var extends Node {
         this.type = type;
     }
 
+    public int getSize(){
+        return Program.getClassNode(type).getPointerSize();
+    }
+
     public String getVarId(){
         return this.id;
     }
