@@ -93,7 +93,7 @@ public class Instance extends Primary {
         //Binding binding = currentRecord.bindToExpr(this);
         //CodeGenerato  r.allocateInstance(builder,binding, instanceNode, actuals);
 
-
+        builder.append("; create new instance of " + this.type + "\n");
 
         ActivationRecord record = ActivationStack.getHandle().top();
 
@@ -131,6 +131,7 @@ public class Instance extends Primary {
 
         //cat memory to classpointer
         int castedMemory = record.bindToExpr(this).getLLVMId(); //getNewVariable();
+        //int castedMemory = record.getNewVariable();
         builder.append( "%" + castedMemory +  " = bitcast i8* %" + memoryVar + " to " +  instanceNode.getClassPointer() );
         CodeGenerator.newLine(builder);
 
@@ -156,7 +157,7 @@ public class Instance extends Primary {
 
         //call constrcutor
         String constName = instanceNode.getConstructorName();
-        builder.append("invoke void @" + constName + "(" );
+        builder.append("call void @" + constName + "(" );
         instanceNode.generateReference(builder);
         builder.append( " %" + castedMemory);
         CodeGenerator.appendComma(builder);
@@ -170,12 +171,30 @@ public class Instance extends Primary {
             CodeGenerator.appendComma(builder);
         }
 
+        Binding binding = record.getBindedExpr(this.toString());
+        binding.setLoadedId(castedMemory);
+
         CodeGenerator.removeExtraComma(builder);
         //record.bindToExpr(this);
 
         CodeGenerator.closeParen(builder);
-        CodeGenerator.newLine(builder);
+        //invocation result
 
+        //int normalLabel = record.getNewVariable();
+        //int exceptionLabel = record.getNewVariable();
+
+        //builder.append("\t\t label %" + normalLabel);
+
+
+
+        CodeGenerator.newLine(builder);
+        //Binding result =record.bindToExpr(this);
+        //CodeGenerator.allocateExpr(builder, result);
+
+        //builder.append("store ");
+        //instanceNode.generateReference(builder);
+        //builder.append("%" + castedMemory);  +  result.getLLVMId()
+        //CodeGenerator.storeExpr(builder, result);
 
         /*
         int size = varNode.getPointerSize();

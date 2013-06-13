@@ -218,6 +218,8 @@ public class ClassNode extends Node {
         CodeGenerator.removeExtraComma(builder);
         CodeGenerator.closeBrace(builder);
 
+        CodeGenerator.newLine(builder);
+
         generateConstructor(builder);
 
         for (int i=0; i< featureList.size(); i++) {
@@ -228,6 +230,7 @@ public class ClassNode extends Node {
             }
 
         }
+
         //To change body of implemented methods use File | Settings | File Templates.
     }
 

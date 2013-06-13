@@ -96,12 +96,15 @@ public class VarExpr extends Expr {
         if (this.expr instanceof Id) {
             Id id = (Id)this.expr;
             result = currentRecord.getBindedVar(id.name);
-
             CodeGenerator.loadVar(builder, result);
+
         } else{
             result = currentRecord.getBindedExpr(this.expr.toString());
+            if (this.expr instanceof Instance) {
 
-            CodeGenerator.loadExpr(builder, result);
+            } else {
+                CodeGenerator.loadExpr(builder, result);
+            }
             //int loadedVar = currentRecord.getNewVariable();
         }
         //result.setLoadedId(loadedVar);

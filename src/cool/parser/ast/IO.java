@@ -74,7 +74,7 @@ public class IO extends  ClassNode{
         String temp3 = "\n%class.IO = type { %class.Any, i32}";
         builder.append(temp3);
 
-        String temp = "" +"@.str = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
+        String temp = "" +"@.str1 = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
                 "\ndefine %class.IO* @IO_out(%class.IO* %this, i32 %a) uwtable ssp align 2 {\n" +
                 "  %1 = alloca %class.IO*, align 8\n" +
                 "  %2 = alloca i32, align 4\n" +
@@ -82,7 +82,7 @@ public class IO extends  ClassNode{
                 "  store i32 %a, i32* %2, align 4\n" +
                 "  %3 = load %class.IO** %1\n" +
                 "  %4 = load i32* %2, align 4\n" +
-                "  %5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32 %4)\n" +
+                "  %5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str1, i32 0, i32 0), i32 %4)\n" +
                 "  ret %class.IO* %3" +
                 "}\n" +
                 "\n" +
@@ -110,7 +110,7 @@ public class IO extends  ClassNode{
                 "  ret i1 %8\n" +
                 "}\n" ;
         builder.append(temp2);
-        String temp4 = "@.str = private unnamed_addr constant [3 x i8] c\"%s\\00\", align 1\n" +
+        String temp4 = "@.str2 = private unnamed_addr constant [3 x i8] c\"%s\\00\", align 1\n" +
                 "\n" +
                 "define %class.IO* @IO_out_s(%class.IO* %this, i8* %a) uwtable ssp align 2 {\n" +
                 "  %1 = alloca %class.IO*, align 8\n" +
@@ -119,7 +119,7 @@ public class IO extends  ClassNode{
                 "  store i8* %a, i8** %2, align 8\n" +
                 "  %3 = load %class.IO** %1\n" +
                 "  %4 = load i8** %2, align 8\n" +
-                "  %5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i8* %4)\n" +
+                "  %5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0), i8* %4)\n" +
                 "  ret %class.IO* %3\n" +
                 "}\n"  ;
         builder.append(temp4);

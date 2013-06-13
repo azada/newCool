@@ -21,7 +21,7 @@ public class Any extends ClassNode{
         symbolNode  = new SymbolNode();
         fullyChecked = false;
         symbolNode.type  = new String(type);
-        pointerSize = 0;
+        pointerSize = 8;
 
         //----------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
