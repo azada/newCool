@@ -118,6 +118,7 @@ public class IO extends  ClassNode{
                 "}\n" +
                 "\n" +
                 "declare i32 @printf(i8*, ...)\n";
+        builder.append(temp4);
     }
 }
 
