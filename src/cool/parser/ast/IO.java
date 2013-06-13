@@ -27,7 +27,7 @@ public class IO extends  ClassNode{
         FeatureMethod f1 = new NativeFeatureMethod("abort",formals,"Nothing");
 
         ArrayList<Formal> formals2 = new ArrayList<Formal>();
-        formals2.add(new Formal("arg", "String"));
+        formals2.add(new Formal("arg", "Int"));
         FeatureMethod f2 = new NativeFeatureMethod("out",formals2,"IO");
 
         ArrayList<Formal> formals3 = new ArrayList<Formal>();
@@ -41,6 +41,10 @@ public class IO extends  ClassNode{
         ArrayList<Formal> formals5 = new ArrayList<Formal>();
         formals5.add(new Formal("arg", "String"));
         FeatureMethod f5 = new NativeFeatureMethod("in",formals5,"String");
+
+        ArrayList<Formal> formals8 = new ArrayList<Formal>();
+        formals8.add(new Formal("arg", "String"));
+        FeatureMethod f8 = new NativeFeatureMethod("out_s",formals8,"IO");
 
 //        ArrayList<Formal> formals6 = new ArrayList<Formal>();
 //        formals6.add(new Formal("name", "String"));
@@ -67,11 +71,11 @@ public class IO extends  ClassNode{
 
     @Override
     public void generate(StringBuilder builder) {
-        String temp3 = "%class.IO = type { %class.Any, i32}";
+        String temp3 = "\n%class.IO = type { %class.Any, i32}";
         builder.append(temp3);
 
         String temp = "" +"@.str = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
-                "define void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
+                "\ndefine void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
                 "  %1 = alloca i32, align 4\n" +
                 "  store i32 %a, i32* %1, align 4\n" +
                 "  %2 = load i32* %1, align 4\n" +
@@ -82,7 +86,7 @@ public class IO extends  ClassNode{
                 "declare i32 @printf(i8*, ...)\n" +
                 "\n";
         builder.append(temp);
-        String temp2 = "define zeroext i1 @IO_is_null(%class.IO* %this ,%class.Any* %a) nounwind uwtable ssp {\n" +
+        String temp2 = "\ndefine zeroext i1 @IO_is_null(%class.IO* %this ,%class.Any* %a) nounwind uwtable ssp {\n" +
                 "  %1 = alloca i1, align 1\n" +
                 "  %2 = alloca %class.Any*, align 8\n" +
                 "  store %class.Any* %a, %class.Any** %2, align 8\n" +
@@ -101,8 +105,19 @@ public class IO extends  ClassNode{
                 "; <label>:7                                       ; preds = %6, %5\n" +
                 "  %8 = load i1* %1\n" +
                 "  ret i1 %8\n" +
-                "}"  ;
+                "}\n" ;
         builder.append(temp2);
+        String temp4 = "@.str = private unnamed_addr constant [3 x i8] c\"%s\\00\", align 1\n" +
+                "\n" +
+                "define void @IO_out_s(%class.IO* %this , i8* %s) uwtable ssp {\n" +
+                "  %1 = alloca i8*, align 8\n" +
+                "  store i8* %s, i8** %1, align 8\n" +
+                "  %2 = load i8** %1, align 8\n" +
+                "  %3 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i8* %2)\n" +
+                "  ret void\n" +
+                "}\n" +
+                "\n" +
+                "declare i32 @printf(i8*, ...)\n";
     }
 }
 

@@ -35,6 +35,8 @@ public class ClassNode extends Node {
         symbolNode.type  = new String(type);
         fullyChecked = false;
     }
+    public ClassNode() {
+    }
 
     public void increamentSize(int amount){
         size += amount;
@@ -61,8 +63,6 @@ public class ClassNode extends Node {
     }
     public int getSize(){
         return size;
-    }
-    public ClassNode() {
     }
 
     public String getType() {
