@@ -91,6 +91,6 @@ public class Instance extends Primary {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         ClassNode instanceNode = Program.getClassNode(this.type);
         Binding binding = currentRecord.bindToExpr(this);
-        CodeGenerator.allocateExpr(builder,binding);
+        CodeGenerator.allocateInstance(builder,binding);
     }
 }
