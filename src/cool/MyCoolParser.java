@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import cool.parser.ast.*;
+import cool.parser.ast.Boolean;
 
 
 /**
@@ -47,8 +48,11 @@ public class MyCoolParser {
             ArrayList classList = (ArrayList) parser.parse(myCoolScanner);
             classList.add(new IO());
             classList.add(new ArrayAny());
-              classList.add(new Any());
-                Program.setClasses(classList);
+            classList.add(new Any());
+            classList.add(new Int());
+            classList.add(new Boolean());
+            classList.add(new StringCool());
+            Program.setClasses(classList);
 
 //            JSONLogger.openBrace();
 //            JSONLogger.openListAttribute("program");

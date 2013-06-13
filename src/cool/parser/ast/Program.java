@@ -28,16 +28,16 @@ public class Program {
     private static Program instance = new Program();
 
     private Program() {
-        typeTable.put("Int", null);
-        typeTable.put("String", null);
-        typeTable.put("Boolean", null);
-        inheritance.put("Int", "Any");
-        inheritance.put("String", "Any");
-        inheritance.put("Boolean", "Any");
+//        typeTable.put("Int", null);
+//        typeTable.put("String", null);
+//        typeTable.put("Boolean", null);
+//        inheritance.put("Int", "Any");
+//        inheritance.put("String", "Any");
+//        inheritance.put("Boolean", "Any");
         inheritance.put("Any",null);
-        typeClassTable.put("Int",new Primitive("Int",null,null,null));
-        typeClassTable.put("String",new Primitive("String",null,null,null));
-        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
+//        typeClassTable.put("Int",new Primitive("Int",null,null,null));
+//        typeClassTable.put("String",new Primitive("String",null,null,null));
+//        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
 
     }
 
@@ -208,16 +208,16 @@ public class Program {
         instance.typeClassTable.clear();
         instance.inheritance.clear();
         instance.errorList.clear();
-        typeTable.put("Int", null);
-        typeTable.put("String", null);
-        typeTable.put("Boolean", null);
-        inheritance.put("Int", "Any");
-        inheritance.put("String", "Any");
-        inheritance.put("Boolean", "Any");
+//        typeTable.put("Int", null);
+//        typeTable.put("String", null);
+//        typeTable.put("Boolean", null);
+//        inheritance.put("Int", "Any");
+//        inheritance.put("String", "Any");
+//        inheritance.put("Boolean", "Any");
         inheritance.put("Any",null);
-        typeClassTable.put("Int",new Primitive("Int",null,null,null));
-        typeClassTable.put("String",new Primitive("String",null,null,null));
-        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
+//        typeClassTable.put("Int",new Primitive("Int",null,null,null));
+//        typeClassTable.put("String",new Primitive("String",null,null,null));
+//        typeClassTable.put("Boolean",new Primitive("Boolean",null,null,null));
     }
 //   public static Program getInstance(){
 //        if(instance.typeTable.isEmpty()){

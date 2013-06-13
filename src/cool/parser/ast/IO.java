@@ -32,11 +32,11 @@ public class IO extends  ClassNode{
 
         ArrayList<Formal> formals3 = new ArrayList<Formal>();
         formals3.add(new Formal("arg", "Any"));
-        FeatureMethod f3 = new FeatureMethod("is_null",formals3,"Boolean",null);
+        FeatureMethod f3 = new NativeFeatureMethod("is_null",formals3,"Boolean");
 
         ArrayList<Formal> formals4 = new ArrayList<Formal>();
         formals4.add(new Formal("arg", "Any"));
-        FeatureMethod f4 = new FeatureMethod("out_any",formals4,"IO",null);
+        FeatureMethod f4 = new NativeFeatureMethod("out_any",formals4,"IO");
 
         ArrayList<Formal> formals5 = new ArrayList<Formal>();
         formals5.add(new Formal("arg", "String"));

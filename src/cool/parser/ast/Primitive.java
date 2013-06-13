@@ -16,6 +16,9 @@ public class Primitive extends ClassNode{
         super(type, varFormals, ext, featureList);
     }
 
+    public Primitive() {
+    }
+
 
     public void generateReference(StringBuilder builder) {
         if (this.type.equals("Int")) {
