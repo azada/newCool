@@ -95,7 +95,7 @@ public class CodeGenerator {
         ClassNode varNode = Program.getClassNode(type);
         varNode.generateReference(builder);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
     }
@@ -108,7 +108,7 @@ public class CodeGenerator {
         ClassNode varNode = Program.getClassNode(type);
         varNode.generateReference(builder);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
     }
@@ -126,7 +126,7 @@ public class CodeGenerator {
         builder.append("* ");
         builder.append("%" + binding.llvmVarId);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
     }
@@ -146,7 +146,7 @@ public class CodeGenerator {
         builder.append("* ");
         builder.append("%" + target.llvmVarId);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
     }
@@ -163,7 +163,7 @@ public class CodeGenerator {
         builder.append("* ");
         builder.append("%" + binding.llvmVarId);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
     }
@@ -229,8 +229,25 @@ public class CodeGenerator {
         builder.append("* ");
         builder.append("%" + binding.llvmVarId);
         appendComma(builder);
-        int size = varNode.getSize();
+        int size = varNode.getPointerSize();
         builder.append("align " + size);
         newLine(builder);
+    }
+
+    public static void allocateInstance(StringBuilder builder, Binding binding) {
+        int varNum = binding.llvmVarId;
+        builder.append("%" + varNum + " = ");
+        builder.append("alloca ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        appendComma(builder);
+
+
+
+        int size = varNode.getPointerSize();
+        builder.append("align " + size);
+        newLine(builder);
+        //To change body of created methods use File | Settings | File Templates.
     }
 }
