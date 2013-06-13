@@ -1,7 +1,11 @@
 package cool.codegen;
 
+import cool.parser.ast.Actuals;
 import cool.parser.ast.ClassNode;
+import cool.parser.ast.Expr;
 import cool.parser.ast.Program;
+
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -234,7 +238,13 @@ public class CodeGenerator {
         newLine(builder);
     }
 
-    public static void allocateInstance(StringBuilder builder, Binding binding) {
+    public static void allocateInstance(StringBuilder builder, Binding binding, ClassNode instanceNode, ArrayList actuals) {
+        //MyClass* m = new Class();
+
+        ActivationRecord record = ActivationStack.getHandle().top();
+
+        //allocate m
+
         int varNum = binding.llvmVarId;
         builder.append("%" + varNum + " = ");
         builder.append("alloca ");
@@ -244,6 +254,34 @@ public class CodeGenerator {
         appendComma(builder);
 
 
+        //allocate pointer to memory
+        int pointerVar = record.getNewVariable();
+        builder.append("%" + pointerVar + " = alloca i8*");
+        newLine(builder);
+
+        //allocate memory
+        int memoryVar = record.getNewVariable();
+        builder.append("%" + memoryVar + " = call noalias i8* @_Znwm(i64 "+ instanceNode.getSize() +  ")");
+        newLine(builder);
+
+        //cat memory to classpointer
+        int castedMemory = record.getNewVariable();
+        builder.append( "%" + castedMemory +  " = bitcast i8* %" + memoryVar + "to " +  instanceNode.getClassPointer() );
+        newLine(builder);
+
+
+        //call constrcutor
+        String constName = instanceNode.getConstructorName();
+        builder.append("invoke void @" + constName + "(" + instanceNode.getClassPointer() + "%" + castedMemory);
+        for (int i=0; i < actuals.size(); i++ ) {
+            Expr expr = (Expr) actuals.get(i);
+            Binding arg = record.bindToExpr(expr);
+            allocateExpr(builder, arg);
+
+        }
+        //instanceNode.generateActuals();
+
+        builder.append("%");
 
         int size = varNode.getPointerSize();
         builder.append("align " + size);

@@ -20,19 +20,20 @@ public class Primitive extends ClassNode{
     }
 
 
-    public void generateReference(StringBuilder builder) {
+    /*public void generateReference(StringBuilder builder) {
         if (this.type.equals("Int")) {
+            System.out.println("Primitive.generateReference");
             CodeGenerator.appendInt(builder);
         }
 
-    }
-
+    } */
+/*
     public void generateInstance(StringBuilder builder) {
         if (this.type.equals("Int")) {
             CodeGenerator.appendInt(builder);
         }
     }
-
+  */
     public int getSize() {
         if (this.type.equals("Int")) {
             return 4;

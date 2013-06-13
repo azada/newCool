@@ -90,7 +90,96 @@ public class Instance extends Primary {
     public void generate(StringBuilder builder) {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         ClassNode instanceNode = Program.getClassNode(this.type);
-        Binding binding = currentRecord.bindToExpr(this);
-        CodeGenerator.allocateInstance(builder,binding);
+        //Binding binding = currentRecord.bindToExpr(this);
+        //CodeGenerato  r.allocateInstance(builder,binding, instanceNode, actuals);
+
+
+
+        ActivationRecord record = ActivationStack.getHandle().top();
+
+        //allocate m
+
+
+        //generate arguments
+        for (int i=0; i < actuals.size(); i++ ) {
+            Expr expr = (Expr) actuals.get(i);
+            expr.generate(builder);
+            CodeGenerator.newLine(builder);
+            //allocateExpr(builder, arg);
+
+        }
+
+
+        /*int varNum = binding.llvmVarId;
+        builder.append("%" + varNum + " = ");
+        builder.append("alloca ");
+        String type = binding.expr.getType();
+        ClassNode varNode = Program.getClassNode(type);
+        varNode.generateReference(builder);
+        CodeGenerator.appendComma(builder);
+        */
+
+        //allocate pointer to memory
+        int pointerVar = record.getNewVariable();
+        builder.append("%" + pointerVar + " = alloca i8*");
+        CodeGenerator.newLine(builder);
+
+        //allocate memory
+        int memoryVar = record.getNewVariable();
+        builder.append("%" + memoryVar + " = call noalias i8* @_Znwm(i64 "+ instanceNode.getSize() +  ")");
+        CodeGenerator.newLine(builder);
+
+        //cat memory to classpointer
+        int castedMemory = record.bindToExpr(this).getLLVMId(); //getNewVariable();
+        builder.append( "%" + castedMemory +  " = bitcast i8* %" + memoryVar + " to " +  instanceNode.getClassPointer() );
+        CodeGenerator.newLine(builder);
+
+
+        //load arguments
+        ArrayList<Integer> args = new ArrayList<Integer>(actuals.size());
+        for (int i=0; i < this.actuals.size(); i++ ){
+            Binding result = null;
+            Expr expr = (Expr) actuals.get(i);
+            if (expr instanceof Id) {
+                Id id = (Id)expr;
+                result = currentRecord.getBindedVar(id.name);
+                CodeGenerator.loadVar(builder, result);
+            } else{
+                result = currentRecord.getBindedExpr(expr.toString());
+                CodeGenerator.loadExpr(builder, result);
+            }
+
+            int argid = result.getLoadedId();
+            args.add(argid);
+        }
+
+
+        //call constrcutor
+        String constName = instanceNode.getConstructorName();
+        builder.append("invoke void @" + constName + "(" );
+        instanceNode.generateReference(builder);
+        builder.append( " %" + castedMemory);
+        CodeGenerator.appendComma(builder);
+
+        for (int i = 0; i < actuals.size(); i++) {
+            Expr expr = (Expr) actuals.get(i);
+
+            ClassNode argClass = Program.getClassNode(expr.expType);
+            argClass.generateReference(builder);
+            builder.append(" %" + args.get(i));
+            CodeGenerator.appendComma(builder);
+        }
+
+        CodeGenerator.removeExtraComma(builder);
+        //record.bindToExpr(this);
+
+        CodeGenerator.closeParen(builder);
+        CodeGenerator.newLine(builder);
+
+
+        /*
+        int size = varNode.getPointerSize();
+        builder.append("align " + size);
+        newLine(builder);*/
     }
 }

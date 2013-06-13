@@ -33,4 +33,16 @@ public class Int extends Primitive {
     public void generate(StringBuilder builder) {
 
     }
+
+
+    @Override
+    public void generateReference(StringBuilder builder) {
+        builder.append("i32");
+    }
+
+    public void generateInstance(StringBuilder builder) {
+
+        builder.append("i32");
+
+    }
 }

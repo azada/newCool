@@ -36,5 +36,12 @@ public class Binding {
     }
 
 
+    public int getLoadedId() {
+        return loadedId;
+    }
+
+    public int getLLVMId() {
+        return llvmVarId;
+    }
 }
 
