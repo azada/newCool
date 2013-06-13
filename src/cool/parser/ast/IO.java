@@ -69,7 +69,7 @@ public class IO extends  ClassNode{
     public void generate(StringBuilder builder) {
         String temp3 = "%class.IO = type { %class.Any, i32}";
         builder.append(temp3);
-       // "@.str = private unnamed_addr constant [3 x i8] c"%d\00", align 1"
+
         String temp = "" +"@.str = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
                 "define void @IO_out(%class.IO* %this, i32 %a) uwtable ssp {\n" +
                 "  %1 = alloca i32, align 4\n" +
