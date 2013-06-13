@@ -26,6 +26,7 @@ public class CodeGenTester extends TestCase {
             parser.parse2();
 
             parser.checker();
+            parser.calculateSize();
             Program.printErrors();
             System.out.println("**************************************************************************************");
 

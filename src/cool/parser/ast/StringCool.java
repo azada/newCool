@@ -33,6 +33,8 @@ public class StringCool extends Primitive{
         featureList.add(f1);
         featureList.add(f2);
     }
+
+
 //    def substring(start : Int, end : Int) : String = native;
 
     @Override

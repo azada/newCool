@@ -77,7 +77,6 @@ public class MyCoolParser {
         }
 
     }
-
     public boolean shallowChecker(){
         boolean result = true;
         for(int i = Program.getClasses().size()-1 ; i>=0 ; i--){
@@ -118,6 +117,11 @@ public class MyCoolParser {
             result = result && cn;
         }
         return result;
+    }
+    public void calculateSize(){
+        for (Object c : Program.getClasses()) {
+            ((ClassNode)(c)).calculateSize();
+        }
     }
 
     /*public void parse() {

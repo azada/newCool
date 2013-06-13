@@ -26,8 +26,8 @@ public class Int extends Primitive {
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
         featureList.add(f1);
-
     }
+
 
     @Override
     public void generate(StringBuilder builder) {

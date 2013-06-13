@@ -29,6 +29,8 @@ public class BooleanCool extends Primitive {
         featureList.add(f1);
     }
 
+
+
     @Override
     public void generate(StringBuilder builder) {
 
