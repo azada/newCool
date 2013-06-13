@@ -32,6 +32,10 @@ public class FeatureVar extends Feature {
         this.expr = expr;
 
     }
+    public int getSize(){
+        return Program.getClassNode(type).getPointerSize();
+    }
+
     public boolean shallowCheck(SymbolNode pTable){
         return true;
     }

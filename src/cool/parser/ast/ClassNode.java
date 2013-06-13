@@ -23,6 +23,8 @@ public class ClassNode extends Node {
     boolean defined = true;
     SymbolNode symbolNode;
     boolean fullyChecked;
+    int pointerSize = 8;
+    int size = 0;
 
     public ClassNode(String type, ArrayList varFormals, Extends ext, ArrayList featureList) {
         this.ext = ext;
@@ -34,6 +36,31 @@ public class ClassNode extends Node {
         fullyChecked = false;
     }
 
+    public void increamentSize(int amount){
+        size += amount;
+    }
+    public int getPointerSize() {
+        return pointerSize;
+    }
+    public void calculateSize(){
+        // add varformals sizes
+        for (int i=0 ; i<varFormals.size(); i++){
+            increamentSize(((Var) this.varFormals.get(i)).getSize());
+        }
+        // add featureVar sizes
+        for (Object m : featureList) {
+            if(m instanceof FeatureVar){
+                increamentSize(((FeatureVar)(m)).getSize());
+            }
+
+        }
+        
+
+
+    }
+    public int getSize(){
+        return size;
+    }
     public ClassNode() {
     }
 
@@ -321,7 +348,4 @@ public class ClassNode extends Node {
 
     }
 
-    public int getSize() {
-        return 8;
-    }
 }

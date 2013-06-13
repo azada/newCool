@@ -13,14 +13,15 @@ import java.util.ArrayList;
  */
 public class BooleanCool extends Primitive {
     public BooleanCool() {
-        this.type = "Boolean";
-        this.featureList = new ArrayList<Feature>();
-        this.varFormals = new ArrayList<Var>();
-        this.ext = null;
-        this.defined = true;
-        this.symbolNode  = new SymbolNode();
-        this.fullyChecked = false;
+        type = "Boolean";
+        featureList = new ArrayList<Feature>();
+        varFormals = new ArrayList<Var>();
+        ext = null;
+        defined = true;
+        symbolNode  = new SymbolNode();
+        fullyChecked = false;
         symbolNode.type  = new String(type);
+        pointerSize = 1;
         //--------------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
