@@ -1,10 +1,10 @@
 class Parent(var x1:Int){
 
-
+    def getId(x1: Int) : Int = x1;
 }
 
 class Child(var x1: Int, var x2: Int) extends Parent(x1) {
-    def getId(x1: Int) : Int = x1;
+
 }
 
 
@@ -15,8 +15,7 @@ class Another (var x: Parent) extends IO() {
 
     {
         var c2 : Child = new Child(2,2);
-        var id2 : Int = c2.getId(1) + 1;
-        var iss : Int = - 4;
+        var id2 : Int = c2.getId(1) ;
         this
 
     };
