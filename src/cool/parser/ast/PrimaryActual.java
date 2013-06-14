@@ -39,8 +39,8 @@ public class PrimaryActual extends Primary {
             if (Program.getTableRow(primary.expType) != null){
                 if (!Program.getTableRow(primary.expType).containsKey(id)){
                     // if this Id didn't have this method in itself, we should look up to find this method.
-                    if (pTable.lookup("SUPER")!= null){
-                        String superType = pTable.lookup("SUPER").getType();
+                    if (Program.getSuper(primary.expType)!= null){
+                        String superType = Program.getSuper(primary.expType);
                         temp = Program.fetchMethod(superType,id);
                         if(temp == null){
                             // this means that this method doesn't exsist
