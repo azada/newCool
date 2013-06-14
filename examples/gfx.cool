@@ -247,7 +247,8 @@ CenteredShape(new Color(" "),new Point(new Color(" "),0,0))
          i = i+1
        };
        if (0 < n) {
-         center = origin.move(sum.divide(n)); center
+         center = origin.move(sum.divide(n));
+         center
        } else {
          center // unchanged
        }

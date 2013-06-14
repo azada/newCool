@@ -1,5 +1,6 @@
 class A2I() {
   
+
   // Convert a string of digits into an integer.
   // return a negative number if something went wrong.
   def a2i(s : String) : Int = {
@@ -12,15 +13,16 @@ class A2I() {
     };
     result
   };
+      def c2i(char : String) : Int = {
+        var ch : Int = char.charAt(0);
+        if (ch < 48) -1
+        else if (58 <= ch) -1
+        else ch - 48
+      };
 
   //   c2i   Converts a 1-character string to an integer.  returns -1
   //         if the string is not "0" through "9"
-  def c2i(char : String) : Int = {
-    var ch : Int = char.charAt(0);
-    if (ch < 48) -1
-    else if (58 <= ch) -1
-    else ch - 48
-  };
+
 
   def i2a(i : Int) : String = i.toString();
 }
