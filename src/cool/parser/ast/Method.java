@@ -27,6 +27,10 @@ public class Method extends Id {
 
     }
 
+    public String getClassType() {
+        return classType;
+    }
+
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
         // we should check the Type of primary and make sure it has a method with this method.
