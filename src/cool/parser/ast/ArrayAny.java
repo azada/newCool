@@ -29,20 +29,20 @@ public class ArrayAny extends ClassNode{
 
         ArrayList<Formal> formals1 = new ArrayList<Formal>();
         FeatureMethod f2 = new NativeFeatureMethod("length",formals1,"Int");
-
+        f2.classType = "ArrayAny";
         ArrayList<Formal> formals2 = new ArrayList<Formal>();
         formals2.add(new Formal("s", "Int"));
         FeatureMethod f3 = new NativeFeatureMethod("resize",formals2,"ArrayAny");
-
+        f3.classType = "ArrayAny";
         ArrayList<Formal> formals3 = new ArrayList<Formal>();
         formals3.add(new Formal("index", "Int"));
         FeatureMethod f4 = new NativeFeatureMethod("get",formals3,"Any");
-
+        f4.classType = "ArrayAny";
         ArrayList<Formal> formals4 = new ArrayList<Formal>();
         formals4.add(new Formal("index", "Int"));
         formals4.add(new Formal("obj", "Any"));
         FeatureMethod f5 = new NativeFeatureMethod("set",formals4,"Any");
-
+        f5.classType = "ArrayAny";
 //        this.featureList.add(f1);
         this.featureList.add(f2);
         this.featureList.add(f3);

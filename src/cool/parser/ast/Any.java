@@ -26,10 +26,12 @@ public class Any extends ClassNode{
         //----------------------------------------
         ArrayList<Formal> formals = new ArrayList<Formal>();
         FeatureMethod f1 = new NativeFeatureMethod("toString",formals,"String");
+        f1.classType = "Any";
 
         ArrayList<Formal> formals1 = new ArrayList<Formal>();
         formals1.add(new Formal("x", "Any"));
         FeatureMethod f2 = new NativeFeatureMethod("equals",formals1,"Boolean");
+        f2.classType = "Any";
 
         this.featureList.add(f1);
         this.featureList.add(f2);
