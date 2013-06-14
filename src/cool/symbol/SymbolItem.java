@@ -20,6 +20,10 @@ public class SymbolItem {
         inClass = aClass;
     }
 
+    public String getInClass() {
+        return inClass;
+    }
+
     public SymbolItem(String id, String type,int address, boolean init) {
         this.id = id;
         this.type = type;

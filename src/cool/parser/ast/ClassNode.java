@@ -44,7 +44,7 @@ public class ClassNode extends Node {
 
         for (int i = 0 ; i<featureList.size() ; i++) {
             if (featureList.get(i) instanceof FeatureVar){
-                if (((FeatureVar)(featureList.get(i))).type.equals(var)){
+                if (((FeatureVar)(featureList.get(i))).id.equals(var)){
                     return index;
                 }
                 else{
@@ -54,7 +54,7 @@ public class ClassNode extends Node {
             }
         }
         for (int i = 0 ; i<varFormals.size() ; i++){
-            if(((FeatureVar)(varFormals.get(i))).type.equals(var)){
+            if(((FeatureVar)(varFormals.get(i))).id.equals(var)){
                return index;
             }
             index ++;
