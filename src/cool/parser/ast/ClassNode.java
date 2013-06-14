@@ -64,6 +64,31 @@ public class ClassNode extends Node {
         
     }
 
+
+    public int getMethodIndex(String id) {
+        int index = varFormals.size();
+        if (!type.equals("Any")) {
+            index++;
+        }
+        for (int i=0; i < featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if ( f instanceof FeatureVar) {
+                index++;
+            }
+        }
+
+        for (int i=0; i < featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if ( f instanceof FeatureMethod) {
+                if (((FeatureMethod) f).id.equals(id)) {
+                    return index;
+                } else {
+                    index++;
+                }
+            }
+        }
+        return -1;
+    }
     public void increamentSize(int amount){
         size += amount;
     }
@@ -212,10 +237,8 @@ public class ClassNode extends Node {
         JSONLogger.closeNode();
     }
 
-    @Override
-    public void generate(StringBuilder builder) {
-        CodeGenerator.comment(builder, "ClassNode.generate");
-        System.out.println("ClassNode.generate " + type);
+    public void generateStructure(StringBuilder builder) {
+         System.out.println("ClassNode.generate " + type);
         builder.append("%class." + type + " = " + "type ");
         CodeGenerator.openBrace(builder);
         String parentType = Program.getSuper(this.type);
@@ -244,12 +267,28 @@ public class ClassNode extends Node {
             CodeGenerator.appendType(builder,v.type);
             CodeGenerator.appendComma(builder);
         }
+
+        for (int i=0; i< featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if (f instanceof FeatureMethod) {
+                FeatureMethod fmethod = (FeatureMethod) f;
+                fmethod.generateReference(builder);
+                CodeGenerator.appendComma(builder);
+            }
+
+        }
+
         CodeGenerator.removeExtraComma(builder);
         CodeGenerator.closeBrace(builder);
 
         CodeGenerator.newLine(builder);
 
-        generateConstructor(builder);
+    }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        CodeGenerator.comment(builder, "ClassNode.generate");
+        generateStructure(builder);
 
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
@@ -259,6 +298,10 @@ public class ClassNode extends Node {
             }
 
         }
+        generateConstructor(builder);
+
+
+
 
         //To change body of implemented methods use File | Settings | File Templates.
     }
@@ -334,6 +377,37 @@ public class ClassNode extends Node {
                 //CodeGenerator.appendComma(builder);
             }
             //CodeGenerator.removeExtraComma(builder);
+        }
+
+        //set method pointers
+
+        for (int i=0; i< featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if (f instanceof FeatureMethod) {
+                FeatureMethod fmethod = (FeatureMethod) f;
+                int methodIndex = getMethodIndex(fmethod.id);
+
+                int element = CodeGenerator.getElementOf(builder, this,bindingThis.getLoadedId(), methodIndex );
+
+               /*
+                int element = currentRecord.getNewVariable();
+                builder.append("%" + element + " = getelementptr inbounds "   );
+                this.generateReference(builder);
+                builder.append(" %" + bindingThis.getLoadedId() + ", i32 0, i32 " + methodIndex );
+                 */
+
+                CodeGenerator.newLine(builder);
+                builder.append("store ");
+                fmethod.generateReference(builder);
+                builder.append(" @" + CodeGenerator.getFlattenName(type, fmethod.id) + ", " );
+                fmethod.generateReference(builder);
+                builder.append("*");
+                builder.append(" %" + element);
+                builder.append(", align " + getPointerSize());
+                CodeGenerator.newLine(builder);
+
+
+            }
         }
 
         //implement feature block

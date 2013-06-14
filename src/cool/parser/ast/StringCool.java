@@ -42,4 +42,15 @@ public class StringCool extends Primitive{
 
     }
 
+
+    @Override
+    public void generateReference(StringBuilder builder) {
+        builder.append("i8*");
+    }
+
+    public void generateInstance(StringBuilder builder) {
+
+        builder.append("i8*");
+
+    }
 }

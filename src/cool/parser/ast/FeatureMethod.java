@@ -152,6 +152,8 @@ public class FeatureMethod extends Feature {
         CodeGenerator.removeExtraComma(builder);
         CodeGenerator.closeParen(builder);
 
+        builder.append(" nounwind uwtable ssp ");
+
         CodeGenerator.newLine(builder);
         CodeGenerator.openBrace(builder);
          CodeGenerator.newLine(builder);
@@ -197,5 +199,33 @@ public class FeatureMethod extends Feature {
 
 
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void generateReference(StringBuilder builder) {
+        System.out.println("type = " + type);
+        if (type.equals("Nothing") ){
+            builder.append("{} ");
+        } else {
+            ClassNode resultType = Program.getClassNode(type);
+            resultType.generateReference(builder);
+        }
+        builder.append(" (" );
+
+        Program.getClassNode(getClassType()).generateReference(builder);
+        CodeGenerator.appendComma(builder);
+
+        for (int i=0; i < formals.size(); i++) {
+            Var v = ((Formal)formals.get(i)).getVar();
+            ClassNode varNode = Program.getClassNode(v.getVarType());
+            varNode.generateReference(builder);
+            CodeGenerator.appendComma(builder);
+        }
+        CodeGenerator.removeExtraComma(builder);
+        builder.append(")*");
+
+    }
+
+    public int getPointerSize() {
+        return 8;
     }
 }

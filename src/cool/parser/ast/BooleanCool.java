@@ -35,4 +35,16 @@ public class BooleanCool extends Primitive {
     public void generate(StringBuilder builder) {
 
     }
+
+    @Override
+    public void generateReference(StringBuilder builder) {
+        builder.append("i8");
+    }
+
+    @Override
+    public void generateInstance(StringBuilder builder) {
+
+        builder.append("i8");
+
+    }
 }

@@ -5,6 +5,7 @@ import cool.codegen.ActivationStack;
 import cool.codegen.Binding;
 import cool.codegen.CodeGenerator;
 import cool.exception.MyException;
+import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
 
 import java.util.ArrayList;
@@ -163,8 +164,46 @@ public class PrimaryActual extends Primary {
 
 
 
+            ClassNode returnType = Program.getClassNode(method.type);
+            int index = methodNode.getMethodIndex(methodName);
+            int castedVar = 0;
+            if (index < 0) {
+                SymbolItem item = methodNode.getSymbolNode().lookup(method.id);
+                ClassNode ownerClass = Program.getClassNode(item.getInClass());
+                index = ownerClass.getMethodIndex(id);
+                castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLoadedId(), instanceNode, ownerClass );
+
+
+            } else {
+                castedVar = instanceBinding.getLoadedId();
+            }
+
+            int methodVar = CodeGenerator.getElementOf(builder,methodNode, castedVar, index);
+            int loadedMethod = CodeGenerator.loadMethod(builder, method, methodVar);
 
             int immediateVar = record.getNewVariable();
+            builder.append("%" + immediateVar + " = call ");
+            returnType.generateReference(builder);
+            builder.append(" %" + loadedMethod + " (");
+            methodNode.generateReference(builder);
+            builder.append( " %" + instanceBinding.getLoadedId()  );
+
+            CodeGenerator.appendComma(builder);
+            for (int i=0; i < args.size(); i++ ) {
+                String argType = ((Expr)actuals.get(i)).getType();
+                Program.getClassNode(argType).generateReference(builder);
+                builder.append(" %" + args.get(i) );
+                CodeGenerator.appendComma(builder);
+            }
+            CodeGenerator.removeExtraComma(builder);
+
+            CodeGenerator.closeParen(builder);
+            CodeGenerator.newLine(builder);
+
+
+            /*
+            // old static call
+
             builder.append("%" + immediateVar + " = "  + "call " );
             ClassNode returnType = Program.getClassNode(method.type);
             returnType.generateReference(builder);
@@ -179,8 +218,9 @@ public class PrimaryActual extends Primary {
                 CodeGenerator.appendComma(builder);
             }
             CodeGenerator.removeExtraComma(builder);
+            */
 
-            CodeGenerator.closeParen(builder);
+
             CodeGenerator.newLine(builder);
             Binding resultBinding = record.bindToExpr(this);
 
