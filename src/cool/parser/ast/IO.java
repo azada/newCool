@@ -25,27 +25,30 @@ public class IO extends  ClassNode{
         ArrayList<Formal> formals = new ArrayList<Formal>();
         formals.add(new Formal("message", "String"));
         FeatureMethod f1 = new NativeFeatureMethod("abort",formals,"Nothing");
+        f1.classType = "IO";
 
         ArrayList<Formal> formals2 = new ArrayList<Formal>();
         formals2.add(new Formal("arg", "Int"));
         FeatureMethod f2 = new NativeFeatureMethod("out",formals2,"IO");
+        f2.classType = "IO";
 
         ArrayList<Formal> formals3 = new ArrayList<Formal>();
         formals3.add(new Formal("arg", "Any"));
         FeatureMethod f3 = new NativeFeatureMethod("is_null",formals3,"Boolean");
+        f3.classType = "IO";
 
         ArrayList<Formal> formals4 = new ArrayList<Formal>();
         formals4.add(new Formal("arg", "Any"));
         FeatureMethod f4 = new NativeFeatureMethod("out_any",formals4,"IO");
-
+        f4.classType = "IO";
         ArrayList<Formal> formals5 = new ArrayList<Formal>();
         formals5.add(new Formal("arg", "String"));
         FeatureMethod f5 = new NativeFeatureMethod("in",formals5,"String");
-
+        f5.classType = "IO";
         ArrayList<Formal> formals8 = new ArrayList<Formal>();
         formals8.add(new Formal("arg", "String"));
         FeatureMethod f8 = new NativeFeatureMethod("out_s",formals8,"IO");
-
+        f8.classType = "IO";
 //        ArrayList<Formal> formals6 = new ArrayList<Formal>();
 //        formals6.add(new Formal("name", "String"));
 //        FeatureMethod f6 = new NativeFeatureMethod("symbol",formals6,"Symbol");
