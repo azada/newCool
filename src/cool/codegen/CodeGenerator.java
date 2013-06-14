@@ -1,9 +1,6 @@
 package cool.codegen;
 
-import cool.parser.ast.Actuals;
-import cool.parser.ast.ClassNode;
-import cool.parser.ast.Expr;
-import cool.parser.ast.Program;
+import cool.parser.ast.*;
 
 import java.util.ArrayList;
 
@@ -91,6 +88,16 @@ public class CodeGenerator {
 
     }
 
+    public static void allocatePointer(StringBuilder builder, Binding binding, ClassNode typeNode) {
+        int varNum = binding.llvmVarId;
+        builder.append("%" + varNum + " = ");
+        builder.append("alloca ");
+        typeNode.generateReference(builder);
+        appendComma(builder);
+        int size = typeNode.getPointerSize();
+        builder.append("align " + size);
+        newLine(builder);
+    }
     public static void allocateVar(StringBuilder builder, Binding binding) {
         int varNum = binding.llvmVarId;
         builder.append("%" + varNum + " = ");
@@ -202,6 +209,8 @@ public class CodeGenerator {
         builder.append("%" + binding.llvmVarId);
         newLine(builder);
     }
+
+
     public static void appendType(StringBuilder builder, String type) {
         ClassNode varNode = Program.getClassNode(type);
         if (varNode == null){
@@ -287,5 +296,64 @@ public class CodeGenerator {
         builder.append("align " + size);
         newLine(builder);
         //To change body of created methods use File | Settings | File Templates.
+    }
+
+
+    public static void generateActuals(StringBuilder builder, ArrayList actuals) {
+        ActivationRecord record = ActivationStack.getHandle().top();
+
+
+        for (int i=0; i < actuals.size(); i++ ) {
+            Expr expr = (Expr) actuals.get(i);
+            expr.generate(builder);
+            CodeGenerator.newLine(builder);
+            //allocateExpr(builder, arg);
+
+        }
+    }
+
+    public static ArrayList<Integer> loadActuals(StringBuilder builder, ArrayList actuals) {
+
+        ActivationRecord record = ActivationStack.getHandle().top();
+        ArrayList<Integer> args = new ArrayList<Integer>(actuals.size());
+        for (int i=0; i < actuals.size(); i++ ){
+            Binding result = null;
+            Expr expr = (Expr) actuals.get(i);
+            if (expr instanceof Id) {
+                Id id = (Id)expr;
+                result = record.getBindedVar(id.getName());
+                CodeGenerator.loadVar(builder, result);
+            } else{
+                result = record.getBindedExpr(expr.toString());
+                CodeGenerator.loadExpr(builder, result);
+            }
+
+            int argid = result.getLoadedId();
+            args.add(argid);
+        }
+        return  args;
+
+    }
+
+
+    public static String getFlattenName(String className, String methodName) {
+        return className + "_" + methodName;
+
+    }
+
+    public static Binding loadExpr(StringBuilder builder, Expr expr){
+        ActivationRecord record = ActivationStack.getHandle().top();
+        Binding instanceBinding = null;
+        if (expr instanceof Id) {
+            Id var = (Id) expr;
+            instanceBinding = record.getBindedVar(var.getName());
+            CodeGenerator.loadVar(builder, instanceBinding);
+        } else {
+            instanceBinding = record.getBindedExpr(expr.toString());
+            CodeGenerator.loadExpr(builder, instanceBinding);
+        }
+        newLine(builder);
+        return instanceBinding;
+
     }
 }

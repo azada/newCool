@@ -17,6 +17,11 @@ import cool.symbol.SymbolNode;
 public class Id extends Primary {
     String name;
 
+
+    public String getName() {
+        return name;
+    }
+
     public Id(String name) {
         this.name = name;
     }

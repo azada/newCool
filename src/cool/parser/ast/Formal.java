@@ -49,4 +49,8 @@ public class Formal extends Node{
     public void generate(StringBuilder builder) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    public Var getVar() {
+        return new Var(id,type);
+    }
 }

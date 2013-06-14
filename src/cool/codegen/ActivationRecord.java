@@ -48,8 +48,22 @@ public class ActivationRecord {
         return binding;
     }
 
+
+    /*
     public Binding lookupBinding(Expr expr) throws BindingNotFound {
+
+        Binding instanceBinding;
+        if (expr instanceof Id) {
+            Id var = (Id) expr;
+            instanceBinding = getBindedVar(var.getName());
+            CodeGenerator.loadVar(builder, instanceBinding);
+        } else {
+            instanceBinding = record.getBindedExpr(primary.toString());
+            CodeGenerator.loadExpr(builder, instanceBinding);
+        }
         Binding binding = (Binding)map.get(expr.toString());
         return binding;
     }
+
+    */
 }

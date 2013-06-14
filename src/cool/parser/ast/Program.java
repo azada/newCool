@@ -145,6 +145,18 @@ public class Program {
         }
         return result;
     }
+
+    public static FeatureMethod lookupMethod(String instanceType,String method){
+        HashMap methods = typeTable.get(instanceType);
+        if (methods.containsKey(method)) {
+            return (FeatureMethod) methods.get(method);
+        } else {
+
+            String superType = Program.getSuper(instanceType);
+            FeatureMethod tempFeature = Program.fetchMethod(superType, method);
+            return  tempFeature;
+        }
+    }
     // we need a method to look up a "method" starting from the base class up untill the final class
     public static FeatureMethod fetchMethod(String superType,String method){
             if(superType == null){

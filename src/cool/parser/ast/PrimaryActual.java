@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
@@ -105,6 +109,60 @@ public class PrimaryActual extends Primary {
 
     @Override
     public void generate(StringBuilder builder) {
-        System.out.println("builder ----------------------------- = " + builder);
+        ActivationRecord record = ActivationStack.getHandle().top();
+
+        ClassNode instanceNode = Program.getClassNode(this.primary.getType());
+        String methodName = id;
+
+        FeatureMethod method = Program.lookupMethod(instanceNode.getType(), methodName);
+
+        if (method instanceof OverrideFeatureMethod) {
+
+        } else {
+            ClassNode returnType = Program.getClassNode(method.type);
+            Binding resultBinding = record.bindToExpr(this);
+            //CodeGenerator.allocatePointer(builder, resultBinding, returnType);
+
+
+            //CodeGenerator.allocateExpr();
+            primary.generate(builder);
+            CodeGenerator.generateActuals(builder, this.actuals);
+
+
+            Binding instanceBinding = CodeGenerator.loadExpr(builder, primary);
+//            Binding instanceBinding = null;
+//            if (primary instanceof Id) {
+//                Id var = (Id) primary;
+//                instanceBinding = record.getBindedVar(var.name);
+//                CodeGenerator.loadVar(builder, instanceBinding);
+//            } else {
+//                instanceBinding = record.getBindedExpr(primary.toString());
+//                CodeGenerator.loadExpr(builder, instanceBinding);
+//            }
+            ArrayList<Integer> args = CodeGenerator.loadActuals(builder, actuals);
+
+            String flatName = CodeGenerator.getFlattenName(instanceNode.getType(), methodName);
+
+
+
+
+
+            builder.append("%" + resultBinding.getLLVMId() + " "  + "call " + flatName + "( " );
+            instanceNode.generateReference(builder);
+            builder.append( " " + instanceBinding.getLLVMId()  );
+            CodeGenerator.appendComma(builder);
+            for (int i=0; i < args.size(); i++ ) {
+                String argType = ((Expr)actuals.get(i)).getType();
+                Program.getClassNode(argType).generateReference(builder);
+                builder.append(" %" + args.get(i) );
+                CodeGenerator.appendComma(builder);
+            }
+
+            CodeGenerator.removeExtraComma(builder);
+            CodeGenerator.closeParen(builder);
+
+        }
+
+
     }
 }

@@ -88,7 +88,6 @@ public class Instance extends Primary {
 
     @Override
     public void generate(StringBuilder builder) {
-        ActivationRecord currentRecord = ActivationStack.getHandle().top();
         ClassNode instanceNode = Program.getClassNode(this.type);
         //Binding binding = currentRecord.bindToExpr(this);
         //CodeGenerato  r.allocateInstance(builder,binding, instanceNode, actuals);
@@ -101,13 +100,15 @@ public class Instance extends Primary {
 
 
         //generate arguments
-        for (int i=0; i < actuals.size(); i++ ) {
-            Expr expr = (Expr) actuals.get(i);
-            expr.generate(builder);
-            CodeGenerator.newLine(builder);
-            //allocateExpr(builder, arg);
 
-        }
+        CodeGenerator.generateActuals(builder, actuals);
+//        for (int i=0; i < actuals.size(); i++ ) {
+//            Expr expr = (Expr) actuals.get(i);
+//            expr.generate(builder);
+//            CodeGenerator.newLine(builder);
+//            //allocateExpr(builder, arg);
+//
+//        }
 
 
         /*int varNum = binding.llvmVarId;
@@ -137,23 +138,26 @@ public class Instance extends Primary {
 
 
         //load arguments
-        ArrayList<Integer> args = new ArrayList<Integer>(actuals.size());
-        for (int i=0; i < this.actuals.size(); i++ ){
-            Binding result = null;
-            Expr expr = (Expr) actuals.get(i);
-            if (expr instanceof Id) {
-                Id id = (Id)expr;
-                result = currentRecord.getBindedVar(id.name);
-                CodeGenerator.loadVar(builder, result);
-            } else{
-                result = currentRecord.getBindedExpr(expr.toString());
-                CodeGenerator.loadExpr(builder, result);
-            }
+//        ArrayList<Integer> args = new ArrayList<Integer>(actuals.size());
+//        for (int i=0; i < this.actuals.size(); i++ ){
+//            Binding result = null;
+//            Expr expr = (Expr) actuals.get(i);
+//            if (expr instanceof Id) {
+//                Id id = (Id)expr;
+//                result = currentRecord.getBindedVar(id.name);
+//                CodeGenerator.loadVar(builder, result);
+//            } else{
+//                result = currentRecord.getBindedExpr(expr.toString());
+//                CodeGenerator.loadExpr(builder, result);
+//            }
+//
+//            int argid = result.getLoadedId();
+//            args.add(argid);
+//        }
 
-            int argid = result.getLoadedId();
-            args.add(argid);
-        }
 
+        //load arguments
+        ArrayList<Integer> args = CodeGenerator.loadActuals(builder, actuals);
 
         //call constrcutor
         String constName = instanceNode.getConstructorName();
@@ -161,6 +165,8 @@ public class Instance extends Primary {
         instanceNode.generateReference(builder);
         builder.append( " %" + castedMemory);
         CodeGenerator.appendComma(builder);
+
+
 
         for (int i = 0; i < actuals.size(); i++) {
             Expr expr = (Expr) actuals.get(i);

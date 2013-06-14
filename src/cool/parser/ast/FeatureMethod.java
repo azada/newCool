@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.codegen.*;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
@@ -121,11 +122,62 @@ public class FeatureMethod extends Feature {
         builder.append("define ");
         String className = symbolNode.lookup("THIS").getType();
         String methodName = id;
-        String flattenName = className + "_" + methodName;
-        String thisPointer = "class." + className + "*" + " %this";
+        ClassNode myClass = Program.getClassNode(className);
+        String flattenName = CodeGenerator.getFlattenName(className,methodName);
+        builder.append(flattenName + "(");
+        myClass.generateReference(builder);
+        builder.append(" %this");
+        CodeGenerator.appendComma(builder);
+
+        if (formals.size() > 0) {
+
+            for (int i=0; i < formals.size(); i++) {
+                Var v = ((Formal) formals.get(i)).getVar();
+                v.generate(builder);
+                CodeGenerator.appendComma(builder);
+            }
+
+        }
+        CodeGenerator.removeExtraComma(builder);
+        CodeGenerator.closeParen(builder);
+
+        CodeGenerator.newLine(builder);
+        CodeGenerator.openBrace(builder);
+        CodeGenerator.newLine(builder);
+
+        ActivationRecord currentRecord = ActivationStack.getHandle().startNewActivationRecord();
+
+        Var varThis = new Var("this", myClass.type);
+        Binding bindingThis =  currentRecord.bindToNewVariable(varThis);
+        CodeGenerator.allocateVar(builder, bindingThis);
+        CodeGenerator.storeVar(builder, bindingThis);
+        //int newVar = currentRecord.getNewVariable();
+        //bindingThis.setLoadedId(newVar);
 
 
-        builder.append(flattenName);
+        CodeGenerator.loadVar(builder, bindingThis);
+        //ArrayList<Binding> args = new ArrayList<Binding>(formals.size());
+        for (int i=0; i < formals.size(); i++) {
+                Var v = ((Formal)formals.get(i)).getVar();
+                Binding binding = currentRecord.bindToNewVariable(v);
+                CodeGenerator.allocateVar(builder, binding );
+                CodeGenerator.storeVar(builder,binding);
+          //      args.add(binding);
+                CodeGenerator.loadVar(builder,binding);
+         }
+
+
+
+
+        this.expr.generate(builder);
+
+
+        Binding resultBinding = CodeGenerator.loadExpr(builder,expr);
+        builder.append("ret" + " %" +resultBinding.getLoadedId());
+        CodeGenerator.newLine(builder);
+        CodeGenerator.closeBrace(builder);
+        CodeGenerator.newLine(builder);
+
 
         //To change body of implemented methods use File | Settings | File Templates.
     }

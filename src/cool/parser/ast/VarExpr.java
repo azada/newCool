@@ -92,8 +92,10 @@ public class VarExpr extends Expr {
         CodeGenerator.allocateVar(builder, binding);
         this.expr.generate(builder);
 
-        Binding result = null;
-        if (this.expr instanceof Id) {
+        Binding result = CodeGenerator.loadExpr(builder, expr);
+
+
+      /*  if (this.expr instanceof Id) {
             Id id = (Id)this.expr;
             result = currentRecord.getBindedVar(id.name);
             CodeGenerator.loadVar(builder, result);
@@ -108,7 +110,7 @@ public class VarExpr extends Expr {
             //int loadedVar = currentRecord.getNewVariable();
         }
         //result.setLoadedId(loadedVar);
-
+        */
         CodeGenerator.storeResult(builder, binding, result);
         //CodeGenerator.storeVar();
     }
