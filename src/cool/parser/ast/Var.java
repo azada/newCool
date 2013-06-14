@@ -52,7 +52,7 @@ public class Var extends Node {
         }
 
         SymbolItem temp = new SymbolItem(id, type,0, false);
-        temp.setClass(pTable.lookup("THIS").getType());
+        temp.setClass(pTable.type);
         pTable.insert(temp);
 
         return result;
