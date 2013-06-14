@@ -6,8 +6,7 @@ import cool.parser.ast.Program;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +32,11 @@ public class CodeGenTester extends TestCase {
             StringBuilder builder = new StringBuilder();
             parser.generate(builder);
             String llvmCode = builder.toString();
+            BufferedWriter writer = null;
+            writer = new BufferedWriter( new FileWriter("llvmCode.s"));
+            writer.write(llvmCode);
+            writer.close( );
+
             System.out.println(llvmCode);
 
 
@@ -47,6 +51,8 @@ public class CodeGenTester extends TestCase {
         } catch (Parser.Exception e ) {
             System.out.println("e = " + e);
             Assert.assertTrue(false);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }
 
