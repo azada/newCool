@@ -47,5 +47,9 @@ public class Binding {
     public void setLLVMId(int llvmVarId) {
         this.llvmVarId = llvmVarId;
     }
+
+    public void setExprType(String type) {
+        expr.expType = type;
+    }
 }
 

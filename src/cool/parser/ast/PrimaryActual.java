@@ -40,8 +40,8 @@ public class PrimaryActual extends Primary {
             if (Program.getTableRow(primary.expType) != null){
                 if (!Program.getTableRow(primary.expType).containsKey(id)){
                     // if this Id didn't have this method in itself, we should look up to find this method.
-                    if (Program.getSuper(primary.expType)!= null){
-                        String superType = Program.getSuper(primary.expType);
+                    if (pTable.lookup("SUPER")!= null){
+                        String superType = pTable.lookup("SUPER").getType();
                         temp = Program.fetchMethod(superType,id);
                         if(temp == null){
                             // this means that this method doesn't exsist
@@ -139,7 +139,9 @@ public class PrimaryActual extends Primary {
             } else {
                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
                 int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), Program.getClassNode(method.classType), instanceNode);
-                instanceBinding.setLLVMId(castedVar);
+
+                instanceBinding.setLoadedId(castedVar);
+                instanceBinding.setExprType(method.classType);
             }
 //
 //          Binding instanceBinding = null;
