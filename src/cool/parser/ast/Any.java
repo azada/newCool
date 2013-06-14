@@ -33,8 +33,8 @@ public class Any extends ClassNode{
         FeatureMethod f2 = new NativeFeatureMethod("equals",formals1,"Boolean");
         f2.classType = "Any";
 
-        this.featureList.add(f1);
-        this.featureList.add(f2);
+        //this.featureList.add(f1);
+        //this.featureList.add(f2);
 
         //----------------------------------------
     }

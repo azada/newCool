@@ -44,10 +44,10 @@ public class ArrayAny extends ClassNode{
         FeatureMethod f5 = new NativeFeatureMethod("set",formals4,"Any");
         f5.classType = "ArrayAny";
 //        this.featureList.add(f1);
-        this.featureList.add(f2);
-        this.featureList.add(f3);
-        this.featureList.add(f4);
-        this.featureList.add(f5);
+        //this.featureList.add(f2);
+        //this.featureList.add(f3);
+        //this.featureList.add(f4);
+        //this.featureList.add(f5);
 
         //----------------------------------------
     }

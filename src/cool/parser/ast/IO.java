@@ -74,8 +74,10 @@ public class IO extends  ClassNode{
 
     @Override
     public void generate(StringBuilder builder) {
-        String temp3 = "\n%class.IO = type { %class.Any, i32}";
-        builder.append(temp3);
+        //String temp3 = "\n%class.IO = type { %class.Any, i32}";
+        //builder.append(temp3);
+
+        generateStructure(builder);
 
         String temp = "" +"@.str1 = private unnamed_addr constant [3 x i8] c\"%d\00\", align 1" +
                 "\ndefine %class.IO* @IO_out(%class.IO* %this, i32 %a) uwtable ssp align 2 {\n" +
