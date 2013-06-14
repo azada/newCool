@@ -148,7 +148,7 @@ public class PrimaryActual extends Primary {
 
 
 
-            builder.append("%" + resultBinding.getLLVMId() + " "  + "call " + flatName + "( " );
+            builder.append("%" + resultBinding.getLLVMId() + " = "  + "call " + flatName + "( " );
             instanceNode.generateReference(builder);
             builder.append( " " + instanceBinding.getLLVMId()  );
             CodeGenerator.appendComma(builder);
@@ -161,6 +161,7 @@ public class PrimaryActual extends Primary {
 
             CodeGenerator.removeExtraComma(builder);
             CodeGenerator.closeParen(builder);
+            CodeGenerator.newLine(builder);
 
         }
 

@@ -88,8 +88,8 @@ public class CodeGenerator {
 
     }
 
-    public static void allocatePointer(StringBuilder builder, Binding binding, ClassNode typeNode) {
-        int varNum = binding.llvmVarId;
+    public static void allocatePointer(StringBuilder builder, Binding resultBinding, ClassNode typeNode) {
+        int varNum = resultBinding.getLLVMId();
         builder.append("%" + varNum + " = ");
         builder.append("alloca ");
         typeNode.generateReference(builder);
@@ -125,17 +125,17 @@ public class CodeGenerator {
     }
 
 
-    public static void storeExpr(StringBuilder builder, Binding binding) {
+    public static void storeExpr(StringBuilder builder, int sourceVar, Binding targetBinding) {
         builder.append("store ");
-        String type = binding.expr.getType();
+        String type = targetBinding.expr.getType();
         ClassNode varNode = Program.getClassNode(type);
         varNode.generateReference(builder);
-        builder.append(" %" + binding.llvmVarId);
+        builder.append(" %" + sourceVar);
 
         appendComma(builder);
         varNode.generateReference(builder);
         builder.append("* ");
-        builder.append("%" + binding.llvmVarId);
+        builder.append("%" + targetBinding.getLLVMId());
         appendComma(builder);
         int size = varNode.getPointerSize();
         builder.append("align " + size);
