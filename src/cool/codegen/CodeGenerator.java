@@ -384,4 +384,25 @@ public class CodeGenerator {
         CodeGenerator.newLine(builder);
         return castedVar;
     }
+
+    public static int getElementOf(StringBuilder builder, ClassNode instanceNode, int loadedId, int index) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        int element = currentRecord.getNewVariable();
+        builder.append("%" + element + " = getelementptr inbounds "   );
+        instanceNode.generateReference(builder);
+        builder.append(" %" + loadedId + ", i32 0, i32 " + index );
+
+        CodeGenerator.newLine(builder);
+        return element;
+    }
+
+    public static int loadMethod(StringBuilder builder, FeatureMethod method, int var ) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        int loadedVar = currentRecord.getNewVariable();
+        builder.append("%" + loadedVar + " = load ");
+        method.generateReference(builder);
+        builder.append("* %" + var + ", align " + method.getPointerSize());
+        newLine(builder);
+        return loadedVar;
+    }
 }
