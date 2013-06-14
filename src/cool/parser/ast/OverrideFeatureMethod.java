@@ -50,7 +50,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
         }
         for (int i = 0 ; i< temp.formals.size() ; i++){
             if (!Program.isConsistent(((Formal) (temp.formals.get(i))).type, ((Formal) formals.get(i)).type)){
-                Program.addError(new MyException("type of actuals doesn't match argument list defined in the method "+ id + " " +((Formal) (temp.formals.get(i))).type + " " + ((Formal)formals.get(i)).type,this));
+                Program.addError(new MyException("type of actuals doesn't match argument list defined in the method "+ id ,this));
                 result = false;
                 break;
             }
