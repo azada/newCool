@@ -13,6 +13,12 @@ import java.util.ArrayList;
  */
 public class CodeGenerator {
 
+    public static void comment(StringBuilder builder, String str) {
+        builder.append("; "+ str);
+        newLine(builder);
+
+    }
+
     public static void openArguments(StringBuilder builder) {
         builder.append("(");
     }
@@ -98,6 +104,9 @@ public class CodeGenerator {
         builder.append("align " + size);
         newLine(builder);
     }
+
+
+
     public static void allocateVar(StringBuilder builder, Binding binding) {
         int varNum = binding.llvmVarId;
         builder.append("%" + varNum + " = ");
@@ -204,6 +213,7 @@ public class CodeGenerator {
         String type = binding.expr.getType();
         ClassNode varNode = Program.getClassNode(type);
         varNode.generateReference(builder);
+        //builder.append(" ");
         builder.append("* ");
 
         builder.append("%" + binding.llvmVarId);
@@ -221,10 +231,16 @@ public class CodeGenerator {
     }
 
     public static void appendMain(StringBuilder builder) {
+        ActivationRecord record = ActivationStack.getHandle().startNewActivationRecord();
         builder.append("define i32 @main()");
         newLine(builder);
         openBrace(builder);
+
         newLine(builder);
+        int pointer = record.getNewVariable();
+        builder.append("%" + pointer + " = alloca %class.Main, align 8\n");
+        builder.append("call void @Main_env( %class.Main* " + "%" + pointer + " )");
+        CodeGenerator.newLine(builder);
         builder.append("ret i32\n0");
         newLine(builder);
         closeBrace(builder);

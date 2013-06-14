@@ -131,7 +131,7 @@ public class Instance extends Primary {
         CodeGenerator.newLine(builder);
 
         //cat memory to classpointer
-        int castedMemory = record.bindToExpr(this).getLLVMId(); //getNewVariable();
+        int castedMemory = record.getNewVariable(); //record.bindToExpr(this).getLLVMId(); //getNewVariable();
         //int castedMemory = record.getNewVariable();
         builder.append( "%" + castedMemory +  " = bitcast i8* %" + memoryVar + " to " +  instanceNode.getClassPointer() );
         CodeGenerator.newLine(builder);
@@ -177,19 +177,37 @@ public class Instance extends Primary {
             CodeGenerator.appendComma(builder);
         }
 
-        Binding binding = record.getBindedExpr(this.toString());
-        binding.setLoadedId(castedMemory);
 
         CodeGenerator.removeExtraComma(builder);
+        CodeGenerator.closeParen(builder);
+
+
+
+        Binding binding = record.bindToExpr(this); //)getBindedExpr(this.toString());
+
+        CodeGenerator.newLine(builder);
+
+
+
+        CodeGenerator.allocatePointer(builder, binding, instanceNode  );
+
+        CodeGenerator.storeExpr(builder, castedMemory, binding);
+
+
+
+        //binding.setLoadedId(castedMemory);
+
+
         //record.bindToExpr(this);
 
-        CodeGenerator.closeParen(builder);
+
         //invocation result
 
         //int normalLabel = record.getNewVariable();
         //int exceptionLabel = record.getNewVariable();
 
         //builder.append("\t\t label %" + normalLabel);
+
 
 
 

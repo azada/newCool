@@ -57,12 +57,12 @@ public class Id extends Primary {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         String newid = this.toString();
         System.out.println("newid = " + newid);
-        Binding b = currentRecord.getBindedExpr(name);
+       /* Binding b = currentRecord.getBindedExpr(name);
         System.out.println("b = " + b);
         if (b == null) {
             builder.append("-------lookup ------\n");
             System.out.println("binding2 = " + b);
-        }
+        }*/
         // /Binding b = currentRecord.bindToExpr(this);
         //Binding b = currentRecord.lookupBinding(this);
         //CodeGenerator.allocateExpr(builder, b);

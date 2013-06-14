@@ -125,12 +125,15 @@ public class FeatureMethod extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
+        CodeGenerator.comment(builder, "FeatureMethod.generate");
         builder.append("define ");
+        ClassNode returnType = Program.getClassNode(this.type);
+        returnType.generateReference(builder);
         String className = symbolNode.lookup("THIS").getType();
         String methodName = id;
         ClassNode myClass = Program.getClassNode(className);
         String flattenName = CodeGenerator.getFlattenName(className,methodName);
-        builder.append(flattenName + "(");
+        builder.append(" @" + flattenName + "(");
         myClass.generateReference(builder);
         builder.append(" %this");
         CodeGenerator.appendComma(builder);
@@ -149,7 +152,7 @@ public class FeatureMethod extends Feature {
 
         CodeGenerator.newLine(builder);
         CodeGenerator.openBrace(builder);
-        CodeGenerator.newLine(builder);
+         CodeGenerator.newLine(builder);
 
         ActivationRecord currentRecord = ActivationStack.getHandle().startNewActivationRecord();
 
@@ -179,7 +182,10 @@ public class FeatureMethod extends Feature {
 
 
         Binding resultBinding = CodeGenerator.loadExpr(builder,expr);
-        builder.append("ret" + " %" +resultBinding.getLoadedId());
+        ClassNode resultType = Program.getClassNode(expr.getType());
+        builder.append("ret " );
+        resultType.generateReference(builder);
+        builder.append(" %" +resultBinding.getLoadedId());
 
 
 

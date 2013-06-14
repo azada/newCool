@@ -111,6 +111,7 @@ public class PrimaryActual extends Primary {
 
     @Override
     public void generate(StringBuilder builder) {
+        CodeGenerator.comment(builder, "PrimaryActual.generate");
         ActivationRecord record = ActivationStack.getHandle().top();
 
         ClassNode instanceNode = Program.getClassNode(this.primary.getType());
@@ -123,7 +124,7 @@ public class PrimaryActual extends Primary {
 
         } else {
             //ClassNode returnType = Program.getClassNode(method.type);
-            Binding resultBinding = record.bindToExpr(this);
+
             //CodeGenerator.allocatePointer(builder, resultBinding, returnType);
 
 
@@ -140,7 +141,7 @@ public class PrimaryActual extends Primary {
             } else {
                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
 
-                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), instanceNode, methodNode);
+                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLoadedId(), instanceNode, methodNode);
 
                 instanceBinding.setLoadedId(castedVar);
                 instanceBinding.setLLVMId(castedVar);
@@ -163,10 +164,13 @@ public class PrimaryActual extends Primary {
 
 
 
-
-            builder.append("%" + resultBinding.getLLVMId() + " = "  + "call " + flatName + "( " );
+            int immediateVar = record.getNewVariable();
+            builder.append("%" + immediateVar + " = "  + "call " );
+            ClassNode returnType = Program.getClassNode(method.type);
+            returnType.generateReference(builder);
+            builder.append(" @" +flatName + "( " );
             methodNode.generateReference(builder);
-            builder.append( " %" + instanceBinding.getLLVMId()  );
+            builder.append( " %" + instanceBinding.getLoadedId()  );
             CodeGenerator.appendComma(builder);
             for (int i=0; i < args.size(); i++ ) {
                 String argType = ((Expr)actuals.get(i)).getType();
@@ -174,9 +178,16 @@ public class PrimaryActual extends Primary {
                 builder.append(" %" + args.get(i) );
                 CodeGenerator.appendComma(builder);
             }
-
             CodeGenerator.removeExtraComma(builder);
+
             CodeGenerator.closeParen(builder);
+            CodeGenerator.newLine(builder);
+            Binding resultBinding = record.bindToExpr(this);
+
+            CodeGenerator.allocatePointer(builder, resultBinding, returnType  );
+            CodeGenerator.storeExpr(builder,immediateVar, resultBinding);
+
+
             CodeGenerator.newLine(builder);
 
         }
