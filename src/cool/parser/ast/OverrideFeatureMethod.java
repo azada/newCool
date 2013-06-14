@@ -30,6 +30,7 @@ public class OverrideFeatureMethod extends FeatureMethod {
     @Override
     public boolean check(SymbolNode pTable) {
         boolean result = true;
+        classType= pTable.type;
         // we should check if this current class has a supertype.
         String superType = pTable.lookup("SUPER").getType();
         if(superType == null){

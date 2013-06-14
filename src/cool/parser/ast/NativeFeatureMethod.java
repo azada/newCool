@@ -28,6 +28,7 @@ public class NativeFeatureMethod extends FeatureMethod{
     public boolean check(SymbolNode pTable){
         boolean result = true;
         this.symbolNode.setParent(pTable);
+        classType = pTable.type;
 //        if (Program.typeTableContains(pTable.type)){
 //            if (Program.getTableRow(pTable.type).containsKey(id)){
 //                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));

@@ -20,6 +20,7 @@ public class FeatureMethod extends Feature {
     String type;
     Expr expr;
     boolean defined = true;
+    String classType;
 
     public FeatureMethod(String id, ArrayList formals, String type, Expr expr ) {
         this.id = id;
@@ -28,6 +29,11 @@ public class FeatureMethod extends Feature {
         this.expr = expr;
         symbolNode = new SymbolNode();
 
+
+    }
+
+    public String getClassType() {
+        return classType;
     }
 
     public boolean shallowCheck(SymbolNode pTable){
@@ -58,7 +64,7 @@ public class FeatureMethod extends Feature {
         boolean result = true;
         result = result && (!defined);
         this.symbolNode.setParent(pTable);
-
+        classType = pTable.type;
 
 
 //        for (int i = 0 ; i< formals.size() ; i++){
