@@ -93,7 +93,11 @@ public class VarExpr extends Expr {
         this.expr.generate(builder);
 
         Binding result = CodeGenerator.loadExpr(builder, expr);
-
+        if (!var.getVarType().equals(expr.expType)) {
+            int castedMemory = CodeGenerator.castPointer(builder, result.getLLVMId(), Program.getClassNode(expr.expType), Program.getClassNode(var.getVarType()));
+            result.setLoadedId(castedMemory);
+            result.setExprType(var.getVarType());
+        }
 
       /*  if (this.expr instanceof Id) {
             Id id = (Id)this.expr;
