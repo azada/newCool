@@ -122,7 +122,7 @@ public class PrimaryActual extends Primary {
         if (method instanceof OverrideFeatureMethod) {
 
         } else {
-            ClassNode returnType = Program.getClassNode(method.type);
+            //ClassNode returnType = Program.getClassNode(method.type);
             Binding resultBinding = record.bindToExpr(this);
             //CodeGenerator.allocatePointer(builder, resultBinding, returnType);
 
@@ -133,14 +133,17 @@ public class PrimaryActual extends Primary {
 
 
 
+            ClassNode methodNode = Program.getClassNode(method.classType);
             Binding instanceBinding;
             if (method.classType.equals(instanceNode.getType()))  {
                  instanceBinding = CodeGenerator.loadExpr(builder, primary);
             } else {
                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
-                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), Program.getClassNode(method.classType), instanceNode);
+
+                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), instanceNode, methodNode);
 
                 instanceBinding.setLoadedId(castedVar);
+                instanceBinding.setLLVMId(castedVar);
                 instanceBinding.setExprType(method.classType);
             }
 //
@@ -155,15 +158,15 @@ public class PrimaryActual extends Primary {
 //            }
             ArrayList<Integer> args = CodeGenerator.loadActuals(builder, actuals);
 
-            String flatName = CodeGenerator.getFlattenName(instanceNode.getType(), methodName);
+            String flatName = CodeGenerator.getFlattenName(method.classType, methodName);
 
 
 
 
 
             builder.append("%" + resultBinding.getLLVMId() + " = "  + "call " + flatName + "( " );
-            instanceNode.generateReference(builder);
-            builder.append( " " + instanceBinding.getLLVMId()  );
+            methodNode.generateReference(builder);
+            builder.append( " %" + instanceBinding.getLLVMId()  );
             CodeGenerator.appendComma(builder);
             for (int i=0; i < args.size(); i++ ) {
                 String argType = ((Expr)actuals.get(i)).getType();
