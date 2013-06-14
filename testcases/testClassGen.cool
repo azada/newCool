@@ -1,19 +1,21 @@
-class Parent(var t:Int){
+class Parent(var x1:Int){
 
 
 }
 
 class Child(var x1: Int, var x2: Int) extends Parent(x1) {
+    def getId(x1: Int) : Int = x1;
 }
 
-class Another (var x: Parent) {
-    var c : Child = new Child();
+
+class Another (var x: Parent) extends IO() {
+    var c : Child = new Child(1,1);
     var i : Int  = 2;
     var j : Int = 3;
 
     {
-        var pedram: Int = 2;
-        var hasan : Int = pedram
+        var c2 : Child = new Child(2,2);
+        var id2 : Int = c2.getId(1) + 1;
         this
 
     };

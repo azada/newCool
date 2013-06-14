@@ -174,6 +174,9 @@ public class FeatureMethod extends Feature {
 
         Binding resultBinding = CodeGenerator.loadExpr(builder,expr);
         builder.append("ret" + " %" +resultBinding.getLoadedId());
+
+
+
         CodeGenerator.newLine(builder);
         CodeGenerator.closeBrace(builder);
         CodeGenerator.newLine(builder);
