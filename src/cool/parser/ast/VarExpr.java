@@ -51,6 +51,7 @@ public class VarExpr extends Expr {
             throw new FatalErrorException("variable '" + id + "' has already been defined either in super classes or within upper hierarchy" , this);
         }
         SymbolItem temp = new SymbolItem(id,type,0,false);
+        temp.setClass(pTable.lookup("THIS").getType());
         pTable.insert(temp);
 
 
