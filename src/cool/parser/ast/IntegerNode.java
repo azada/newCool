@@ -35,12 +35,13 @@ public class IntegerNode extends Primary {
 
 
     public void generate(StringBuilder builder) {
-        ActivationRecord currentRecord = (ActivationRecord) ActivationStack.getHandle().top();
+        CodeGenerator.comment(builder, "IntegerNode.gen");
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
         String newid = this.toString();
         System.out.println("newid = " + newid);
         Binding b = currentRecord.bindToExpr(this);
         CodeGenerator.allocateExpr(builder, b);
-        CodeGenerator.storeInt(builder,b, value);
+        CodeGenerator.storeInt(builder, b, value);
 
     }
 }

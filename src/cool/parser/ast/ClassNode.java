@@ -186,6 +186,7 @@ public class ClassNode extends Node {
 
     @Override
     public void generate(StringBuilder builder) {
+        CodeGenerator.comment(builder, "ClassNode.generate");
         System.out.println("ClassNode.generate " + type);
         builder.append("%class." + type + " = " + "type ");
         CodeGenerator.openBrace(builder);

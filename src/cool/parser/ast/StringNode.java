@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.symbol.SymbolNode;
 import cool.symbol.SymbolTable;
 
@@ -27,5 +31,15 @@ public class StringNode extends Primary {
     @Override
     public void accept( ) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void generate(StringBuilder builder) {
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        String newid = this.toString();
+        System.out.println("newid = " + newid);
+        Binding b = currentRecord.bindToExpr(this);
+        CodeGenerator.allocateExpr(builder, b);
+        //CodeGenerator.storeInt(builder, b, value);
     }
 }
