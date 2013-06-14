@@ -126,7 +126,7 @@ public class ClassNode extends Node {
     public boolean check(SymbolNode pTable) throws FatalErrorException {
         boolean result = true;
         SymbolItem temp1 = new SymbolItem("THIS", type,0 , false);
-        temp1.setClass(pTable.lookup("THIS").getType());
+        temp1.setClass(type);
         symbolNode.insert(temp1);
         for (int i=0 ; i<varFormals.size(); i++){
             boolean vf = ((Var)this.varFormals.get(i)).check(this.symbolNode);
@@ -137,7 +137,7 @@ public class ClassNode extends Node {
             result = result && ex;
             Program.putInheritance(type, ext.type);
             SymbolItem temp = new SymbolItem("SUPER",ext.type,0, false);
-            temp.setClass(pTable.lookup("THIS").getType());
+            temp.setClass(type);
             this.symbolNode.insert(temp);
             // now we set the parent of symbol node of this class to be it's supers symbol node.
             if(Program.classTableContains(ext.type)){

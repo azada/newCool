@@ -30,6 +30,7 @@ public class FeatureMethod extends Feature {
         symbolNode = new SymbolNode();
 
 
+
     }
 
     public String getClassType() {
@@ -38,7 +39,8 @@ public class FeatureMethod extends Feature {
 
     public boolean shallowCheck(SymbolNode pTable){
         boolean result = true;
-
+        symbolNode.setParent(pTable);
+        symbolNode.type = pTable.type;
         if ( Program.typeTableContains(pTable.type)){
             if (Program.getTableRow(pTable.type).containsKey(id)){
                 Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));

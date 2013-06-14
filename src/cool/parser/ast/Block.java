@@ -40,6 +40,7 @@ public class Block extends Primary {
         //To change body of implemented methods use File | Settings | File Templates.
         boolean result = true;
         this.symbolNode.setParent(pTable);
+        symbolNode.type = pTable.type;
         for (int i = 0; i < exprList.size(); i++) {
 
             /////////////////////////////////////////////////////////////////////////////////
