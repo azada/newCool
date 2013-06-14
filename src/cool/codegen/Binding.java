@@ -43,5 +43,9 @@ public class Binding {
     public int getLLVMId() {
         return llvmVarId;
     }
+
+    public void setLLVMId(int llvmVarId) {
+        this.llvmVarId = llvmVarId;
+    }
 }
 

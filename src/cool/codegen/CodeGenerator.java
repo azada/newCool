@@ -356,4 +356,16 @@ public class CodeGenerator {
         return instanceBinding;
 
     }
+
+
+    public static int castPointer(StringBuilder builder, int sourceVar, ClassNode sourceType, ClassNode targetType ) {
+        ActivationRecord record = ActivationStack.getHandle().top();
+        int castedVar = record.getNewVariable();
+        builder.append("%" + castedVar + " = bitcast ");
+        sourceType.generateReference(builder);
+        builder.append(" %" + sourceVar + " to " );
+        targetType.generateReference(builder);
+        CodeGenerator.newLine(builder);
+        return castedVar;
+    }
 }

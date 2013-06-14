@@ -117,6 +117,7 @@ public class PrimaryActual extends Primary {
 
         FeatureMethod method = Program.lookupMethod(instanceNode.getType(), methodName);
 
+
         if (method instanceof OverrideFeatureMethod) {
 
         } else {
@@ -130,8 +131,17 @@ public class PrimaryActual extends Primary {
             CodeGenerator.generateActuals(builder, this.actuals);
 
 
-            Binding instanceBinding = CodeGenerator.loadExpr(builder, primary);
-//            Binding instanceBinding = null;
+
+            Binding instanceBinding;
+            if (method.classType.equals(instanceNode.getType()))  {
+                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
+            } else {
+                instanceBinding = CodeGenerator.loadExpr(builder, primary);
+                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), Program.getClassNode(method.classType), instanceNode);
+                instanceBinding.setLLVMId(castedVar);
+            }
+//
+//          Binding instanceBinding = null;
 //            if (primary instanceof Id) {
 //                Id var = (Id) primary;
 //                instanceBinding = record.getBindedVar(var.name);
