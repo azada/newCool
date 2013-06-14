@@ -26,6 +26,7 @@ public class PrimaryActual extends Primary {
         this.primary = primary;
         this.id = id;
     }
+    // daram taghir midam
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
         // we should check the Type of primary and make sure it has an id with this method.
