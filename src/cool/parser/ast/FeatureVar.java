@@ -57,6 +57,7 @@ public class FeatureVar extends Feature {
             }
 
             SymbolItem temp = new SymbolItem(id, type,0, false);
+            temp.setClass(pTable.lookup("THIS").getType());
             pTable.insert(temp);
 
             /////////////////////////////////////////////////////////////////////////////////

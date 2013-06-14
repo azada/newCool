@@ -12,8 +12,13 @@ import cool.parser.ast.ClassNode;
 public class SymbolItem {
     String id;
     String type;
+    String inClass;
     int address;
     boolean init;
+
+    public void setClass(String aClass) {
+        inClass = aClass;
+    }
 
     public SymbolItem(String id, String type,int address, boolean init) {
         this.id = id;
