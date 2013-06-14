@@ -36,7 +36,7 @@ public class PrimaryActual extends Primary {
         boolean pr = primary.check(pTable);
         // first we check if we have this type defined
         if (Program.typeTableContains(primary.expType)){
-                // we check if this primary type has this method defined
+            // we check if this primary type has this method defined
             if (Program.getTableRow(primary.expType) != null){
                 if (!Program.getTableRow(primary.expType).containsKey(id)){
                     // if this Id didn't have this method in itself, we should look up to find this method.

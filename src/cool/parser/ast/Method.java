@@ -18,11 +18,17 @@ import java.util.ArrayList;
  */
 public class Method extends Id {
     ArrayList actuals;
+    String classType;
 
     public Method(String id, ArrayList actuals) {
         super(id);
         this.actuals = actuals;
 
+
+    }
+
+    public String getClassType() {
+        return classType;
     }
 
     @Override
@@ -33,6 +39,7 @@ public class Method extends Id {
             // we check if this primary type has this method defined
         String tTemp;
         tTemp = pTable.lookup("THIS").getType();
+        this.classType = tTemp;
 
         // first we check if we have this type defined
         if (Program.typeTableContains(tTemp)){
