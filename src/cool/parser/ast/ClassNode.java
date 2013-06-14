@@ -38,6 +38,32 @@ public class ClassNode extends Node {
     public ClassNode() {
     }
 
+
+    public int getIndexOf(String var){
+        int index = 0 ;
+
+        for (int i = 0 ; i<featureList.size() ; i++) {
+            if (featureList.get(i) instanceof FeatureVar){
+                if (((FeatureVar)(featureList.get(i))).type.equals(var)){
+                    return index;
+                }
+                else{
+                    index++;
+                }
+
+            }
+        }
+        for (int i = 0 ; i<varFormals.size() ; i++){
+            if(((FeatureVar)(varFormals.get(i))).type.equals(var)){
+               return index;
+            }
+            index ++;
+
+        }
+        return -1;
+        
+    }
+
     public void increamentSize(int amount){
         size += amount;
     }
