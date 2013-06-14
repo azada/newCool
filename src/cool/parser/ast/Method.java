@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
@@ -102,5 +106,78 @@ public class Method extends Id {
     public void accept() {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+    /*
+    @Override
+    public void generate(StringBuilder builder) {
+        ActivationRecord record = ActivationStack.getHandle().top();
 
+        ClassNode instanceNode = Program.getClassNode(this.getType());
+        String methodName = id;
+
+        FeatureMethod method = Program.lookupMethod(instanceNode.getType(), methodName);
+
+
+        if (method instanceof OverrideFeatureMethod) {
+
+        } else {
+            ClassNode returnType = Program.getClassNode(method.type);
+            Binding resultBinding = record.bindToExpr(this);
+            //CodeGenerator.allocatePointer(builder, resultBinding, returnType);
+
+
+            //CodeGenerator.allocateExpr();
+            primary.generate(builder);
+            CodeGenerator.generateActuals(builder, this.actuals);
+
+
+
+            ClassNode methodNode = Program.getClassNode(method.classType);
+            Binding instanceBinding;
+            if (method.classType.equals(instanceNode.getType()))  {
+                instanceBinding = CodeGenerator.loadExpr(builder, primary);
+            } else {
+                instanceBinding = CodeGenerator.loadExpr(builder, primary);
+
+                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), instanceNode, methodNode);
+
+                instanceBinding.setLoadedId(castedVar);
+                instanceBinding.setLLVMId(castedVar);
+                instanceBinding.setExprType(method.classType);
+            }
+//
+//          Binding instanceBinding = null;
+//            if (primary instanceof Id) {
+//                Id var = (Id) primary;
+//                instanceBinding = record.getBindedVar(var.name);
+//                CodeGenerator.loadVar(builder, instanceBinding);
+//            } else {
+//                instanceBinding = record.getBindedExpr(primary.toString());
+//                CodeGenerator.loadExpr(builder, instanceBinding);
+//            }
+            ArrayList<Integer> args = CodeGenerator.loadActuals(builder, actuals);
+
+            String flatName = CodeGenerator.getFlattenName(method.classType, methodName);
+
+
+
+
+
+            builder.append("%" + resultBinding.getLLVMId() + " = "  + "call " + flatName + "( " );
+            methodNode.generateReference(builder);
+            builder.append( " %" + instanceBinding.getLLVMId()  );
+            CodeGenerator.appendComma(builder);
+            for (int i=0; i < args.size(); i++ ) {
+                String argType = ((Expr)actuals.get(i)).getType();
+                Program.getClassNode(argType).generateReference(builder);
+                builder.append(" %" + args.get(i) );
+                CodeGenerator.appendComma(builder);
+            }
+
+            CodeGenerator.removeExtraComma(builder);
+            CodeGenerator.closeParen(builder);
+            CodeGenerator.newLine(builder);
+
+        }
+
+    } */
 }
