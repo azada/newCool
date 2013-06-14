@@ -66,8 +66,8 @@ public class PrimaryActual extends Primary {
                 }
             }
             else{
-                Program.addError(new MyException("method '" + id + "' doesn't exist within " + primary.expType, this));
-                return false;
+                   Program.addError(new MyException("method '" + id + "' doesn't exist within " + primary.expType, this));
+                    return false;
             }
 
         }
@@ -83,20 +83,20 @@ public class PrimaryActual extends Primary {
             boolean ac = ((Expr)this.actuals.get(i)).check(pTable);
             result = result && ac;
         }
-        if (temp != null) {
-            // we should make sure we have the same number of actuals and formals in method call
+        if (temp != null)  {
+        // we should make sure we have the same number of actuals and formals in method call
             if (temp.formals.size() != actuals.size()){
                 Program.addError(new MyException(temp.formals.size()+ " number of argument needed and " + actuals.size() + " are given",this));
                 result = false;
             }
             //and make sure we have the same type in actuals as we had in feature methods.
             if (result)
-                for (int i = 0 ; i< temp.formals.size() ; i++){
-                    if (!Program.isConsistent(((Expr) actuals.get(i)).expType, ((Formal) (temp.formals.get(i))).type)){
-                        Program.addError(new MyException("type of actuals doesn't match argument list defined in the method" +((Formal) (temp.formals.get(i))).type + " " + ((Expr) actuals.get(i)).expType ,this));
-                        result = false;
-                    }
+            for (int i = 0 ; i< temp.formals.size() ; i++){
+                if (!Program.isConsistent(((Expr) actuals.get(i)).expType, ((Formal) (temp.formals.get(i))).type)){
+                    Program.addError(new MyException("type of actuals doesn't match argument list defined in the method" +((Formal) (temp.formals.get(i))).type + " " + ((Expr) actuals.get(i)).expType ,this));
+                    result = false;
                 }
+            }
         }
 
         //To change body of implemented methods use File | Settings | File Templates.
@@ -122,7 +122,7 @@ public class PrimaryActual extends Primary {
         if (method instanceof OverrideFeatureMethod) {
 
         } else {
-            ClassNode returnType = Program.getClassNode(method.type);
+            //ClassNode returnType = Program.getClassNode(method.type);
             Binding resultBinding = record.bindToExpr(this);
             //CodeGenerator.allocatePointer(builder, resultBinding, returnType);
 
@@ -133,37 +133,40 @@ public class PrimaryActual extends Primary {
 
 
 
+            ClassNode methodNode = Program.getClassNode(method.classType);
             Binding instanceBinding;
-            if (method.classType.equals(instanceNode.getType())) {
-                instanceBinding = CodeGenerator.loadExpr(builder, primary);
+            if (method.classType.equals(instanceNode.getType()))  {
+                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
             } else {
                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
-                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), Program.getClassNode(method.classType), instanceNode);
+
+                int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLLVMId(), instanceNode, methodNode);
 
                 instanceBinding.setLoadedId(castedVar);
+                instanceBinding.setLLVMId(castedVar);
                 instanceBinding.setExprType(method.classType);
             }
 //
-// Binding instanceBinding = null;
-// if (primary instanceof Id) {
-// Id var = (Id) primary;
-// instanceBinding = record.getBindedVar(var.name);
-// CodeGenerator.loadVar(builder, instanceBinding);
-// } else {
-// instanceBinding = record.getBindedExpr(primary.toString());
-// CodeGenerator.loadExpr(builder, instanceBinding);
-// }
+//          Binding instanceBinding = null;
+//            if (primary instanceof Id) {
+//                Id var = (Id) primary;
+//                instanceBinding = record.getBindedVar(var.name);
+//                CodeGenerator.loadVar(builder, instanceBinding);
+//            } else {
+//                instanceBinding = record.getBindedExpr(primary.toString());
+//                CodeGenerator.loadExpr(builder, instanceBinding);
+//            }
             ArrayList<Integer> args = CodeGenerator.loadActuals(builder, actuals);
 
-            String flatName = CodeGenerator.getFlattenName(instanceNode.getType(), methodName);
+            String flatName = CodeGenerator.getFlattenName(method.classType, methodName);
 
 
 
 
 
-            builder.append("%" + resultBinding.getLLVMId() + " = " + "call " + flatName + "( " );
-            instanceNode.generateReference(builder);
-            builder.append( " " + instanceBinding.getLLVMId() );
+            builder.append("%" + resultBinding.getLLVMId() + " = "  + "call " + flatName + "( " );
+            methodNode.generateReference(builder);
+            builder.append( " %" + instanceBinding.getLLVMId()  );
             CodeGenerator.appendComma(builder);
             for (int i=0; i < args.size(); i++ ) {
                 String argType = ((Expr)actuals.get(i)).getType();
