@@ -93,7 +93,7 @@ public class PrimaryActual extends Primary {
             if (result)
             for (int i = 0 ; i< temp.formals.size() ; i++){
                 if (!Program.isConsistent(((Expr) actuals.get(i)).expType, ((Formal) (temp.formals.get(i))).type)){
-                    Program.addError(new MyException("type of actuals doesn't match argument list defined in the method" +((Formal) (temp.formals.get(i))).type + " " + ((Expr) actuals.get(i)).expType ,this));
+                    Program.addError(new MyException("type of actuals doesn't match argument list defined in the method '" + id + "'",this));
                     result = false;
                 }
             }
