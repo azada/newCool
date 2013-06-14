@@ -72,7 +72,7 @@ public class LessOrEqual extends BooleanOperation {
         ClassNode op1Node = Program.getClassNode(op1.expType);
         CodeGenerator.allocatePointer(builder, resultBinding, op1Node);
         int tempVar = record.getNewVariable();
-        builder.append("%" + tempVar + " = " + "icmp sle " );
+        builder.append("%" + tempVar + " = " + "icmp slt" );
 
         op1Node.generateInstance(builder);
         builder.append(" %" + op1Binding.getLoadedId() + ", " + "%" + op2Binding.getLoadedId());
