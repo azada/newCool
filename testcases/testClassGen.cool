@@ -15,7 +15,8 @@ class Another (var x: Parent) extends IO() {
 
     {
         var c2 : Child = new Child(2,2);
-        var id2 : Int = c2.getId(1) / 1;
+        var id2 : Int = c2.getId(1) + 1;
+        var iss : Int = - 4;
         this
 
     };
