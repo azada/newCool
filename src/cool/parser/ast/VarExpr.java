@@ -87,6 +87,7 @@ public class VarExpr extends Expr {
     }
 
     public void generate(StringBuilder builder) {
+
         ActivationRecord currentRecord = (ActivationRecord) ActivationStack.getHandle().top();
         Var var = this.getVar();
         Binding binding = currentRecord.bindToNewVariable(var);

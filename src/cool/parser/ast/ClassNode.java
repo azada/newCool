@@ -26,6 +26,9 @@ public class ClassNode extends Node {
     int pointerSize = 8;
     int size = 0;
 
+    public Extends getExt(){
+        return ext;
+    }
     public ClassNode(String type, ArrayList varFormals, Extends ext, ArrayList featureList) {
         this.ext = ext;
         this.type = type;

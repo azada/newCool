@@ -29,6 +29,7 @@ public class LessOrEqual extends BooleanOperation {
 
     @Override
     public boolean check(SymbolNode pTable) {
+//        System.out.println("less or equal");
         boolean result = true;
         for (Object operand : operandsList) {
 
@@ -60,6 +61,7 @@ public class LessOrEqual extends BooleanOperation {
     }
     @Override
     public void generate(StringBuilder builder) {
+
         ActivationRecord record = ActivationStack.getHandle().top();
         Expr op1 = (Expr)operandsList.get(0);
         Expr op2 = (Expr)operandsList.get(1);
@@ -72,7 +74,7 @@ public class LessOrEqual extends BooleanOperation {
         ClassNode op1Node = Program.getClassNode(op1.expType);
         CodeGenerator.allocatePointer(builder, resultBinding, op1Node);
         int tempVar = record.getNewVariable();
-        builder.append("%" + tempVar + " = " + "icmp slt" );
+        builder.append("%" + tempVar + " = " + "icmp sle " );
 
         op1Node.generateInstance(builder);
         builder.append(" %" + op1Binding.getLoadedId() + ", " + "%" + op2Binding.getLoadedId());

@@ -25,6 +25,9 @@ public class Extends extends Node{
         this.actuals = actuals;
     }
 
+    public ArrayList getActuals(){
+        return actuals;
+    }
 
     public Extends() {
         this.native_type = true;
@@ -38,7 +41,7 @@ public class Extends extends Node{
             if (Program.classTableContains(type)){
 
                 ArrayList temp = Program.getClassNode(type).varFormals;
-                if (actuals.size() != temp.size() && actuals.size() != 0 ){
+                if (actuals.size() != temp.size()){
                     Program.addError(new MyException("the number of arguments in " + type + " is " + temp.size() + " while " + actuals.size()+" are given",this));
                     result = false;
                     return result;
@@ -57,6 +60,7 @@ public class Extends extends Node{
 
                     result = result && fml;
                 }
+                if (result)
                 for(int i = 0 ; i<actuals.size() ;i++){
                     if (((Var)temp.get(i)).type.equals(((Expr)actuals.get(i)).expType))
                         continue;
