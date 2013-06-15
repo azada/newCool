@@ -1,5 +1,6 @@
 package cool.parser.ast;
 
+import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
@@ -85,6 +86,21 @@ public class Block extends Primary {
             }
         }
         JSONLogger.closeListAttribute();
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+    @Override
+    public void generate(StringBuilder builder) {
+        //System.out.println("Block.generate");
+        CodeGenerator.comment(builder, "Block.generate");
+        //ActivationRecord currentRecord = (ActivationRecord)ActivationStack.getHandle().top();
+        ArrayList<Expr> exprList = this.exprList;
+        for (Expr e : exprList) {
+
+            e.generate(builder);
+        }
+        if (this.end != null ) {
+            this.end.generate(builder);
+        }
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
