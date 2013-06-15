@@ -425,13 +425,45 @@ public class ClassNode extends Node {
                 int element = -1;
                 if (fmethod instanceof OverrideFeatureMethod) {
                     ClassNode origClass = Program.fetchOriginalMethod(type, fmethod.id);
+                    FeatureMethod origMethod = Program.lookupMethod(origClass.type, fmethod.id);
                     int origMethodIndex = origClass.getMethodIndex(fmethod.id);
                     int castedMemory = CodeGenerator.castPointer(builder,bindingThis.getLoadedId(), this, superNode);
-                    CodeGenerator.getElementOf(builder, origClass, castedMemory, origMethodIndex);
+                    element = CodeGenerator.getElementOf(builder, origClass, castedMemory, origMethodIndex);
+
+                    int castedVar = currentRecord.getNewVariable();
+                    builder.append("%" + castedVar + " = bitcast ");
+                    fmethod.generateReference(builder);
+                    builder.append(" @" +  CodeGenerator.getFlattenName(type, fmethod.id) + " to " );
+                    origMethod.generateReference(builder);
+                    CodeGenerator.newLine(builder);
+
+                    CodeGenerator.newLine(builder);
+                    builder.append("store ");
+
+                    origMethod.generateReference(builder);
+                    builder.append(" %" + castedVar + ", " );
+                    origMethod.generateReference(builder);
+                    builder.append("*");
+                    builder.append(" %" + element);
+                    builder.append(", align " + getPointerSize());
+                    CodeGenerator.newLine(builder);
+
+
                 } else {
                     int methodIndex = getMethodIndex(fmethod.id);
 
                     element = CodeGenerator.getElementOf(builder, this,bindingThis.getLoadedId(), methodIndex );
+
+                    CodeGenerator.newLine(builder);
+                    builder.append("store ");
+                    fmethod.generateReference(builder);
+                    builder.append(" @" + CodeGenerator.getFlattenName(type, fmethod.id) + ", " );
+                    fmethod.generateReference(builder);
+                    builder.append("*");
+                    builder.append(" %" + element);
+                    builder.append(", align " + getPointerSize());
+                    CodeGenerator.newLine(builder);
+
                 }
 
                    /*
@@ -441,15 +473,6 @@ public class ClassNode extends Node {
                     builder.append(" %" + bindingThis.getLoadedId() + ", i32 0, i32 " + methodIndex );
                      */
 
-                CodeGenerator.newLine(builder);
-                builder.append("store ");
-                fmethod.generateReference(builder);
-                builder.append(" @" + CodeGenerator.getFlattenName(type, fmethod.id) + ", " );
-                fmethod.generateReference(builder);
-                builder.append("*");
-                builder.append(" %" + element);
-                builder.append(", align " + getPointerSize());
-                CodeGenerator.newLine(builder);
 
             }
         }
