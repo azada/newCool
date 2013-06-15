@@ -27,6 +27,7 @@ public class Id extends Primary {
     }
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
+        this.classType = pTable.type;
         boolean result;
         if (name == "this"){
             String tTemp = pTable.lookup("THIS").getType();

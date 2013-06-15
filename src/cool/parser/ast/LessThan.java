@@ -32,7 +32,7 @@ public class LessThan extends BooleanOperation {
     public boolean check(SymbolNode pTable) {
 //        System.out.println("Checking");
         boolean result = true;
-
+        this.classType = pTable.type;
         for (Object operand : operandsList) {
             boolean fml = false;
             ////////////////////////////////////////////////////////////////////////
@@ -69,8 +69,8 @@ public class LessThan extends BooleanOperation {
         Expr op2 = (Expr)operandsList.get(1);
         op1.generate(builder);
         op2.generate(builder);
-        Binding op1Binding = CodeGenerator.loadExpr(builder, op1);
-        Binding op2Binding = CodeGenerator.loadExpr(builder,op2);
+        Binding op1Binding = CodeGenerator.loadExpr(builder, op1,Program.getClassNode(classType));
+        Binding op2Binding = CodeGenerator.loadExpr(builder,op2,Program.getClassNode(classType));
         Binding resultBinding = record.bindToExpr(this);
 
         ClassNode op1Node = Program.getClassNode(op1.expType);

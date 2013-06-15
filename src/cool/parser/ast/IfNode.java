@@ -28,6 +28,7 @@ public class IfNode extends Expr {
     }
     @Override
     public boolean check(SymbolNode pTable) {
+        this.classType = pTable.type;
         boolean result = true;
         boolean co,ex ,mx;
         co = ex = mx = true;

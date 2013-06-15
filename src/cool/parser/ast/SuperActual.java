@@ -26,6 +26,7 @@ public class SuperActual extends Primary {
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         String superType = pTable.lookup("SUPER").getType();
+        this.classType = pTable.type;
         if(superType == null){
             Program.addError(new MyException("this class doesn't have a super class",this));
             result = false;

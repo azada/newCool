@@ -20,6 +20,7 @@ public class UnaryMinusOperation extends UnaryRealOperation {
     public UnaryMinusOperation(ArrayList operands) {
         this.operandsList = operands;
         this.expType = INTEGER_TYPE;
+
     }
 
     @Override
@@ -31,7 +32,7 @@ public class UnaryMinusOperation extends UnaryRealOperation {
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         Expr temp = ((Expr)(operandsList.get(0)));
-
+        this.classType = pTable.type;
 
         /////////////////////////////////////////////////////////////////////////////////
         try {
@@ -57,7 +58,7 @@ public class UnaryMinusOperation extends UnaryRealOperation {
         op1.generate(builder);
 //        op2.generate(builder);
 
-        Binding op1Binding = CodeGenerator.loadExpr(builder, op1);
+        Binding op1Binding = CodeGenerator.loadExpr(builder, op1,Program.getClassNode(classType));
 //        Binding op2Binding = CodeGenerator.loadExpr(builder,op2);
         Binding resultBinding = record.bindToExpr(this);
 

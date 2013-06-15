@@ -30,6 +30,7 @@ public class Instance extends Primary {
 //    }
     @Override
     public boolean check(SymbolNode pTable) {
+        this.classType = pTable.type;
         boolean result = true;
         // we check the actuals
 

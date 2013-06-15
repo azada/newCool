@@ -186,7 +186,7 @@ public class FeatureMethod extends Feature {
         this.expr.generate(builder);
 
 
-        Binding resultBinding = CodeGenerator.loadExpr(builder,expr);
+        Binding resultBinding = CodeGenerator.loadExpr(builder,expr,Program.getClassNode(classType));
         ClassNode resultType = Program.getClassNode(expr.getType());
         builder.append("ret " );
         resultType.generateReference(builder);

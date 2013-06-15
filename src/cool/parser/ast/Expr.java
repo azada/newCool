@@ -16,7 +16,7 @@ public abstract class Expr extends Node {
     public static final String OBJECT_TYPE = "Object";
     public static final String UNIT_TYPE = "Unit";
     public static final String NULL_TYPE = Terminals.NAMES[Terminals.NULL];
-
+    String classType;
 
     public String expType = NULL_TYPE;
 

@@ -38,7 +38,7 @@ public class Method extends Id {
         FeatureMethod temp ;
             // we check if this primary type has this method defined
         String tTemp;
-        tTemp = pTable.lookup("THIS").getType();
+        tTemp = pTable.type;;
         this.classType = tTemp;
 
         // first we check if we have this type defined

@@ -23,6 +23,7 @@ public class Match extends Expr {
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
         boolean result = true;
+        this.classType = pTable.type;
 
         /////////////////////////////////////////////////////////////////////////////////
         boolean ex = false;

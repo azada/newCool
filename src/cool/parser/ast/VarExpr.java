@@ -36,6 +36,7 @@ public class VarExpr extends Expr {
 
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
+        this.classType = pTable.type;
         boolean result = true;
 
         if (!Program.typeTableContains(type)){
@@ -94,7 +95,7 @@ public class VarExpr extends Expr {
         CodeGenerator.allocateVar(builder, binding);
         this.expr.generate(builder);
 
-        Binding result = CodeGenerator.loadExpr(builder, expr);
+        Binding result = CodeGenerator.loadExpr(builder, expr,Program.getClassNode(classType));
         if (!var.getVarType().equals(expr.expType)) {
             int castedMemory = CodeGenerator.castPointer(builder, result.getLoadedId(), Program.getClassNode(expr.expType), Program.getClassNode(var.getVarType()));
             result.setLoadedId(castedMemory);

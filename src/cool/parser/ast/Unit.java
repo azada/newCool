@@ -17,6 +17,7 @@ public class Unit extends Primary {
 
     @Override
     public boolean check(SymbolNode pTable) {
+        this.classType = pTable.type;
         //To change body of implemented methods use File | Settings | File Templates.
         return true;
     }

@@ -26,6 +26,7 @@ public class StringNode extends Primary {
     @Override
     public boolean check(SymbolNode pTable) {
         //To change body of implemented methods use File | Settings | File Templates.
+        this.classType = pTable.type;
         return true;
     }
     @Override

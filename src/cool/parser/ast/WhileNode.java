@@ -24,6 +24,7 @@ public class WhileNode extends Expr
 
     @Override
     public boolean check(SymbolNode pTable) {
+        this.classType = pTable.type;
         boolean result = true;
 
         ////////////////////////////////////////////////////////////////////////

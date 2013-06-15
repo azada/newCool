@@ -35,6 +35,7 @@ public class Case extends Expr {
     }
     public boolean check(SymbolNode pTable) throws MyException {
         boolean result = true;
+        this.classType = pTable.type;
         if (longInit){
             SymbolItem temp = new SymbolItem(id, type,0, false);
             temp.setClass(pTable.type);

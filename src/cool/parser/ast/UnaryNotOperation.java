@@ -22,7 +22,7 @@ public class UnaryNotOperation extends UnaryBooleanOperation{
     public boolean check(SymbolNode pTable) {
         boolean result = true;
         Expr temp = ((Expr)(operandsList.get(0)));
-
+        this.classType = pTable.type;
         /////////////////////////////////////////////////////////////////////////////////
         try {
             temp.check(pTable);

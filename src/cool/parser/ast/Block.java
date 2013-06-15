@@ -33,6 +33,7 @@ public class Block extends Primary {
     @Override
     public boolean check(SymbolNode pTable) throws MyException {
         // if the block is empty
+        this.classType = pTable.type;
         if (!longInit){
             this.expType = UNIT_TYPE;
             return true;

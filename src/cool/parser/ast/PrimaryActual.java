@@ -32,6 +32,7 @@ public class PrimaryActual extends Primary {
     public boolean check(SymbolNode pTable) throws MyException {
         // we should check the Type of primary and make sure it has an id with this method.
         boolean result = true;
+        this.classType = pTable.type;
         FeatureMethod temp = null;
 
         boolean pr = primary.check(pTable);
@@ -138,9 +139,9 @@ public class PrimaryActual extends Primary {
             ClassNode methodNode = Program.getClassNode(method.classType);
             Binding instanceBinding;
             if (method.classType.equals(instanceNode.getType()))  {
-                 instanceBinding = CodeGenerator.loadExpr(builder, primary);
+                 instanceBinding = CodeGenerator.loadExpr(builder, primary,Program.getClassNode(classType));
             } else {
-                instanceBinding = CodeGenerator.loadExpr(builder, primary);
+                instanceBinding = CodeGenerator.loadExpr(builder, primary,Program.getClassNode(classType));
 
                 int castedVar = CodeGenerator.castPointer(builder, instanceBinding.getLoadedId(), instanceNode, methodNode);
 

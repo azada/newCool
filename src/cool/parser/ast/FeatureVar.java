@@ -122,7 +122,7 @@ public class FeatureVar extends Feature {
         int elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
         Binding binding = new Binding(elementPointer, new Var(id, type));
 
-        Binding resultBinding = CodeGenerator.loadExpr(builder, expr);
+        Binding resultBinding = CodeGenerator.loadExpr(builder, expr,Program.getClassNode(classType));
         CodeGenerator.storeExpr(builder, resultBinding.getLoadedId(), binding );
 
         //builder.append(id);

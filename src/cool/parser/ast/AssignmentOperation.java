@@ -22,6 +22,7 @@ public class AssignmentOperation extends UnitOperation{
     @Override
     public boolean check(SymbolNode pTable) {
         boolean result = true;
+        this.classType = pTable.type;
         for (Object operand : operandsList) {
             boolean fml = false;
             try {
