@@ -272,8 +272,12 @@ public class ClassNode extends Node {
             Feature f = (Feature) featureList.get(i);
             if (f instanceof FeatureMethod) {
                 FeatureMethod fmethod = (FeatureMethod) f;
-                fmethod.generateReference(builder);
-                CodeGenerator.appendComma(builder);
+                if (fmethod instanceof OverrideFeatureMethod) {
+
+                } else {
+                    fmethod.generateReference(builder);
+                    CodeGenerator.appendComma(builder);
+                }
             }
 
         }
@@ -306,7 +310,7 @@ public class ClassNode extends Node {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    private void generateConstructor(StringBuilder builder) {
+    protected void generateConstructor(StringBuilder builder) {
 
         ActivationRecord currentRecord = ActivationStack.getHandle().startNewActivationRecord();
         builder.append("define ");
@@ -379,22 +383,60 @@ public class ClassNode extends Node {
             //CodeGenerator.removeExtraComma(builder);
         }
 
+
+        //super constructor
+
+        ClassNode superNode =  Program.getClassNode(Program.getSuper(type));
+        if (this.ext != null) {
+            CodeGenerator.generateActuals(builder, this.ext.actuals);
+            ArrayList<Integer> args = CodeGenerator.loadActuals(builder, this.ext.actuals);
+
+
+            int castedMemory = CodeGenerator.castPointer(builder,bindingThis.getLoadedId(), this, superNode);
+            builder.append("call void @" + superNode.getConstructorName() + "( " );
+            superNode.generateReference(builder);
+            builder.append(" %" + castedMemory);
+            CodeGenerator.appendComma(builder);
+            for (int i=0; i < args.size(); i++ ) {
+                String argType = ((Expr)ext.actuals.get(i)).getType();
+                Program.getClassNode(argType).generateReference(builder);
+                builder.append(" %" + args.get(i) );
+                CodeGenerator.appendComma(builder);
+            }
+
+            CodeGenerator.removeExtraComma(builder);
+            CodeGenerator.closeParen(builder);
+            CodeGenerator.newLine(builder);
+        }
+
+
+
         //set method pointers
+
+
 
         for (int i=0; i< featureList.size(); i++) {
             Feature f = (Feature) featureList.get(i);
             if (f instanceof FeatureMethod) {
                 FeatureMethod fmethod = (FeatureMethod) f;
-                int methodIndex = getMethodIndex(fmethod.id);
+                int element = -1;
+                if (fmethod instanceof OverrideFeatureMethod) {
+                    ClassNode origClass = Program.fe
+                    int origMethodIndex = origClass.getMethodIndex(fmethod.id);
+                    int castedMemory = CodeGenerator.castPointer(builder,bindingThis.getLoadedId(), this, superNode);
+                    CodeGenerator.getElementOf(builder, origClass, castedMemory, origMethodIndex);
+                } else {
+                    int methodIndex = getMethodIndex(fmethod.id);
 
-                int element = CodeGenerator.getElementOf(builder, this,bindingThis.getLoadedId(), methodIndex );
+                    element = CodeGenerator.getElementOf(builder, this,bindingThis.getLoadedId(), methodIndex );
+                }
 
-               /*
-                int element = currentRecord.getNewVariable();
-                builder.append("%" + element + " = getelementptr inbounds "   );
-                this.generateReference(builder);
-                builder.append(" %" + bindingThis.getLoadedId() + ", i32 0, i32 " + methodIndex );
-                 */
+                   /*
+                    int element = currentRecord.getNewVariable();
+                    builder.append("%" + element + " = getelementptr inbounds "   );
+                    this.generateReference(builder);
+                    builder.append(" %" + bindingThis.getLoadedId() + ", i32 0, i32 " + methodIndex );
+                     */
 
                 CodeGenerator.newLine(builder);
                 builder.append("store ");
@@ -405,7 +447,6 @@ public class ClassNode extends Node {
                 builder.append(" %" + element);
                 builder.append(", align " + getPointerSize());
                 CodeGenerator.newLine(builder);
-
 
             }
         }

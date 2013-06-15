@@ -168,6 +168,7 @@ public class FeatureMethod extends Feature {
         //bindingThis.setLoadedId(newVar);
 
 
+
         CodeGenerator.loadVar(builder, bindingThis);
         //ArrayList<Binding> args = new ArrayList<Binding>(formals.size());
         for (int i=0; i < formals.size(); i++) {

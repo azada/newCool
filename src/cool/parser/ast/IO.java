@@ -58,11 +58,11 @@ public class IO extends  ClassNode{
 //        formals7.add(new Formal("sym", "Symbol"));
 //        FeatureMethod f7 = new NativeFeatureMethod("symbol_name",formals7,"String");
 
-        this.featureList.add(f1);
+        //this.featureList.add(f1);
         this.featureList.add(f2);
-        this.featureList.add(f3);
-        this.featureList.add(f4);
-        this.featureList.add(f5);
+        //this.featureList.add(f3);
+        //this.featureList.add(f4);
+        //this.featureList.add(f5);
 //        this.featureList.add(f6);
 //        this.featureList.add(f7);
 
@@ -127,7 +127,14 @@ public class IO extends  ClassNode{
                 "  %5 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str2, i32 0, i32 0), i8* %4)\n" +
                 "  ret %class.IO* %3\n" +
                 "}\n"  ;
+
         builder.append(temp4);
+
+        //String temp5 = "define void @IO_env (%class.IO* %this) uwtable ssp nounwind { \n" +
+        //        " ret void\n" +
+        //        "}\n";
+        //builder.append(temp5);
+        generateConstructor(builder);
     }
 }
 
