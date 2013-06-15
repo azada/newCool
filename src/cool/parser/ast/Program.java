@@ -61,7 +61,7 @@ public class Program {
         return instance.typeClassTable.get(type);
     }
 
-    public ClassNode fetchOriginalMethod(String type, String method){
+    public static ClassNode fetchOriginalMethod(String type, String method){
         String superType = Program.getSuper(type);
         if (superType == null)
             return null;
