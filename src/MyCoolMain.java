@@ -21,6 +21,10 @@ public class MyCoolMain {
             parser.parse2();
             System.out.println("Parse Successful");
             parser.checker();
+
+            if(Program.getErrorList().size() != 0 )
+                return;
+
             parser.calculateSize();
             Program.printErrors();
             System.out.println("**************************************************************************************");
@@ -33,7 +37,7 @@ public class MyCoolMain {
             writer.write(llvmCode);
             writer.close( );
 
-//            System.out.println(llvmCode);
+            System.out.println(llvmCode);
 
 
             Program.clear();

@@ -28,6 +28,10 @@ public class Program {
     private static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
+    public static ArrayList<MyException> getErrorList() {
+        return errorList;
+    }
+
     //
     //
     //adasd

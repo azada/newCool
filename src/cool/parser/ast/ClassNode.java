@@ -187,7 +187,7 @@ public class ClassNode extends Node {
 
         for (int i = this.featureList.size()-1 ; i >=0 ; i--){
             /////////////////////////////////////////////////////////////////////////////////
-            boolean res = false;
+            boolean res = true;
             try {
                 res = ((Feature)this.featureList.get(i)).check(this.symbolNode);
             } catch (FatalErrorException fatal) {
