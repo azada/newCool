@@ -80,7 +80,13 @@ public class LessOrEqual extends BooleanOperation {
         builder.append(" %" + op1Binding.getLoadedId() + ", " + "%" + op2Binding.getLoadedId());
         CodeGenerator.newLine(builder);
 
-        CodeGenerator.storeExpr(builder,tempVar,resultBinding);
+        int tempVar2 = record.getNewVariable();
+        builder.append("%" + tempVar2 + " = zext i1 %"+ tempVar+" to i8") ;
+        CodeGenerator.newLine(builder);
+
+
+
+        CodeGenerator.storeExpr(builder,tempVar2,resultBinding);
 
         CodeGenerator.newLine(builder);
 
