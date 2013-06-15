@@ -208,7 +208,6 @@ public class CodeGenerator {
     public static void loadExpr(StringBuilder builder, Binding binding) {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         int newVar = currentRecord.getNewVariable();
-        System.out.println("binding = " + binding);
         binding.setLoadedId(newVar);
         builder.append("%" + binding.loadedId + " = ");
         builder.append("load ");
@@ -369,11 +368,10 @@ public class CodeGenerator {
                 Binding bindingThis = record.getBindedVar("this");
                 ClassNode origNode =  Program.fetchOriginalVar(thisNode.getType(), var.getName());
                 int varIndex = origNode.getIndexOf(var.getName());
-                System.out.println("varIndex in bindign = " + varIndex);
                 int elementPointer;
                 if (!origNode.getType().equals(thisNode.getType())) {
                     int castedMemory = CodeGenerator.castPointer(builder, bindingThis.getLoadedId(), thisNode, origNode);
-                    elementPointer = CodeGenerator.getElementOf(builder,thisNode, castedMemory,varIndex);
+                    elementPointer = CodeGenerator.getElementOf(builder,origNode, castedMemory,varIndex);
                 } else {
                     elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
 
@@ -384,6 +382,8 @@ public class CodeGenerator {
             CodeGenerator.loadVar(builder, instanceBinding);
         } else {
             instanceBinding = record.getBindedExpr(expr.toString());
+            System.out.println("expr = " + expr);
+            System.out.println("instanceBinding = " + instanceBinding);
             CodeGenerator.loadExpr(builder, instanceBinding);
         }
         newLine(builder);
