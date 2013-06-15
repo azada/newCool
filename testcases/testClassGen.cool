@@ -1,28 +1,14 @@
-class Parent(var x1:Int){
 
-    def getId(x1: Int) : Int = x1 + 3 * 4;
+class Child(var x: Int) {
+    def myf() : Int =  x ;
 }
-
-class Child(var x1: Int, var x2: Int) extends Parent(x1) {
-
-}
-
 
 class Main () extends IO() {
     {
-        var p : Parent  = new Child(2,2);
-        var id : Int = p.getId(2);
-        id = 2;
-        this.out(id)
-        /*this.out(id)*/
-        /*var id : Int = (new Child(1,2)).getId(4);
 
-        var x: Int = 1;
-        x = 2
-        var s : String = " amoo azaad";
-        */
-        /*this.out(x + 7)*/
-
-
+        var p : Child = new Child(12);
+        var i : Int = p.myf();
+        //result should be 45
+        this.out(i)
     };
 }
