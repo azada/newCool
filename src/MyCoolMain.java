@@ -33,7 +33,7 @@ public class MyCoolMain {
             writer.write(llvmCode);
             writer.close( );
 
-            System.out.println(llvmCode);
+//            System.out.println(llvmCode);
 
 
             Program.clear();
