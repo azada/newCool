@@ -10,9 +10,11 @@ class Child(var x1: Int, var x2: Int) extends Parent(x1) {
 
 class Main () extends IO() {
     {
-        var p : Parent  = new Child(1,2);
+        var p : Parent  = new Child(2,2);
         var id : Int = p.getId(2);
+        id = 2;
         this.out(id)
+        /*this.out(id)*/
         /*var id : Int = (new Child(1,2)).getId(4);
 
         var x: Int = 1;
