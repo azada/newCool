@@ -22,12 +22,12 @@ public class MyCoolMain {
             System.out.println("Parse Successful");
             parser.checker();
 
-            if(Program.getErrorList().size() != 0 )
+            if(Program.getErrorList().size() != 0 ){
+                Program.printErrors();
                 return;
-
+            }
+            System.out.println("Type Checking Successful");
             parser.calculateSize();
-            Program.printErrors();
-            System.out.println("**************************************************************************************");
 
             StringBuilder builder = new StringBuilder();
             parser.generate(builder);
