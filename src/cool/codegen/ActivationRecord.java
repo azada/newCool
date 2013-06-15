@@ -1,8 +1,8 @@
 package cool.codegen;
 
-import cool.codegen.exception.BindingNotFound;
+
 import cool.parser.ast.Expr;
-import cool.parser.ast.Id;
+
 import cool.parser.ast.Var;
 
 import java.util.HashMap;
