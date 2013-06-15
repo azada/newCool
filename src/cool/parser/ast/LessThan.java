@@ -1,6 +1,10 @@
 package cool.parser.ast;
 
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.MyException;
 import cool.symbol.SymbolNode;
 
@@ -26,7 +30,9 @@ public class LessThan extends BooleanOperation {
 
     @Override
     public boolean check(SymbolNode pTable) {
+//        System.out.println("Checking");
         boolean result = true;
+
         for (Object operand : operandsList) {
             boolean fml = false;
             ////////////////////////////////////////////////////////////////////////
@@ -54,5 +60,32 @@ public class LessThan extends BooleanOperation {
 
         this.expType = BOOLEAN_TYPE;
         return result;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+    @Override
+    public void generate(StringBuilder builder) {
+
+        ActivationRecord record = ActivationStack.getHandle().top();
+        Expr op1 = (Expr)operandsList.get(0);
+        Expr op2 = (Expr)operandsList.get(1);
+        op1.generate(builder);
+        op2.generate(builder);
+        Binding op1Binding = CodeGenerator.loadExpr(builder, op1);
+        Binding op2Binding = CodeGenerator.loadExpr(builder,op2);
+        Binding resultBinding = record.bindToExpr(this);
+
+        ClassNode op1Node = Program.getClassNode(op1.expType);
+        CodeGenerator.allocatePointer(builder, resultBinding, op1Node);
+        int tempVar = record.getNewVariable();
+        builder.append("%" + tempVar + " = " + "icmp slt " );
+
+        op1Node.generateInstance(builder);
+        builder.append(" %" + op1Binding.getLoadedId() + ", " + "%" + op2Binding.getLoadedId());
+        CodeGenerator.newLine(builder);
+
+        CodeGenerator.storeExpr(builder,tempVar,resultBinding);
+
+        CodeGenerator.newLine(builder);
+
+
     }
 }

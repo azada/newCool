@@ -29,6 +29,7 @@ public class LessOrEqual extends BooleanOperation {
 
     @Override
     public boolean check(SymbolNode pTable) {
+//        System.out.println("less or equal");
         boolean result = true;
         for (Object operand : operandsList) {
 
@@ -60,6 +61,7 @@ public class LessOrEqual extends BooleanOperation {
     }
     @Override
     public void generate(StringBuilder builder) {
+
         ActivationRecord record = ActivationStack.getHandle().top();
         Expr op1 = (Expr)operandsList.get(0);
         Expr op2 = (Expr)operandsList.get(1);
