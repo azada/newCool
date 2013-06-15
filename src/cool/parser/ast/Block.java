@@ -61,7 +61,7 @@ public class Block extends Primary {
             result = result && el;
         }
         /////////////////////////////////////////////////////////////////////////////////
-        boolean ed = false;
+        boolean ed = true;
         try {
             ed = this.end.check(symbolNode);
         } catch (MyException myException) {

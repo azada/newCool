@@ -35,7 +35,7 @@ public class DivisionOperation extends RealOperation {
         for (Object operand : operandsList) {
 
             /////////////////////////////////////////////////////////////////////////////////
-            boolean fml = false;
+            boolean fml = true;
             try {
                 fml = ((Expr) operand).check(pTable);
             } catch (MyException myException) {

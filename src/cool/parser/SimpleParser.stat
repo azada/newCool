@@ -18,21 +18,19 @@
 5:	EOF: REDUCE class_list = classdecl.cd class_list.cl
 6:	EOF: REDUCE class_list = empty
 7:	TYPE: SHIFT; goto 8
-8:	LBRACE: REDUCE empty = 
-	LPAREN: SHIFT; goto 169
-	EXTENDS: REDUCE empty = 
+8:	LPAREN: SHIFT; goto 169
 	empty: SHIFT; goto 181
 	varformals: SHIFT; goto 9
+	[any]: REDUCE empty = 
 9:	LBRACE: REDUCE empty = 
 	EXTENDS: SHIFT; goto 163
 	empty: SHIFT; goto 168
 	have_extends: SHIFT; goto 10
 10:	LBRACE: SHIFT; goto 12
 	classbody: SHIFT; goto 11
-11:	EOF: REDUCE classdecl = CLASS TYPE.t varformals.v have_extends.e classbody.fl
-	CLASS: REDUCE classdecl = CLASS TYPE.t varformals.v have_extends.e classbody.fl
-12:	RBRACE: REDUCE empty = 
-	LBRACE: SHIFT; goto 159
+11:	[any]: REDUCE classdecl = CLASS TYPE.t varformals.v have_extends.e classbody.fl
+12:	LBRACE: SHIFT; goto 159
+	RBRACE: REDUCE empty = 
 	VAR: SHIFT; goto 149
 	DEF: SHIFT; goto 139
 	OVERRIDE: SHIFT; goto 18
@@ -40,10 +38,9 @@
 	feature: SHIFT; goto 15
 	feature_list: SHIFT; goto 13
 13:	RBRACE: SHIFT; goto 14
-14:	EOF: REDUCE classbody = LBRACE feature_list.fl RBRACE
-	CLASS: REDUCE classbody = LBRACE feature_list.fl RBRACE
-15:	RBRACE: REDUCE empty = 
-	LBRACE: SHIFT; goto 159
+14:	[any]: REDUCE classbody = LBRACE feature_list.fl RBRACE
+15:	LBRACE: SHIFT; goto 159
+	RBRACE: REDUCE empty = 
 	VAR: SHIFT; goto 149
 	DEF: SHIFT; goto 139
 	OVERRIDE: SHIFT; goto 18
@@ -59,10 +56,10 @@
 21:	COLON: SHIFT; goto 22
 22:	TYPE: SHIFT; goto 23
 23:	ASSIGN: SHIFT; goto 24
-24:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+24:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -83,31 +80,13 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 25
 25:	SEMI: SHIFT; goto 26
-26:	RBRACE: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	LBRACE: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	VAR: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	DEF: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	OVERRIDE: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-27:	RBRACE: REDUCE primary = lexpr.e
-	RPAREN: REDUCE primary = lexpr.e
-	MINUS: REDUCE primary = lexpr.e
-	COMMA: REDUCE primary = lexpr.e
-	SEMI: REDUCE primary = lexpr.e
-	CASE: REDUCE primary = lexpr.e
-	ELSE: REDUCE primary = lexpr.e
-	LE: REDUCE primary = lexpr.e
-	LT: REDUCE primary = lexpr.e
-	EQUALS: REDUCE primary = lexpr.e
-	PLUS: REDUCE primary = lexpr.e
-	TIMES: REDUCE primary = lexpr.e
-	DIV: REDUCE primary = lexpr.e
-	DOT: REDUCE primary = lexpr.e
-	MATCH: REDUCE primary = lexpr.e
-	ASSIGN: SHIFT; goto 28
-28:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+26:	[any]: REDUCE feature = OVERRIDE DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
+27:	ASSIGN: SHIFT; goto 28
+	[any]: REDUCE primary = lexpr.e
+28:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -126,17 +105,12 @@
 	equiv: SHIFT; goto 101
 	rexpr: SHIFT; goto 29
 	rel: SHIFT; goto 53
-29:	RBRACE: REDUCE expr = lexpr.le ASSIGN rexpr.re
-	RPAREN: REDUCE expr = lexpr.le ASSIGN rexpr.re
-	COMMA: REDUCE expr = lexpr.le ASSIGN rexpr.re
-	SEMI: REDUCE expr = lexpr.le ASSIGN rexpr.re
-	CASE: REDUCE expr = lexpr.le ASSIGN rexpr.re
-	ELSE: REDUCE expr = lexpr.le ASSIGN rexpr.re
+29:	[any]: REDUCE expr = lexpr.le ASSIGN rexpr.re
 30:	LPAREN: SHIFT; goto 31
-31:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+31:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -156,10 +130,10 @@
 	rexpr: SHIFT; goto 32
 	rel: SHIFT; goto 53
 32:	RPAREN: SHIFT; goto 33
-33:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+33:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -180,10 +154,10 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 34
 34:	ELSE: SHIFT; goto 35
-35:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+35:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -203,44 +177,17 @@
 	rexpr: SHIFT; goto 37
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 36
-36:	RBRACE: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-	RPAREN: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-	COMMA: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-	SEMI: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-	CASE: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-	ELSE: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
-37:	RBRACE: REDUCE expr = rexpr.r
-	RPAREN: REDUCE expr = rexpr.r
-	COMMA: REDUCE expr = rexpr.r
-	SEMI: REDUCE expr = rexpr.r
-	CASE: REDUCE expr = rexpr.r
-	ELSE: REDUCE expr = rexpr.r
+36:	[any]: REDUCE rexpr = IF LPAREN rexpr.cond RPAREN expr.m ELSE expr.e
+37:	[any]: REDUCE expr = rexpr.r
 38:	DOT: SHIFT; goto 39
 39:	ID: SHIFT; goto 40
 40:	LPAREN: SHIFT; goto 42
 	actuals: SHIFT; goto 41
-41:	RBRACE: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	RPAREN: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	MINUS: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	COMMA: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	SEMI: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	CASE: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	ELSE: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	LE: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	LT: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	EQUALS: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	PLUS: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	TIMES: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	DIV: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	DOT: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	MATCH: REDUCE lexpr = SUPER DOT ID.id actuals.a
-	ASSIGN: REDUCE lexpr = SUPER DOT ID.id actuals.a
-42:	RPAREN: REDUCE empty = 
-	MINUS: SHIFT; goto 110
-	COMMA: REDUCE empty = 
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+41:	[any]: REDUCE lexpr = SUPER DOT ID.id actuals.a
+42:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -262,29 +209,14 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 127
 	exp_list: SHIFT; goto 43
+	[any]: REDUCE empty = 
 43:	RPAREN: SHIFT; goto 44
 	COMMA: SHIFT; goto 45
-44:	RBRACE: REDUCE actuals = LPAREN exp_list.el RPAREN
-	RPAREN: REDUCE actuals = LPAREN exp_list.el RPAREN
-	MINUS: REDUCE actuals = LPAREN exp_list.el RPAREN
-	COMMA: REDUCE actuals = LPAREN exp_list.el RPAREN
-	LBRACE: REDUCE actuals = LPAREN exp_list.el RPAREN
-	SEMI: REDUCE actuals = LPAREN exp_list.el RPAREN
-	CASE: REDUCE actuals = LPAREN exp_list.el RPAREN
-	ELSE: REDUCE actuals = LPAREN exp_list.el RPAREN
-	LE: REDUCE actuals = LPAREN exp_list.el RPAREN
-	LT: REDUCE actuals = LPAREN exp_list.el RPAREN
-	EQUALS: REDUCE actuals = LPAREN exp_list.el RPAREN
-	PLUS: REDUCE actuals = LPAREN exp_list.el RPAREN
-	TIMES: REDUCE actuals = LPAREN exp_list.el RPAREN
-	DIV: REDUCE actuals = LPAREN exp_list.el RPAREN
-	DOT: REDUCE actuals = LPAREN exp_list.el RPAREN
-	MATCH: REDUCE actuals = LPAREN exp_list.el RPAREN
-	ASSIGN: REDUCE actuals = LPAREN exp_list.el RPAREN
-45:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+44:	[any]: REDUCE actuals = LPAREN exp_list.el RPAREN
+45:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -304,29 +236,13 @@
 	rexpr: SHIFT; goto 37
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 46
-46:	RPAREN: REDUCE exp_list = exp_list.el COMMA expr.e
-	COMMA: REDUCE exp_list = exp_list.el COMMA expr.e
-47:	RBRACE: REDUCE lexpr = ident.id
-	RPAREN: REDUCE lexpr = ident.id
-	MINUS: REDUCE lexpr = ident.id
-	COMMA: REDUCE lexpr = ident.id
-	SEMI: REDUCE lexpr = ident.id
-	CASE: REDUCE lexpr = ident.id
-	ELSE: REDUCE lexpr = ident.id
-	LE: REDUCE lexpr = ident.id
-	LT: REDUCE lexpr = ident.id
-	EQUALS: REDUCE lexpr = ident.id
-	PLUS: REDUCE lexpr = ident.id
-	TIMES: REDUCE lexpr = ident.id
-	DIV: REDUCE lexpr = ident.id
-	DOT: REDUCE lexpr = ident.id
-	MATCH: REDUCE lexpr = ident.id
-	ASSIGN: REDUCE lexpr = ident.id
+46:	[any]: REDUCE exp_list = exp_list.el COMMA expr.e
+47:	[any]: REDUCE lexpr = ident.id
 48:	LPAREN: SHIFT; goto 49
-49:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+49:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -346,10 +262,10 @@
 	rexpr: SHIFT; goto 50
 	rel: SHIFT; goto 53
 50:	RPAREN: SHIFT; goto 51
-51:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+51:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -369,24 +285,14 @@
 	rexpr: SHIFT; goto 37
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 52
-52:	RBRACE: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-	RPAREN: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-	COMMA: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-	SEMI: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-	CASE: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-	ELSE: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
-53:	RBRACE: REDUCE rexpr = rel.r
-	RPAREN: REDUCE rexpr = rel.r
-	COMMA: REDUCE rexpr = rel.r
-	SEMI: REDUCE rexpr = rel.r
-	CASE: REDUCE rexpr = rel.r
-	ELSE: REDUCE rexpr = rel.r
-	LE: SHIFT; goto 54
+52:	[any]: REDUCE rexpr = WHILE LPAREN rexpr.cond RPAREN expr.e
+53:	LE: SHIFT; goto 54
 	LT: SHIFT; goto 125
-54:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE rexpr = rel.r
+54:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -401,19 +307,12 @@
 	product: SHIFT; goto 124
 	sum: SHIFT; goto 118
 	equiv: SHIFT; goto 55
-55:	RBRACE: REDUCE rel = rel.r LE equiv.e
-	RPAREN: REDUCE rel = rel.r LE equiv.e
-	COMMA: REDUCE rel = rel.r LE equiv.e
-	SEMI: REDUCE rel = rel.r LE equiv.e
-	CASE: REDUCE rel = rel.r LE equiv.e
-	ELSE: REDUCE rel = rel.r LE equiv.e
-	LE: REDUCE rel = rel.r LE equiv.e
-	LT: REDUCE rel = rel.r LE equiv.e
-	EQUALS: SHIFT; goto 56
-56:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+55:	EQUALS: SHIFT; goto 56
+	[any]: REDUCE rel = rel.r LE equiv.e
+56:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -427,21 +326,13 @@
 	ident: SHIFT; goto 47
 	product: SHIFT; goto 124
 	sum: SHIFT; goto 57
-57:	RBRACE: REDUCE equiv = equiv.e EQUALS sum.s
-	RPAREN: REDUCE equiv = equiv.e EQUALS sum.s
-	MINUS: SHIFT; goto 119
-	COMMA: REDUCE equiv = equiv.e EQUALS sum.s
-	SEMI: REDUCE equiv = equiv.e EQUALS sum.s
-	CASE: REDUCE equiv = equiv.e EQUALS sum.s
-	ELSE: REDUCE equiv = equiv.e EQUALS sum.s
-	LE: REDUCE equiv = equiv.e EQUALS sum.s
-	LT: REDUCE equiv = equiv.e EQUALS sum.s
-	EQUALS: REDUCE equiv = equiv.e EQUALS sum.s
+57:	MINUS: SHIFT; goto 119
 	PLUS: SHIFT; goto 58
-58:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE equiv = equiv.e EQUALS sum.s
+58:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -454,23 +345,13 @@
 	primary: SHIFT; goto 123
 	ident: SHIFT; goto 47
 	product: SHIFT; goto 59
-59:	RBRACE: REDUCE sum = sum.s PLUS product.p
-	RPAREN: REDUCE sum = sum.s PLUS product.p
-	MINUS: REDUCE sum = sum.s PLUS product.p
-	COMMA: REDUCE sum = sum.s PLUS product.p
-	SEMI: REDUCE sum = sum.s PLUS product.p
-	CASE: REDUCE sum = sum.s PLUS product.p
-	ELSE: REDUCE sum = sum.s PLUS product.p
-	LE: REDUCE sum = sum.s PLUS product.p
-	LT: REDUCE sum = sum.s PLUS product.p
-	EQUALS: REDUCE sum = sum.s PLUS product.p
-	PLUS: REDUCE sum = sum.s PLUS product.p
-	TIMES: SHIFT; goto 60
+59:	TIMES: SHIFT; goto 60
 	DIV: SHIFT; goto 121
-60:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE sum = sum.s PLUS product.p
+60:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -482,77 +363,22 @@
 	lexpr: SHIFT; goto 112
 	primary: SHIFT; goto 61
 	ident: SHIFT; goto 47
-61:	RBRACE: REDUCE product = product.p TIMES primary.i
-	RPAREN: REDUCE product = product.p TIMES primary.i
-	MINUS: REDUCE product = product.p TIMES primary.i
-	COMMA: REDUCE product = product.p TIMES primary.i
-	SEMI: REDUCE product = product.p TIMES primary.i
-	CASE: REDUCE product = product.p TIMES primary.i
-	ELSE: REDUCE product = product.p TIMES primary.i
-	LE: REDUCE product = product.p TIMES primary.i
-	LT: REDUCE product = product.p TIMES primary.i
-	EQUALS: REDUCE product = product.p TIMES primary.i
-	PLUS: REDUCE product = product.p TIMES primary.i
-	TIMES: REDUCE product = product.p TIMES primary.i
-	DIV: REDUCE product = product.p TIMES primary.i
-	DOT: SHIFT; goto 62
+61:	DOT: SHIFT; goto 62
+	[any]: REDUCE product = product.p TIMES primary.i
 62:	ID: SHIFT; goto 63
 63:	LPAREN: SHIFT; goto 42
 	actuals: SHIFT; goto 64
-64:	RBRACE: REDUCE primary = primary.p DOT ID.id actuals.a
-	RPAREN: REDUCE primary = primary.p DOT ID.id actuals.a
-	MINUS: REDUCE primary = primary.p DOT ID.id actuals.a
-	COMMA: REDUCE primary = primary.p DOT ID.id actuals.a
-	SEMI: REDUCE primary = primary.p DOT ID.id actuals.a
-	CASE: REDUCE primary = primary.p DOT ID.id actuals.a
-	ELSE: REDUCE primary = primary.p DOT ID.id actuals.a
-	LE: REDUCE primary = primary.p DOT ID.id actuals.a
-	LT: REDUCE primary = primary.p DOT ID.id actuals.a
-	EQUALS: REDUCE primary = primary.p DOT ID.id actuals.a
-	PLUS: REDUCE primary = primary.p DOT ID.id actuals.a
-	TIMES: REDUCE primary = primary.p DOT ID.id actuals.a
-	DIV: REDUCE primary = primary.p DOT ID.id actuals.a
-	DOT: REDUCE primary = primary.p DOT ID.id actuals.a
-	MATCH: REDUCE primary = primary.p DOT ID.id actuals.a
-65:	RBRACE: REDUCE empty = 
-	MINUS: REDUCE empty = 
-	LBRACE: REDUCE empty = 
-	LPAREN: REDUCE empty = 
-	ID: REDUCE empty = 
-	NULL: REDUCE empty = 
-	NEW: REDUCE empty = 
-	THIS: REDUCE empty = 
-	SUPER: REDUCE empty = 
-	NOT: REDUCE empty = 
-	INTEGER: REDUCE empty = 
-	STRING: REDUCE empty = 
-	BOOLEAN: REDUCE empty = 
-	IF: REDUCE empty = 
-	WHILE: REDUCE empty = 
-	VAR: REDUCE empty = 
-	empty: SHIFT; goto 93
+64:	[any]: REDUCE primary = primary.p DOT ID.id actuals.a
+65:	empty: SHIFT; goto 93
 	st_list: SHIFT; goto 68
 	block: SHIFT; goto 66
+	[any]: REDUCE empty = 
 66:	RBRACE: SHIFT; goto 67
-67:	RBRACE: REDUCE primary = LBRACE block.b RBRACE
-	RPAREN: REDUCE primary = LBRACE block.b RBRACE
-	MINUS: REDUCE primary = LBRACE block.b RBRACE
-	COMMA: REDUCE primary = LBRACE block.b RBRACE
-	SEMI: REDUCE primary = LBRACE block.b RBRACE
-	CASE: REDUCE primary = LBRACE block.b RBRACE
-	ELSE: REDUCE primary = LBRACE block.b RBRACE
-	LE: REDUCE primary = LBRACE block.b RBRACE
-	LT: REDUCE primary = LBRACE block.b RBRACE
-	EQUALS: REDUCE primary = LBRACE block.b RBRACE
-	PLUS: REDUCE primary = LBRACE block.b RBRACE
-	TIMES: REDUCE primary = LBRACE block.b RBRACE
-	DIV: REDUCE primary = LBRACE block.b RBRACE
-	DOT: REDUCE primary = LBRACE block.b RBRACE
-	MATCH: REDUCE primary = LBRACE block.b RBRACE
-68:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+67:	[any]: REDUCE primary = LBRACE block.b RBRACE
+68:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -574,48 +400,19 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 69
 	new_var: SHIFT; goto 71
-69:	RBRACE: REDUCE block = st_list.el expr.e
-	SEMI: SHIFT; goto 70
-	CASE: REDUCE block = st_list.el expr.e
-70:	MINUS: REDUCE st_list = st_list.el expr.e SEMI
-	LBRACE: REDUCE st_list = st_list.el expr.e SEMI
-	LPAREN: REDUCE st_list = st_list.el expr.e SEMI
-	ID: REDUCE st_list = st_list.el expr.e SEMI
-	NULL: REDUCE st_list = st_list.el expr.e SEMI
-	NEW: REDUCE st_list = st_list.el expr.e SEMI
-	THIS: REDUCE st_list = st_list.el expr.e SEMI
-	SUPER: REDUCE st_list = st_list.el expr.e SEMI
-	NOT: REDUCE st_list = st_list.el expr.e SEMI
-	INTEGER: REDUCE st_list = st_list.el expr.e SEMI
-	STRING: REDUCE st_list = st_list.el expr.e SEMI
-	BOOLEAN: REDUCE st_list = st_list.el expr.e SEMI
-	IF: REDUCE st_list = st_list.el expr.e SEMI
-	WHILE: REDUCE st_list = st_list.el expr.e SEMI
-	VAR: REDUCE st_list = st_list.el expr.e SEMI
+69:	SEMI: SHIFT; goto 70
+	[any]: REDUCE block = st_list.el expr.e
+70:	[any]: REDUCE st_list = st_list.el expr.e SEMI
 71:	SEMI: SHIFT; goto 72
-72:	MINUS: REDUCE st_list = st_list.el new_var.ve SEMI
-	LBRACE: REDUCE st_list = st_list.el new_var.ve SEMI
-	LPAREN: REDUCE st_list = st_list.el new_var.ve SEMI
-	ID: REDUCE st_list = st_list.el new_var.ve SEMI
-	NULL: REDUCE st_list = st_list.el new_var.ve SEMI
-	NEW: REDUCE st_list = st_list.el new_var.ve SEMI
-	THIS: REDUCE st_list = st_list.el new_var.ve SEMI
-	SUPER: REDUCE st_list = st_list.el new_var.ve SEMI
-	NOT: REDUCE st_list = st_list.el new_var.ve SEMI
-	INTEGER: REDUCE st_list = st_list.el new_var.ve SEMI
-	STRING: REDUCE st_list = st_list.el new_var.ve SEMI
-	BOOLEAN: REDUCE st_list = st_list.el new_var.ve SEMI
-	IF: REDUCE st_list = st_list.el new_var.ve SEMI
-	WHILE: REDUCE st_list = st_list.el new_var.ve SEMI
-	VAR: REDUCE st_list = st_list.el new_var.ve SEMI
+72:	[any]: REDUCE st_list = st_list.el new_var.ve SEMI
 73:	ID: SHIFT; goto 74
 74:	COLON: SHIFT; goto 75
 75:	TYPE: SHIFT; goto 76
 76:	ASSIGN: SHIFT; goto 77
-77:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+77:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -636,65 +433,27 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 78
 78:	SEMI: REDUCE new_var = VAR ID.id COLON TYPE.t ASSIGN expr.e
-79:	RBRACE: REDUCE product = primary.p
-	RPAREN: REDUCE product = primary.p
-	MINUS: REDUCE product = primary.p
-	COMMA: REDUCE product = primary.p
-	SEMI: REDUCE product = primary.p
-	CASE: REDUCE product = primary.p
-	ELSE: REDUCE product = primary.p
-	LE: REDUCE product = primary.p
-	LT: REDUCE product = primary.p
-	EQUALS: REDUCE product = primary.p
-	PLUS: REDUCE product = primary.p
-	TIMES: REDUCE product = primary.p
-	DIV: REDUCE product = primary.p
-	DOT: SHIFT; goto 62
+79:	DOT: SHIFT; goto 62
 	MATCH: SHIFT; goto 80
+	[any]: REDUCE product = primary.p
 80:	LBRACE: SHIFT; goto 82
 	cases: SHIFT; goto 81
-81:	RBRACE: REDUCE rexpr = primary.p MATCH cases.c
-	RPAREN: REDUCE rexpr = primary.p MATCH cases.c
-	COMMA: REDUCE rexpr = primary.p MATCH cases.c
-	SEMI: REDUCE rexpr = primary.p MATCH cases.c
-	CASE: REDUCE rexpr = primary.p MATCH cases.c
-	ELSE: REDUCE rexpr = primary.p MATCH cases.c
+81:	[any]: REDUCE rexpr = primary.p MATCH cases.c
 82:	RBRACE: REDUCE empty = 
 	CASE: SHIFT; goto 85
 	empty: SHIFT; goto 92
 	case_block: SHIFT; goto 83
 83:	RBRACE: SHIFT; goto 84
-84:	RBRACE: REDUCE cases = LBRACE case_block.cb RBRACE
-	RPAREN: REDUCE cases = LBRACE case_block.cb RBRACE
-	COMMA: REDUCE cases = LBRACE case_block.cb RBRACE
-	SEMI: REDUCE cases = LBRACE case_block.cb RBRACE
-	CASE: REDUCE cases = LBRACE case_block.cb RBRACE
-	ELSE: REDUCE cases = LBRACE case_block.cb RBRACE
+84:	[any]: REDUCE cases = LBRACE case_block.cb RBRACE
 85:	ID: SHIFT; goto 86
 	NULL: SHIFT; goto 94
 86:	COLON: SHIFT; goto 87
 87:	TYPE: SHIFT; goto 88
 88:	ARROW: SHIFT; goto 89
-89:	RBRACE: REDUCE empty = 
-	MINUS: REDUCE empty = 
-	LBRACE: REDUCE empty = 
-	CASE: REDUCE empty = 
-	LPAREN: REDUCE empty = 
-	ID: REDUCE empty = 
-	NULL: REDUCE empty = 
-	NEW: REDUCE empty = 
-	THIS: REDUCE empty = 
-	SUPER: REDUCE empty = 
-	NOT: REDUCE empty = 
-	INTEGER: REDUCE empty = 
-	STRING: REDUCE empty = 
-	BOOLEAN: REDUCE empty = 
-	IF: REDUCE empty = 
-	WHILE: REDUCE empty = 
-	VAR: REDUCE empty = 
-	empty: SHIFT; goto 93
+89:	empty: SHIFT; goto 93
 	st_list: SHIFT; goto 68
 	block: SHIFT; goto 90
+	[any]: REDUCE empty = 
 90:	RBRACE: REDUCE empty = 
 	CASE: SHIFT; goto 85
 	empty: SHIFT; goto 92
@@ -702,112 +461,29 @@
 91:	RBRACE: REDUCE case_block = CASE ID.id COLON TYPE.t ARROW block.b case_block.cb
 92:	RBRACE: REDUCE case_block = empty
 93:	RBRACE: REDUCE block = empty
-	MINUS: REDUCE st_list = empty
-	LBRACE: REDUCE st_list = empty
 	CASE: REDUCE block = empty
-	LPAREN: REDUCE st_list = empty
-	ID: REDUCE st_list = empty
-	NULL: REDUCE st_list = empty
-	NEW: REDUCE st_list = empty
-	THIS: REDUCE st_list = empty
-	SUPER: REDUCE st_list = empty
-	NOT: REDUCE st_list = empty
-	INTEGER: REDUCE st_list = empty
-	STRING: REDUCE st_list = empty
-	BOOLEAN: REDUCE st_list = empty
-	IF: REDUCE st_list = empty
-	WHILE: REDUCE st_list = empty
-	VAR: REDUCE st_list = empty
+	[any]: REDUCE st_list = empty
 94:	ARROW: SHIFT; goto 95
-95:	RBRACE: REDUCE empty = 
-	MINUS: REDUCE empty = 
-	LBRACE: REDUCE empty = 
-	CASE: REDUCE empty = 
-	LPAREN: REDUCE empty = 
-	ID: REDUCE empty = 
-	NULL: REDUCE empty = 
-	NEW: REDUCE empty = 
-	THIS: REDUCE empty = 
-	SUPER: REDUCE empty = 
-	NOT: REDUCE empty = 
-	INTEGER: REDUCE empty = 
-	STRING: REDUCE empty = 
-	BOOLEAN: REDUCE empty = 
-	IF: REDUCE empty = 
-	WHILE: REDUCE empty = 
-	VAR: REDUCE empty = 
-	empty: SHIFT; goto 93
+95:	empty: SHIFT; goto 93
 	st_list: SHIFT; goto 68
 	block: SHIFT; goto 96
+	[any]: REDUCE empty = 
 96:	RBRACE: REDUCE empty = 
 	CASE: SHIFT; goto 85
 	empty: SHIFT; goto 92
 	case_block: SHIFT; goto 97
 97:	RBRACE: REDUCE case_block = CASE NULL ARROW block.b case_block.cb
-98:	RBRACE: REDUCE ident = ID.id
-	RPAREN: REDUCE ident = ID.id
-	MINUS: REDUCE ident = ID.id
-	COMMA: REDUCE ident = ID.id
-	SEMI: REDUCE ident = ID.id
-	CASE: REDUCE ident = ID.id
-	LPAREN: SHIFT; goto 42
-	ELSE: REDUCE ident = ID.id
-	LE: REDUCE ident = ID.id
-	LT: REDUCE ident = ID.id
-	EQUALS: REDUCE ident = ID.id
-	PLUS: REDUCE ident = ID.id
-	TIMES: REDUCE ident = ID.id
-	DIV: REDUCE ident = ID.id
-	DOT: REDUCE ident = ID.id
-	MATCH: REDUCE ident = ID.id
-	ASSIGN: REDUCE ident = ID.id
+98:	LPAREN: SHIFT; goto 42
 	actuals: SHIFT; goto 99
-99:	RBRACE: REDUCE ident = ID.id actuals.s
-	RPAREN: REDUCE ident = ID.id actuals.s
-	MINUS: REDUCE ident = ID.id actuals.s
-	COMMA: REDUCE ident = ID.id actuals.s
-	SEMI: REDUCE ident = ID.id actuals.s
-	CASE: REDUCE ident = ID.id actuals.s
-	ELSE: REDUCE ident = ID.id actuals.s
-	LE: REDUCE ident = ID.id actuals.s
-	LT: REDUCE ident = ID.id actuals.s
-	EQUALS: REDUCE ident = ID.id actuals.s
-	PLUS: REDUCE ident = ID.id actuals.s
-	TIMES: REDUCE ident = ID.id actuals.s
-	DIV: REDUCE ident = ID.id actuals.s
-	DOT: REDUCE ident = ID.id actuals.s
-	MATCH: REDUCE ident = ID.id actuals.s
-	ASSIGN: REDUCE ident = ID.id actuals.s
-100:	RBRACE: REDUCE ident = THIS
-	RPAREN: REDUCE ident = THIS
-	MINUS: REDUCE ident = THIS
-	COMMA: REDUCE ident = THIS
-	SEMI: REDUCE ident = THIS
-	CASE: REDUCE ident = THIS
-	ELSE: REDUCE ident = THIS
-	LE: REDUCE ident = THIS
-	LT: REDUCE ident = THIS
-	EQUALS: REDUCE ident = THIS
-	PLUS: REDUCE ident = THIS
-	TIMES: REDUCE ident = THIS
-	DIV: REDUCE ident = THIS
-	DOT: REDUCE ident = THIS
-	MATCH: REDUCE ident = THIS
-	ASSIGN: REDUCE ident = THIS
-101:	RBRACE: REDUCE rel = equiv.e
-	RPAREN: REDUCE rel = equiv.e
-	COMMA: REDUCE rel = equiv.e
-	SEMI: REDUCE rel = equiv.e
-	CASE: REDUCE rel = equiv.e
-	ELSE: REDUCE rel = equiv.e
-	LE: REDUCE rel = equiv.e
-	LT: REDUCE rel = equiv.e
-	EQUALS: SHIFT; goto 56
-102:	RPAREN: SHIFT; goto 105
-	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE ident = ID.id
+99:	[any]: REDUCE ident = ID.id actuals.s
+100:	[any]: REDUCE ident = THIS
+101:	EQUALS: SHIFT; goto 56
+	[any]: REDUCE rel = equiv.e
+102:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -818,6 +494,7 @@
 	BOOLEAN: SHIFT; goto 109
 	IF: SHIFT; goto 30
 	WHILE: SHIFT; goto 48
+	RPAREN: SHIFT; goto 105
 	lexpr: SHIFT; goto 27
 	primary: SHIFT; goto 79
 	ident: SHIFT; goto 47
@@ -828,100 +505,16 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 103
 103:	RPAREN: SHIFT; goto 104
-104:	RBRACE: REDUCE primary = LPAREN expr.e RPAREN
-	RPAREN: REDUCE primary = LPAREN expr.e RPAREN
-	MINUS: REDUCE primary = LPAREN expr.e RPAREN
-	COMMA: REDUCE primary = LPAREN expr.e RPAREN
-	SEMI: REDUCE primary = LPAREN expr.e RPAREN
-	CASE: REDUCE primary = LPAREN expr.e RPAREN
-	ELSE: REDUCE primary = LPAREN expr.e RPAREN
-	LE: REDUCE primary = LPAREN expr.e RPAREN
-	LT: REDUCE primary = LPAREN expr.e RPAREN
-	EQUALS: REDUCE primary = LPAREN expr.e RPAREN
-	PLUS: REDUCE primary = LPAREN expr.e RPAREN
-	TIMES: REDUCE primary = LPAREN expr.e RPAREN
-	DIV: REDUCE primary = LPAREN expr.e RPAREN
-	DOT: REDUCE primary = LPAREN expr.e RPAREN
-	MATCH: REDUCE primary = LPAREN expr.e RPAREN
-105:	RBRACE: REDUCE primary = LPAREN RPAREN
-	RPAREN: REDUCE primary = LPAREN RPAREN
-	MINUS: REDUCE primary = LPAREN RPAREN
-	COMMA: REDUCE primary = LPAREN RPAREN
-	SEMI: REDUCE primary = LPAREN RPAREN
-	CASE: REDUCE primary = LPAREN RPAREN
-	ELSE: REDUCE primary = LPAREN RPAREN
-	LE: REDUCE primary = LPAREN RPAREN
-	LT: REDUCE primary = LPAREN RPAREN
-	EQUALS: REDUCE primary = LPAREN RPAREN
-	PLUS: REDUCE primary = LPAREN RPAREN
-	TIMES: REDUCE primary = LPAREN RPAREN
-	DIV: REDUCE primary = LPAREN RPAREN
-	DOT: REDUCE primary = LPAREN RPAREN
-	MATCH: REDUCE primary = LPAREN RPAREN
-106:	RBRACE: REDUCE primary = NULL
-	RPAREN: REDUCE primary = NULL
-	MINUS: REDUCE primary = NULL
-	COMMA: REDUCE primary = NULL
-	SEMI: REDUCE primary = NULL
-	CASE: REDUCE primary = NULL
-	ELSE: REDUCE primary = NULL
-	LE: REDUCE primary = NULL
-	LT: REDUCE primary = NULL
-	EQUALS: REDUCE primary = NULL
-	PLUS: REDUCE primary = NULL
-	TIMES: REDUCE primary = NULL
-	DIV: REDUCE primary = NULL
-	DOT: REDUCE primary = NULL
-	MATCH: REDUCE primary = NULL
-107:	RBRACE: REDUCE primary = INTEGER.i
-	RPAREN: REDUCE primary = INTEGER.i
-	MINUS: REDUCE primary = INTEGER.i
-	COMMA: REDUCE primary = INTEGER.i
-	SEMI: REDUCE primary = INTEGER.i
-	CASE: REDUCE primary = INTEGER.i
-	ELSE: REDUCE primary = INTEGER.i
-	LE: REDUCE primary = INTEGER.i
-	LT: REDUCE primary = INTEGER.i
-	EQUALS: REDUCE primary = INTEGER.i
-	PLUS: REDUCE primary = INTEGER.i
-	TIMES: REDUCE primary = INTEGER.i
-	DIV: REDUCE primary = INTEGER.i
-	DOT: REDUCE primary = INTEGER.i
-	MATCH: REDUCE primary = INTEGER.i
-108:	RBRACE: REDUCE primary = STRING.s
-	RPAREN: REDUCE primary = STRING.s
-	MINUS: REDUCE primary = STRING.s
-	COMMA: REDUCE primary = STRING.s
-	SEMI: REDUCE primary = STRING.s
-	CASE: REDUCE primary = STRING.s
-	ELSE: REDUCE primary = STRING.s
-	LE: REDUCE primary = STRING.s
-	LT: REDUCE primary = STRING.s
-	EQUALS: REDUCE primary = STRING.s
-	PLUS: REDUCE primary = STRING.s
-	TIMES: REDUCE primary = STRING.s
-	DIV: REDUCE primary = STRING.s
-	DOT: REDUCE primary = STRING.s
-	MATCH: REDUCE primary = STRING.s
-109:	RBRACE: REDUCE primary = BOOLEAN.b
-	RPAREN: REDUCE primary = BOOLEAN.b
-	MINUS: REDUCE primary = BOOLEAN.b
-	COMMA: REDUCE primary = BOOLEAN.b
-	SEMI: REDUCE primary = BOOLEAN.b
-	CASE: REDUCE primary = BOOLEAN.b
-	ELSE: REDUCE primary = BOOLEAN.b
-	LE: REDUCE primary = BOOLEAN.b
-	LT: REDUCE primary = BOOLEAN.b
-	EQUALS: REDUCE primary = BOOLEAN.b
-	PLUS: REDUCE primary = BOOLEAN.b
-	TIMES: REDUCE primary = BOOLEAN.b
-	DIV: REDUCE primary = BOOLEAN.b
-	DOT: REDUCE primary = BOOLEAN.b
-	MATCH: REDUCE primary = BOOLEAN.b
-110:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+104:	[any]: REDUCE primary = LPAREN expr.e RPAREN
+105:	[any]: REDUCE primary = LPAREN RPAREN
+106:	[any]: REDUCE primary = NULL
+107:	[any]: REDUCE primary = INTEGER.i
+108:	[any]: REDUCE primary = STRING.s
+109:	[any]: REDUCE primary = BOOLEAN.b
+110:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -933,40 +526,13 @@
 	lexpr: SHIFT; goto 112
 	primary: SHIFT; goto 111
 	ident: SHIFT; goto 47
-111:	RBRACE: REDUCE primary = MINUS primary.p
-	RPAREN: REDUCE primary = MINUS primary.p
-	MINUS: REDUCE primary = MINUS primary.p
-	COMMA: REDUCE primary = MINUS primary.p
-	SEMI: REDUCE primary = MINUS primary.p
-	CASE: REDUCE primary = MINUS primary.p
-	ELSE: REDUCE primary = MINUS primary.p
-	LE: REDUCE primary = MINUS primary.p
-	LT: REDUCE primary = MINUS primary.p
-	EQUALS: REDUCE primary = MINUS primary.p
-	PLUS: REDUCE primary = MINUS primary.p
-	TIMES: REDUCE primary = MINUS primary.p
-	DIV: REDUCE primary = MINUS primary.p
-	DOT: SHIFT; goto 62
-	MATCH: REDUCE primary = MINUS primary.p
-112:	RBRACE: REDUCE primary = lexpr.e
-	RPAREN: REDUCE primary = lexpr.e
-	MINUS: REDUCE primary = lexpr.e
-	COMMA: REDUCE primary = lexpr.e
-	SEMI: REDUCE primary = lexpr.e
-	CASE: REDUCE primary = lexpr.e
-	ELSE: REDUCE primary = lexpr.e
-	LE: REDUCE primary = lexpr.e
-	LT: REDUCE primary = lexpr.e
-	EQUALS: REDUCE primary = lexpr.e
-	PLUS: REDUCE primary = lexpr.e
-	TIMES: REDUCE primary = lexpr.e
-	DIV: REDUCE primary = lexpr.e
-	DOT: REDUCE primary = lexpr.e
-	MATCH: REDUCE primary = lexpr.e
-113:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+111:	DOT: SHIFT; goto 62
+	[any]: REDUCE primary = MINUS primary.p
+112:	[any]: REDUCE primary = lexpr.e
+113:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -978,54 +544,19 @@
 	lexpr: SHIFT; goto 112
 	primary: SHIFT; goto 114
 	ident: SHIFT; goto 47
-114:	RBRACE: REDUCE primary = NOT primary.p
-	RPAREN: REDUCE primary = NOT primary.p
-	MINUS: REDUCE primary = NOT primary.p
-	COMMA: REDUCE primary = NOT primary.p
-	SEMI: REDUCE primary = NOT primary.p
-	CASE: REDUCE primary = NOT primary.p
-	ELSE: REDUCE primary = NOT primary.p
-	LE: REDUCE primary = NOT primary.p
-	LT: REDUCE primary = NOT primary.p
-	EQUALS: REDUCE primary = NOT primary.p
-	PLUS: REDUCE primary = NOT primary.p
-	TIMES: REDUCE primary = NOT primary.p
-	DIV: REDUCE primary = NOT primary.p
-	DOT: SHIFT; goto 62
-	MATCH: REDUCE primary = NOT primary.p
+114:	DOT: SHIFT; goto 62
+	[any]: REDUCE primary = NOT primary.p
 115:	TYPE: SHIFT; goto 116
 116:	LPAREN: SHIFT; goto 42
 	actuals: SHIFT; goto 117
-117:	RBRACE: REDUCE primary = NEW TYPE.t actuals.s
-	RPAREN: REDUCE primary = NEW TYPE.t actuals.s
-	MINUS: REDUCE primary = NEW TYPE.t actuals.s
-	COMMA: REDUCE primary = NEW TYPE.t actuals.s
-	SEMI: REDUCE primary = NEW TYPE.t actuals.s
-	CASE: REDUCE primary = NEW TYPE.t actuals.s
-	ELSE: REDUCE primary = NEW TYPE.t actuals.s
-	LE: REDUCE primary = NEW TYPE.t actuals.s
-	LT: REDUCE primary = NEW TYPE.t actuals.s
-	EQUALS: REDUCE primary = NEW TYPE.t actuals.s
-	PLUS: REDUCE primary = NEW TYPE.t actuals.s
-	TIMES: REDUCE primary = NEW TYPE.t actuals.s
-	DIV: REDUCE primary = NEW TYPE.t actuals.s
-	DOT: REDUCE primary = NEW TYPE.t actuals.s
-	MATCH: REDUCE primary = NEW TYPE.t actuals.s
-118:	RBRACE: REDUCE equiv = sum.s
-	RPAREN: REDUCE equiv = sum.s
-	MINUS: SHIFT; goto 119
-	COMMA: REDUCE equiv = sum.s
-	SEMI: REDUCE equiv = sum.s
-	CASE: REDUCE equiv = sum.s
-	ELSE: REDUCE equiv = sum.s
-	LE: REDUCE equiv = sum.s
-	LT: REDUCE equiv = sum.s
-	EQUALS: REDUCE equiv = sum.s
+117:	[any]: REDUCE primary = NEW TYPE.t actuals.s
+118:	MINUS: SHIFT; goto 119
 	PLUS: SHIFT; goto 58
-119:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE equiv = sum.s
+119:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -1038,23 +569,13 @@
 	primary: SHIFT; goto 123
 	ident: SHIFT; goto 47
 	product: SHIFT; goto 120
-120:	RBRACE: REDUCE sum = sum.s MINUS product.p
-	RPAREN: REDUCE sum = sum.s MINUS product.p
-	MINUS: REDUCE sum = sum.s MINUS product.p
-	COMMA: REDUCE sum = sum.s MINUS product.p
-	SEMI: REDUCE sum = sum.s MINUS product.p
-	CASE: REDUCE sum = sum.s MINUS product.p
-	ELSE: REDUCE sum = sum.s MINUS product.p
-	LE: REDUCE sum = sum.s MINUS product.p
-	LT: REDUCE sum = sum.s MINUS product.p
-	EQUALS: REDUCE sum = sum.s MINUS product.p
-	PLUS: REDUCE sum = sum.s MINUS product.p
-	TIMES: SHIFT; goto 60
+120:	TIMES: SHIFT; goto 60
 	DIV: SHIFT; goto 121
-121:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE sum = sum.s MINUS product.p
+121:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -1066,51 +587,17 @@
 	lexpr: SHIFT; goto 112
 	primary: SHIFT; goto 122
 	ident: SHIFT; goto 47
-122:	RBRACE: REDUCE product = product.p DIV primary.i
-	RPAREN: REDUCE product = product.p DIV primary.i
-	MINUS: REDUCE product = product.p DIV primary.i
-	COMMA: REDUCE product = product.p DIV primary.i
-	SEMI: REDUCE product = product.p DIV primary.i
-	CASE: REDUCE product = product.p DIV primary.i
-	ELSE: REDUCE product = product.p DIV primary.i
-	LE: REDUCE product = product.p DIV primary.i
-	LT: REDUCE product = product.p DIV primary.i
-	EQUALS: REDUCE product = product.p DIV primary.i
-	PLUS: REDUCE product = product.p DIV primary.i
-	TIMES: REDUCE product = product.p DIV primary.i
-	DIV: REDUCE product = product.p DIV primary.i
-	DOT: SHIFT; goto 62
-123:	RBRACE: REDUCE product = primary.p
-	RPAREN: REDUCE product = primary.p
-	MINUS: REDUCE product = primary.p
-	COMMA: REDUCE product = primary.p
-	SEMI: REDUCE product = primary.p
-	CASE: REDUCE product = primary.p
-	ELSE: REDUCE product = primary.p
-	LE: REDUCE product = primary.p
-	LT: REDUCE product = primary.p
-	EQUALS: REDUCE product = primary.p
-	PLUS: REDUCE product = primary.p
-	TIMES: REDUCE product = primary.p
-	DIV: REDUCE product = primary.p
-	DOT: SHIFT; goto 62
-124:	RBRACE: REDUCE sum = product.p
-	RPAREN: REDUCE sum = product.p
-	MINUS: REDUCE sum = product.p
-	COMMA: REDUCE sum = product.p
-	SEMI: REDUCE sum = product.p
-	CASE: REDUCE sum = product.p
-	ELSE: REDUCE sum = product.p
-	LE: REDUCE sum = product.p
-	LT: REDUCE sum = product.p
-	EQUALS: REDUCE sum = product.p
-	PLUS: REDUCE sum = product.p
-	TIMES: SHIFT; goto 60
+122:	DOT: SHIFT; goto 62
+	[any]: REDUCE product = product.p DIV primary.i
+123:	DOT: SHIFT; goto 62
+	[any]: REDUCE product = primary.p
+124:	TIMES: SHIFT; goto 60
 	DIV: SHIFT; goto 121
-125:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+	[any]: REDUCE sum = product.p
+125:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -1125,50 +612,36 @@
 	product: SHIFT; goto 124
 	sum: SHIFT; goto 118
 	equiv: SHIFT; goto 126
-126:	RBRACE: REDUCE rel = rel.r LT equiv.e
-	RPAREN: REDUCE rel = rel.r LT equiv.e
-	COMMA: REDUCE rel = rel.r LT equiv.e
-	SEMI: REDUCE rel = rel.r LT equiv.e
-	CASE: REDUCE rel = rel.r LT equiv.e
-	ELSE: REDUCE rel = rel.r LT equiv.e
-	LE: REDUCE rel = rel.r LT equiv.e
-	LT: REDUCE rel = rel.r LT equiv.e
-	EQUALS: SHIFT; goto 56
-127:	RPAREN: REDUCE exp_list = expr.e
-	COMMA: REDUCE exp_list = expr.e
-128:	RPAREN: REDUCE exp_list = empty
-	COMMA: REDUCE exp_list = empty
-129:	RPAREN: REDUCE empty = 
-	COMMA: REDUCE empty = 
-	ID: SHIFT; goto 134
+126:	EQUALS: SHIFT; goto 56
+	[any]: REDUCE rel = rel.r LT equiv.e
+127:	[any]: REDUCE exp_list = expr.e
+128:	[any]: REDUCE exp_list = empty
+129:	ID: SHIFT; goto 134
 	empty: SHIFT; goto 138
 	formal: SHIFT; goto 137
 	formal_list: SHIFT; goto 130
+	[any]: REDUCE empty = 
 130:	RPAREN: SHIFT; goto 131
 	COMMA: SHIFT; goto 132
 131:	COLON: REDUCE formals = LPAREN formal_list.fl RPAREN
 132:	ID: SHIFT; goto 134
 	formal: SHIFT; goto 133
-133:	RPAREN: REDUCE formal_list = formal_list.fl COMMA formal.f
-	COMMA: REDUCE formal_list = formal_list.fl COMMA formal.f
+133:	[any]: REDUCE formal_list = formal_list.fl COMMA formal.f
 134:	COLON: SHIFT; goto 135
 135:	TYPE: SHIFT; goto 136
-136:	RPAREN: REDUCE formal = ID.id COLON TYPE.t
-	COMMA: REDUCE formal = ID.id COLON TYPE.t
-137:	RPAREN: REDUCE formal_list = formal.f
-	COMMA: REDUCE formal_list = formal.f
-138:	RPAREN: REDUCE formal_list = empty
-	COMMA: REDUCE formal_list = empty
+136:	[any]: REDUCE formal = ID.id COLON TYPE.t
+137:	[any]: REDUCE formal_list = formal.f
+138:	[any]: REDUCE formal_list = empty
 139:	ID: SHIFT; goto 140
 140:	LPAREN: SHIFT; goto 129
 	formals: SHIFT; goto 141
 141:	COLON: SHIFT; goto 142
 142:	TYPE: SHIFT; goto 143
 143:	ASSIGN: SHIFT; goto 144
-144:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+144:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -1190,33 +663,21 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 145
 145:	SEMI: SHIFT; goto 146
-146:	RBRACE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	LBRACE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	VAR: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	DEF: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
-	OVERRIDE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
+146:	[any]: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN expr.e SEMI
 147:	SEMI: SHIFT; goto 148
-148:	RBRACE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
-	LBRACE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
-	VAR: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
-	DEF: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
-	OVERRIDE: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
+148:	[any]: REDUCE feature = DEF ID.id formals.fl COLON TYPE.t ASSIGN NATIVE SEMI
 149:	ID: SHIFT; goto 150
-150:	ASSIGN: SHIFT; goto 151
-	COLON: SHIFT; goto 154
+150:	COLON: SHIFT; goto 154
+	ASSIGN: SHIFT; goto 151
 151:	NATIVE: SHIFT; goto 152
 152:	SEMI: SHIFT; goto 153
-153:	RBRACE: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
-	LBRACE: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
-	VAR: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
-	DEF: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
-	OVERRIDE: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
+153:	[any]: REDUCE feature = VAR ID.id ASSIGN NATIVE SEMI
 154:	TYPE: SHIFT; goto 155
 155:	ASSIGN: SHIFT; goto 156
-156:	MINUS: SHIFT; goto 110
-	LBRACE: SHIFT; goto 65
-	LPAREN: SHIFT; goto 102
+156:	LPAREN: SHIFT; goto 102
 	ID: SHIFT; goto 98
+	LBRACE: SHIFT; goto 65
+	MINUS: SHIFT; goto 110
 	NULL: SHIFT; goto 106
 	NEW: SHIFT; goto 115
 	THIS: SHIFT; goto 100
@@ -1237,37 +698,14 @@
 	rel: SHIFT; goto 53
 	expr: SHIFT; goto 157
 157:	SEMI: SHIFT; goto 158
-158:	RBRACE: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
-	LBRACE: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
-	VAR: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
-	DEF: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
-	OVERRIDE: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
-159:	RBRACE: REDUCE empty = 
-	MINUS: REDUCE empty = 
-	LBRACE: REDUCE empty = 
-	LPAREN: REDUCE empty = 
-	ID: REDUCE empty = 
-	NULL: REDUCE empty = 
-	NEW: REDUCE empty = 
-	THIS: REDUCE empty = 
-	SUPER: REDUCE empty = 
-	NOT: REDUCE empty = 
-	INTEGER: REDUCE empty = 
-	STRING: REDUCE empty = 
-	BOOLEAN: REDUCE empty = 
-	IF: REDUCE empty = 
-	WHILE: REDUCE empty = 
-	VAR: REDUCE empty = 
-	empty: SHIFT; goto 93
+158:	[any]: REDUCE feature = VAR ID.id COLON TYPE.t ASSIGN expr.e SEMI
+159:	empty: SHIFT; goto 93
 	st_list: SHIFT; goto 68
 	block: SHIFT; goto 160
+	[any]: REDUCE empty = 
 160:	RBRACE: SHIFT; goto 161
 161:	SEMI: SHIFT; goto 162
-162:	RBRACE: REDUCE feature = LBRACE block.b RBRACE SEMI
-	LBRACE: REDUCE feature = LBRACE block.b RBRACE SEMI
-	VAR: REDUCE feature = LBRACE block.b RBRACE SEMI
-	DEF: REDUCE feature = LBRACE block.b RBRACE SEMI
-	OVERRIDE: REDUCE feature = LBRACE block.b RBRACE SEMI
+162:	[any]: REDUCE feature = LBRACE block.b RBRACE SEMI
 163:	TYPE: SHIFT; goto 165
 	NATIVE: SHIFT; goto 167
 	type_or_native: SHIFT; goto 164
@@ -1278,32 +716,25 @@
 167:	LBRACE: REDUCE type_or_native = NATIVE
 168:	LBRACE: REDUCE have_extends = empty
 169:	RPAREN: SHIFT; goto 170
-	COMMA: REDUCE empty = 
 	VAR: SHIFT; goto 175
+	COMMA: REDUCE empty = 
 	empty: SHIFT; goto 180
 	one_var: SHIFT; goto 179
 	var_list: SHIFT; goto 171
-170:	LBRACE: REDUCE varformals = LPAREN RPAREN
-	EXTENDS: REDUCE varformals = LPAREN RPAREN
+170:	[any]: REDUCE varformals = LPAREN RPAREN
 171:	RPAREN: SHIFT; goto 172
 	COMMA: SHIFT; goto 173
-172:	LBRACE: REDUCE varformals = LPAREN var_list.vl RPAREN
-	EXTENDS: REDUCE varformals = LPAREN var_list.vl RPAREN
+172:	[any]: REDUCE varformals = LPAREN var_list.vl RPAREN
 173:	VAR: SHIFT; goto 175
 	one_var: SHIFT; goto 174
-174:	RPAREN: REDUCE var_list = var_list.vl COMMA one_var.v
-	COMMA: REDUCE var_list = var_list.vl COMMA one_var.v
+174:	[any]: REDUCE var_list = var_list.vl COMMA one_var.v
 175:	ID: SHIFT; goto 176
 176:	COLON: SHIFT; goto 177
 177:	TYPE: SHIFT; goto 178
-178:	RPAREN: REDUCE one_var = VAR ID.id COLON TYPE.t
-	COMMA: REDUCE one_var = VAR ID.id COLON TYPE.t
-179:	RPAREN: REDUCE var_list = one_var.v
-	COMMA: REDUCE var_list = one_var.v
-180:	RPAREN: REDUCE var_list = empty
-	COMMA: REDUCE var_list = empty
-181:	LBRACE: REDUCE varformals = empty
-	EXTENDS: REDUCE varformals = empty
+178:	[any]: REDUCE one_var = VAR ID.id COLON TYPE.t
+179:	[any]: REDUCE var_list = one_var.v
+180:	[any]: REDUCE var_list = empty
+181:	[any]: REDUCE varformals = empty
 182:	CLASS: SHIFT; goto 183
 183:	EXTENDS: SHIFT; goto 184
 184:	VAR: SHIFT; goto 185

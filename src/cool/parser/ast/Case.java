@@ -41,7 +41,7 @@ public class Case extends Expr {
             temp.setClass(pTable.type);
             pTable.insert(temp);
         }
-        boolean bl = false;
+        boolean bl = true;
         try {
             bl = block.check(pTable);
         } catch (MyException myException) {
