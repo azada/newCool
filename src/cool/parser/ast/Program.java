@@ -27,6 +27,9 @@ public class Program {
     private static HashMap<String, String> inheritance = new HashMap<String, String>();
     private static Program instance = new Program();
 
+    //
+    //
+    //adasd
     private Program() {
 //        typeTable.put("Int", null);
 //        typeTable.put("String", null);
