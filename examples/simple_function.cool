@@ -1,0 +1,22 @@
+
+class Parent() {
+
+    def myf(u: Int) : Int =  u;
+}
+
+class Child(var x1: Int) extends Parent() {
+
+    override def myf(u: Int) : Int =  u + x1;
+
+}
+
+
+class Main () extends IO() {
+    {
+
+        var p : Parent  = new Child(3);
+        var i : Int = p.myf(4) * 3;
+        //result should be 45
+        this.out(i)
+    };
+}
