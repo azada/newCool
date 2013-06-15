@@ -36,8 +36,8 @@ public class MyCoolMain {
             writer = new BufferedWriter( new FileWriter(args[1]));
             writer.write(llvmCode);
             writer.close( );
-
-            System.out.println(llvmCode);
+            System.out.println("Code Generated in output -- > " + args[1] + "\n\n\n\n\n");
+//            System.out.println(llvmCode);
 
 
             Program.clear();
