@@ -189,6 +189,7 @@ public class PrimaryActual extends Primary {
             methodNode.generateReference(builder);
             builder.append( " %" + instanceBinding.getLoadedId()  );
 
+
             CodeGenerator.appendComma(builder);
             for (int i=0; i < args.size(); i++ ) {
                 String argType = ((Expr)actuals.get(i)).getType();
@@ -196,6 +197,7 @@ public class PrimaryActual extends Primary {
                 builder.append(" %" + args.get(i) );
                 CodeGenerator.appendComma(builder);
             }
+
             CodeGenerator.removeExtraComma(builder);
 
             CodeGenerator.closeParen(builder);

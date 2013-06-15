@@ -60,7 +60,7 @@ public class ClassNode extends Node {
             }
         }
         for (int i = 0 ; i<varFormals.size() ; i++){
-            if(((FeatureVar)(varFormals.get(i))).id.equals(var)){
+            if(((Var)(varFormals.get(i))).id.equals(var)){
                return index;
             }
             index ++;
@@ -244,7 +244,7 @@ public class ClassNode extends Node {
     }
 
     public void generateStructure(StringBuilder builder) {
-         System.out.println("ClassNode.generate " + type);
+//         System.out.println("ClassNode.generate " + type);
         builder.append("%class." + type + " = " + "type ");
         CodeGenerator.openBrace(builder);
         String parentType = Program.getSuper(this.type);

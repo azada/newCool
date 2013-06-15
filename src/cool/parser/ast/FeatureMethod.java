@@ -203,7 +203,7 @@ public class FeatureMethod extends Feature {
     }
 
     public void generateReference(StringBuilder builder) {
-        System.out.println("type = " + type);
+//        System.out.println("type = " + type);
         if (type.equals("Nothing") ){
             builder.append("{} ");
         } else {

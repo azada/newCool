@@ -39,7 +39,7 @@ public class IntegerNode extends Primary {
         CodeGenerator.comment(builder, "IntegerNode.gen");
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         String newid = this.toString();
-        System.out.println("newid = " + newid);
+//        System.out.println("newid = " + newid);
         Binding b = currentRecord.bindToExpr(this);
         CodeGenerator.allocateExpr(builder, b);
         CodeGenerator.storeInt(builder, b, value);
