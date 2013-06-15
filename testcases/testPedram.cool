@@ -1,3 +1,4 @@
+/*
 class A() {
 
         def a(e : Int, w: Int) : Int = 2;
@@ -7,9 +8,13 @@ class A() {
 
 }
 
-class B(var as: A){
+*/
 
-    var es : Int = 4;
-    var ew : Int = 2;
-    var d:Int = as.a(ew);
+class B(){
+
+    {
+        var ssd:Boolean = 3 <= 2 ;
+        ssd
+    };
+
 }
