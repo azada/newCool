@@ -1,6 +1,5 @@
 package cool.symbol;
 
-import cool.parser.ast.ClassNode;
 
 /**
  * Created with IntelliJ IDEA.
