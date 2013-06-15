@@ -424,7 +424,7 @@ public class ClassNode extends Node {
                 FeatureMethod fmethod = (FeatureMethod) f;
                 int element = -1;
                 if (fmethod instanceof OverrideFeatureMethod) {
-                    ClassNode origClass = Program.fe
+                    ClassNode origClass = Program.fetchOriginalMethod(type, fmethod.id);
                     int origMethodIndex = origClass.getMethodIndex(fmethod.id);
                     int castedMemory = CodeGenerator.castPointer(builder,bindingThis.getLoadedId(), this, superNode);
                     CodeGenerator.getElementOf(builder, origClass, castedMemory, origMethodIndex);
