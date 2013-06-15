@@ -46,7 +46,7 @@ public class DivisionOperation extends RealOperation {
 
         if (((Expr)(operandsList.get(1))).expType.equals(((Expr)(operandsList.get(0))).expType)){
             if (!((Expr)(operandsList.get(1))).expType.equals(INTEGER_TYPE)){
-                Program.addError(new MyException("one or two sides of the division operation is not integer",this));
+                Program.addError(new MyException("one or two sides of the division operation are not integer",this));
                 result = false;
             }
         }
