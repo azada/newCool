@@ -61,6 +61,21 @@ public class Program {
         return instance.typeClassTable.get(type);
     }
 
+    public ClassNode fetchOriginalMethod(String type, String method){
+        String superType = Program.getSuper(type);
+        if (superType == null)
+            return null;
+        FeatureMethod temp = fetchMethod(superType,method);
+        if (temp == null)
+            return null;
+        if (temp instanceof OverrideFeatureMethod)
+            return fetchOriginalMethod(temp.classType, method);
+        else if (temp  instanceof FeatureMethod)
+            return getClassNode(temp.classType);
+        else
+            return null;
+
+    }
 
     public static boolean isConsistent(String c, String p){
         if (c.equals("Nothing")){

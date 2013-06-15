@@ -30,9 +30,9 @@ public class OverrideFeatureMethod extends FeatureMethod {
     @Override
     public boolean check(SymbolNode pTable) {
         boolean result = true;
-        classType= pTable.type;
+        classType = pTable.type;
         // we should check if this current class has a supertype.
-        String superType = pTable.lookup("SUPER").getType();
+        String superType = Program.getSuper(classType);
         if(superType == null){
             Program.addError(new MyException("this class doesn't have a super class so there is no override method acceptale",this));
             result = false;
