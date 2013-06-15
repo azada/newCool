@@ -89,6 +89,7 @@ public class Instance extends Primary {
 
     @Override
     public void generate(StringBuilder builder) {
+
         ClassNode instanceNode = Program.getClassNode(this.type);
         //Binding binding = currentRecord.bindToExpr(this);
         //CodeGenerato  r.allocateInstance(builder,binding, instanceNode, actuals);

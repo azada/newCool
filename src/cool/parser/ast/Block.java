@@ -88,6 +88,7 @@ public class Block extends Primary {
         JSONLogger.closeListAttribute();
         //To change body of implemented methods use File | Settings | File Templates.
     }
+    /*
     @Override
     public void generate(StringBuilder builder) {
         //System.out.println("Block.generate");
@@ -102,6 +103,6 @@ public class Block extends Primary {
             this.end.generate(builder);
         }
         //To change body of implemented methods use File | Settings | File Templates.
-    }
+    } */
 
 }

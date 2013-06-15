@@ -20,7 +20,7 @@ public class CodeGenTester extends TestCase {
     public void testFeatureMethod() {
         System.out.println("CodeGenTester.testFeatureMethod");
         try {
-            FileInputStream file = new FileInputStream("examples/sample.cool");
+            FileInputStream file = new FileInputStream("testcases/testClassGen.cool");
             MyCoolParser parser = new MyCoolParser(file);
             parser.parse2();
 

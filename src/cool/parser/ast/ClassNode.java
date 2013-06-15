@@ -111,6 +111,13 @@ public class ClassNode extends Node {
             if(m instanceof FeatureVar){
                 increamentSize(((FeatureVar)(m)).getSize());
             }
+            if (m instanceof FeatureMethod) {
+                if (m instanceof OverrideFeatureMethod) {
+
+                } else{
+                    increamentSize(pointerSize);
+                }
+            }
         }
 
         // get super and add it's size to yourself.

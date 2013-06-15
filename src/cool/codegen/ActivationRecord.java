@@ -44,11 +44,12 @@ public class ActivationRecord {
         return binding;
     }
 
-    public Binding bindToExpr(int llvmvar, Expr expr) {
+   /* public Binding bindToExpr(int llvmvar, Expr expr) {
         Binding binding = new Binding(llvmvar, expr);
         map.put(expr.toString(), binding);
         return binding;
     }
+    */
     public Binding getBindedExpr(String id) {
         Binding binding = (Binding)map.get(id);
         return binding;
