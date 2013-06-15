@@ -42,7 +42,7 @@ public class Extends extends Node{
 
                 ArrayList temp = Program.getClassNode(type).varFormals;
                 if (actuals.size() != temp.size()){
-                    Program.addError(new MyException("the number of arguments in " + type + " is " + temp.size() + " while " + actuals.size()+" are given",this));
+                    Program.addError(new MyException("number of arguments in '" + type + "' is " + temp.size() + " - " + actuals.size()+" are given",this));
                     result = false;
                     return result;
                 }
@@ -71,7 +71,7 @@ public class Extends extends Node{
                 }
             }
             else{
-                Program.addError(new MyException("type " + type + " has not been declared",this));
+                Program.addError(new MyException("type '" + type + "' has not been declared",this));
             }
         }
         else{

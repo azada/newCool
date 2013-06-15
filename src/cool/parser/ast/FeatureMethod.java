@@ -43,7 +43,7 @@ public class FeatureMethod extends Feature {
         symbolNode.type = pTable.type;
         if ( Program.typeTableContains(pTable.type)){
             if (Program.getTableRow(pTable.type).containsKey(id)){
-                Program.addError(new MyException("method "+ this.id + " has duplicate definitions " , this));
+                Program.addError(new MyException("method '"+ this.id + "' has duplicate definitions " , this));
                 this.defined = true;
                 result = false;
             }
