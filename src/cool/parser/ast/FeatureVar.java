@@ -17,6 +17,7 @@ public class FeatureVar extends Feature {
     Boolean isNative = false;
     String type;
     Expr expr;
+    String classType;
 
     public FeatureVar(String id) {
         this.id = id;
@@ -41,6 +42,7 @@ public class FeatureVar extends Feature {
     }
     @Override
     public boolean check(SymbolNode pTable) throws FatalErrorException {
+        this.classType = pTable.type;
         boolean result = true;
         if (!isNative){
             if (!Program.typeTableContains(type)){

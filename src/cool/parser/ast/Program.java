@@ -1,7 +1,9 @@
 package cool.parser.ast;
 
 import cool.exception.MyException;
+import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,6 +79,16 @@ public class Program {
 
     }
 
+    public static Pair<ClassNode, String> fetchOriginalVar(String type , String var){
+
+        SymbolNode temp = getClassNode(type).getSymbolNode();
+        SymbolItem temp2 = temp.lookup(var);
+        String TYPE = temp2.getType();
+
+        ClassNode CLASSNODE=  getClassNode(temp.lookup(var).getInClass());
+        Pair<ClassNode, String> result = new Pair<ClassNode, String>(CLASSNODE,TYPE);
+        return result;
+    }
     public static boolean isConsistent(String c, String p){
         if (c.equals("Nothing")){
             return true;
