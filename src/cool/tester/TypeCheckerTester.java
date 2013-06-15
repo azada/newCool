@@ -130,7 +130,7 @@ public class TypeCheckerTester extends TestCase{
     public void testEverything() {
         System.out.println("TypeCheckerTester.testEverything");
         try {
-            FileInputStream file = new FileInputStream("testcases/testClassGen.cool");
+            FileInputStream file = new FileInputStream("examples/A2I.cool");
             MyCoolParser parser = new MyCoolParser(file);
             parser.parse2();
 
