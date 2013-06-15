@@ -244,7 +244,7 @@ public class ClassNode extends Node {
     }
 
     public void generateStructure(StringBuilder builder) {
-         System.out.println("ClassNode.generate " + type);
+//         System.out.println("ClassNode.generate " + type);
         builder.append("%class." + type + " = " + "type ");
         CodeGenerator.openBrace(builder);
         String parentType = Program.getSuper(this.type);

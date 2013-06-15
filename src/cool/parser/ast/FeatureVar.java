@@ -118,7 +118,7 @@ public class FeatureVar extends Feature {
 
         Binding bindingThis = currentRecord.getBindedVar("this");
         int varIndex = thisNode.getIndexOf(id);
-        System.out.println("varIndex = " + varIndex);
+//        System.out.println("varIndex = " + varIndex);
         int elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
         Binding binding = new Binding(elementPointer, new Var(id, type));
 

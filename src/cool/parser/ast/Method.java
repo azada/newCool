@@ -81,7 +81,7 @@ public class Method extends Id {
         else{
             // if this primary type has not been defined throw an error
             Program.addError(new MyException("there is no such type '"+ tTemp + "' defined",this));
-            System.out.println(name);
+//            System.out.println(name);
             return false;
         }
         // now we should check the actuals

@@ -38,7 +38,7 @@ public class StringNode extends Primary {
     public void generate(StringBuilder builder) {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         String newid = this.toString();
-        System.out.println("newid = " + newid);
+//        System.out.println("newid = " + newid);
         Binding b = currentRecord.bindToExpr(this);
         CodeGenerator.allocateExpr(builder, b);
         //CodeGenerator.storeInt(builder, b, value);

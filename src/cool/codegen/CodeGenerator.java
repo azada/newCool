@@ -225,7 +225,7 @@ public class CodeGenerator {
     public static void appendType(StringBuilder builder, String type) {
         ClassNode varNode = Program.getClassNode(type);
         if (varNode == null){
-            System.out.println(type);
+//            System.out.println(type);
         }
         varNode.generateInstance(builder);
         //To change body of created methods use File | Settings | File Templates.
@@ -382,8 +382,8 @@ public class CodeGenerator {
             CodeGenerator.loadVar(builder, instanceBinding);
         } else {
             instanceBinding = record.getBindedExpr(expr.toString());
-            System.out.println("expr = " + expr);
-            System.out.println("instanceBinding = " + instanceBinding);
+//            System.out.println("expr = " + expr);
+//            System.out.println("instanceBinding = " + instanceBinding);
             CodeGenerator.loadExpr(builder, instanceBinding);
         }
         newLine(builder);

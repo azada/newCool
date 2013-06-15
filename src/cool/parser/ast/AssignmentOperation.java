@@ -51,7 +51,7 @@ public class AssignmentOperation extends UnitOperation{
 
     public void generate(StringBuilder builder) {
         CodeGenerator.comment(builder, "AssignmentOperation.generate");
-        System.out.println("AssignmentOperation.generate");
+//        System.out.println("AssignmentOperation.generate");
         ActivationRecord record = ActivationStack.getHandle().top();
         Expr op1 = (Expr)operandsList.get(0);
         Id var =  (Id) op1;

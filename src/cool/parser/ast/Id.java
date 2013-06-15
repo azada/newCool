@@ -57,7 +57,7 @@ public class Id extends Primary {
     public void generate(StringBuilder builder) {
         ActivationRecord currentRecord = ActivationStack.getHandle().top();
         String newid = this.toString();
-        System.out.println("newid = " + newid);
+//        System.out.println("newid = " + newid);
        /* Binding b = currentRecord.getBindedExpr(name);
         System.out.println("b = " + b);
         if (b == null) {
