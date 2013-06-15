@@ -1,6 +1,5 @@
 package cool.parser.ast;
 
-import com.sun.tools.javac.util.Pair;
 import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
@@ -82,15 +81,14 @@ public class Program {
 
     }
 
-    public static Pair<ClassNode, String> fetchOriginalVar(String type , String var){
+    public static ClassNode fetchOriginalVar(String type , String var){
 
         SymbolNode temp = getClassNode(type).getSymbolNode();
         SymbolItem temp2 = temp.lookup(var);
         String TYPE = temp2.getType();
 
         ClassNode CLASSNODE=  getClassNode(temp.lookup(var).getInClass());
-        Pair<ClassNode, String> result = new Pair<ClassNode, String>(CLASSNODE,TYPE);
-        return result;
+        return CLASSNODE;
     }
     public static boolean isConsistent(String c, String p){
         if (c.equals("Nothing")){

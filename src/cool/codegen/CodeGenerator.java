@@ -1,6 +1,5 @@
 package cool.codegen;
 
-import com.sun.tools.javac.util.Pair;
 import cool.parser.ast.*;
 
 import java.util.ArrayList;
@@ -368,8 +367,7 @@ public class CodeGenerator {
             instanceBinding = record.getBindedVar(var.getName());
             if (instanceBinding == null) {
                 Binding bindingThis = record.getBindedVar("this");
-                Pair<ClassNode, String > origPairs =  Program.fetchOriginalVar(thisNode.getType(), var.getName());
-                ClassNode origNode = origPairs.fst;
+                ClassNode origNode =  Program.fetchOriginalVar(thisNode.getType(), var.getName());
                 int varIndex = origNode.getIndexOf(var.getName());
                 System.out.println("varIndex in bindign = " + varIndex);
                 int elementPointer;
@@ -380,7 +378,7 @@ public class CodeGenerator {
                     elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
 
                 }
-                instanceBinding = new Binding(elementPointer, new Var(var.getName(), origPairs.snd ));
+                instanceBinding = new Binding(elementPointer, new Var(var.getName(), var.expType));// ;origPairs.snd ));
 
             }
             CodeGenerator.loadVar(builder, instanceBinding);
