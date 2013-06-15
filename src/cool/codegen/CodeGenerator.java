@@ -1,5 +1,6 @@
 package cool.codegen;
 
+import com.sun.tools.javac.util.Pair;
 import cool.parser.ast.*;
 
 import java.util.ArrayList;
@@ -150,6 +151,8 @@ public class CodeGenerator {
         builder.append("align " + size);
         newLine(builder);
     }
+
+
 
     public static void storeResult(StringBuilder builder, Binding target, Binding source) {
         builder.append("store ");
@@ -357,12 +360,29 @@ public class CodeGenerator {
 
     }
 
-    public static Binding loadExpr(StringBuilder builder, Expr expr){
+    public static Binding loadExpr(StringBuilder builder, Expr expr, ClassNode thisNode){
         ActivationRecord record = ActivationStack.getHandle().top();
         Binding instanceBinding = null;
         if (expr instanceof Id) {
             Id var = (Id) expr;
             instanceBinding = record.getBindedVar(var.getName());
+            if (instanceBinding == null) {
+                Binding bindingThis = record.getBindedVar("this");
+                Pair<ClassNode, String > origPairs =  Program.fetchOriginalVar(thisNode.getType(), var.getName());
+                ClassNode origNode = origPairs.fst;
+                int varIndex = origNode.getIndexOf(var.getName());
+                System.out.println("varIndex in bindign = " + varIndex);
+                int elementPointer;
+                if (!origNode.getType().equals(thisNode.getType())) {
+                    int castedMemory = CodeGenerator.castPointer(builder, bindingThis.getLoadedId(), thisNode, origNode);
+                    elementPointer = CodeGenerator.getElementOf(builder,thisNode, castedMemory,varIndex);
+                } else {
+                    elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
+
+                }
+                instanceBinding = new Binding(elementPointer, new Var(var.getName(), origPairs.snd ));
+
+            }
             CodeGenerator.loadVar(builder, instanceBinding);
         } else {
             instanceBinding = record.getBindedExpr(expr.toString());

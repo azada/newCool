@@ -43,7 +43,10 @@ public class ClassNode extends Node {
 
 
     public int getIndexOf(String var){
-        int index = 0 ;
+        int index = 0;
+        if (!type.equals("Any")) {
+            index++;
+        }
 
         for (int i = 0 ; i<featureList.size() ; i++) {
             if (featureList.get(i) instanceof FeatureVar){
@@ -475,6 +478,19 @@ public class ClassNode extends Node {
 
 
             }
+        }
+
+
+        //implement feature var
+
+
+        for (int i=0; i< featureList.size(); i++) {
+            Feature f = (Feature) featureList.get(i);
+            if (f instanceof FeatureVar) {
+                FeatureVar fvar = (FeatureVar) f;
+                fvar.generate(builder);
+            }
+
         }
 
         //implement feature block

@@ -1,9 +1,9 @@
 package cool.parser.ast;
 
+import com.sun.tools.javac.util.Pair;
 import cool.exception.MyException;
 import cool.symbol.SymbolItem;
 import cool.symbol.SymbolNode;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;

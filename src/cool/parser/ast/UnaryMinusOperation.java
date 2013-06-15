@@ -56,6 +56,7 @@ public class UnaryMinusOperation extends UnaryRealOperation {
 //        Expr op2 = (Expr)operandsList.get(1);
         op1.generate(builder);
 //        op2.generate(builder);
+
         Binding op1Binding = CodeGenerator.loadExpr(builder, op1);
 //        Binding op2Binding = CodeGenerator.loadExpr(builder,op2);
         Binding resultBinding = record.bindToExpr(this);

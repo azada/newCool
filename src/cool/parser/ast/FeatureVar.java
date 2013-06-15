@@ -1,5 +1,9 @@
 package cool.parser.ast;
 
+import cool.codegen.ActivationRecord;
+import cool.codegen.ActivationStack;
+import cool.codegen.Binding;
+import cool.codegen.CodeGenerator;
 import cool.exception.FatalErrorException;
 import cool.exception.MyException;
 import cool.symbol.SymbolItem;
@@ -76,7 +80,7 @@ public class FeatureVar extends Feature {
             if(!expr.expType.equals(type)){
                 Program.addError(new MyException("type of the right hand side expression is not " + type ,this));
                 result = false;
-            }
+                }
             ////////////////////////////////////////////////////////////////
             result = result &&  ex;
             //To change body of implemented methods use File | Settings | File Templates.
@@ -105,8 +109,22 @@ public class FeatureVar extends Feature {
 
     @Override
     public void generate(StringBuilder builder) {
-        ClassNode varNode = Program.getClassNode(this.type);
-        varNode.generateReference(builder);
+        CodeGenerator.comment(builder, "FeatureVar.generate");
+        ActivationRecord currentRecord = ActivationStack.getHandle().top();
+        ClassNode thisNode = Program.getClassNode(classType);
+        //thisNode.generateReference(builder);
+        expr.generate(builder);
+
+
+        Binding bindingThis = currentRecord.getBindedVar("this");
+        int varIndex = thisNode.getIndexOf(id);
+        System.out.println("varIndex = " + varIndex);
+        int elementPointer = CodeGenerator.getElementOf(builder,thisNode,bindingThis.getLoadedId(),varIndex);
+        Binding binding = new Binding(elementPointer, new Var(id, type));
+
+        Binding resultBinding = CodeGenerator.loadExpr(builder, expr);
+        CodeGenerator.storeExpr(builder, resultBinding.getLoadedId(), binding );
+
         //builder.append(id);
        // if this.type
        // builder.append("class.")

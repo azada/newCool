@@ -33,6 +33,7 @@ public class ActivationRecord {
 
     public Binding getBindedVar(String id) {
         Binding binding = (Binding)map.get(id);
+
         return binding;
     }
 
